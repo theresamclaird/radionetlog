@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-radionetlog-dev-181950-authRole",
+      "UnauthRoleArn": "arn:aws:iam::744267068052:role/amplify-radionetlog-dev-181950-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::744267068052:role/amplify-radionetlog-dev-181950-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-radionetlog-dev-181950-deployment",
+      "UnauthRoleName": "amplify-radionetlog-dev-181950-unauthRole",
+      "StackName": "amplify-radionetlog-dev-181950",
+      "StackId": "arn:aws:cloudformation:us-west-2:744267068052:stack/amplify-radionetlog-dev-181950/f5416360-d806-11ed-a2ba-0223a0ee2905",
+      "AmplifyAppId": "d1pb0mxhd26f4h"
+    }
+  }
+}
