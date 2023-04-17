@@ -1,9 +1,9 @@
-import * as React from "react";
+import React, { type ReactElement } from "react";
 import type { DocumentProps, DocumentContext } from "next/document";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import createEmotionServer from "@emotion/server/create-instance";
 import { type AppType } from "next/app";
-import theme, { roboto } from "../theme";
+import theme from "../theme";
 import createEmotionCache from "../createEmotionCache";
 import { type MyAppProps } from "./_app";
 
@@ -11,14 +11,19 @@ interface MyDocumentProps extends DocumentProps {
   emotionStyleTags: JSX.Element[];
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export default function MyDocument({ emotionStyleTags }: MyDocumentProps) {
+export default function MyDocument({
+  emotionStyleTags,
+}: MyDocumentProps): ReactElement {
   return (
-    <Html lang="en" className={roboto.className}>
+    <Html lang="en">
       <Head>
         {/* PWA primary color */}
         <meta name="theme-color" content={theme.palette.primary.main} />
         <link rel="shortcut icon" href="/favicon.ico" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+        />
         <meta name="emotion-insertion-point" content="" />
         {emotionStyleTags}
       </Head>

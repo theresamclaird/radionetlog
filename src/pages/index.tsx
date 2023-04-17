@@ -1,6 +1,6 @@
+import React, { type ReactElement } from "react";
 import { Typography } from "@mui/material";
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export default function Home() {
+export default function Home(): ReactElement {
   return <Typography variant="h1">Hello world!</Typography>;
 }

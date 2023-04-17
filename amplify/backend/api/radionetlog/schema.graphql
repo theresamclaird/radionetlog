@@ -1,0 +1,50 @@
+type Net
+  @model
+  @auth(rules: [{ allow: owner, operations: [create, update, delete, read] }]) {
+  id: ID! @auth(rules: [{ allow: owner, operations: [read, delete] }])
+  rounds: [Round] @hasMany(indexName: "byNet", fields: ["id"])
+  owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
+}
+
+type Round
+  @model
+  @auth(rules: [{ allow: owner, operations: [create, update, delete, read] }]) {
+  id: ID! @auth(rules: [{ allow: owner, operations: [read, delete] }])
+  netId: ID!
+    @index(name: "byNet")
+    @auth(rules: [{ allow: owner, operations: [read, delete] }])
+  contacts: [Contact] @hasMany(indexName: "byRound", fields: ["id"])
+  owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
+}
+
+type Contact
+  @model
+  @auth(rules: [{ allow: owner, operations: [create, update, delete, read] }]) {
+  id: ID! @auth(rules: [{ allow: owner, operations: [read, delete] }])
+  roundId: ID!
+    @index(name: "byRound")
+    @auth(rules: [{ allow: owner, operations: [read, delete] }])
+  callSign: String! @auth(rules: [{ allow: owner, operations: [read, delete] }])
+  name: String
+  location: String
+  inAndOut: Boolean
+  mobile: Boolean
+  internet: Boolean
+  recheck: Boolean
+  owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
+}
+
+type Station
+  @model
+  @auth(rules: [{ allow: owner, operations: [create, update, delete, read] }]) {
+  id: ID! @auth(rules: [{ allow: owner, operations: [read, delete] }])
+  callsign: String! @auth(rules: [{ allow: owner, operations: [read, delete] }])
+  name: String
+  location: String
+  spouse: String
+  notes: String
+  inAndOut: Boolean
+  mobile: Boolean
+  internet: Boolean
+  owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
+}
