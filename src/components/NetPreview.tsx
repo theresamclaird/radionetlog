@@ -7,6 +7,5 @@ interface Props {
 }
 
 export default function NetPreview({ net }: Props): ReactElement {
-  console.log("net", net);
   return <Typography>Net Preview</Typography>;
 }

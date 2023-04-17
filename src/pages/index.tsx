@@ -13,7 +13,6 @@ export default function Home(): ReactElement {
 
   useEffect(() => {
     const fetchNetsFromApi = async (): Promise<Net[]> => {
-      console.log("fetchNetsFromApi");
       try {
         const allNets = (await API.graphql({
           query: listNets,
@@ -22,8 +21,6 @@ export default function Home(): ReactElement {
           data: ListNetsQuery;
           errors: any[];
         };
-
-        console.log("allNets", allNets);
 
         if (allNets.data?.listNets?.items != null) {
           setNets(allNets.data.listNets.items as Net[]);
