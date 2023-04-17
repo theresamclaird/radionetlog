@@ -1,7 +1,7 @@
 type Net
   @model
   @auth(rules: [{ allow: owner, operations: [create, update, delete, read] }]) {
-  id: ID! @auth(rules: [{ allow: owner, operations: [read, delete] }])
+  id: ID!
   rounds: [Round] @hasMany(indexName: "byNet", fields: ["id"])
   owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
@@ -9,10 +9,8 @@ type Net
 type Round
   @model
   @auth(rules: [{ allow: owner, operations: [create, update, delete, read] }]) {
-  id: ID! @auth(rules: [{ allow: owner, operations: [read, delete] }])
-  netId: ID!
-    @index(name: "byNet")
-    @auth(rules: [{ allow: owner, operations: [read, delete] }])
+  id: ID!
+  netId: ID! @index(name: "byNet")
   contacts: [Contact] @hasMany(indexName: "byRound", fields: ["id"])
   owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
@@ -20,11 +18,9 @@ type Round
 type Contact
   @model
   @auth(rules: [{ allow: owner, operations: [create, update, delete, read] }]) {
-  id: ID! @auth(rules: [{ allow: owner, operations: [read, delete] }])
-  roundId: ID!
-    @index(name: "byRound")
-    @auth(rules: [{ allow: owner, operations: [read, delete] }])
-  callSign: String! @auth(rules: [{ allow: owner, operations: [read, delete] }])
+  id: ID!
+  roundId: ID! @index(name: "byRound")
+  callSign: String!
   name: String
   location: String
   inAndOut: Boolean
@@ -37,8 +33,8 @@ type Contact
 type Station
   @model
   @auth(rules: [{ allow: owner, operations: [create, update, delete, read] }]) {
-  id: ID! @auth(rules: [{ allow: owner, operations: [read, delete] }])
-  callsign: String! @auth(rules: [{ allow: owner, operations: [read, delete] }])
+  id: ID!
+  callsign: String!
   name: String
   location: String
   spouse: String
