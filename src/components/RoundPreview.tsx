@@ -5,10 +5,11 @@ import ContactPreview from "./ContactPreview";
 import { type Round, type Contact } from "../API";
 
 interface Props {
+  index: number;
   round: Round;
 }
 
-export default function RoundPreview({ round }: Props): ReactElement {
+export default function RoundPreview({ index, round }: Props): ReactElement {
   const d = new Date(round.createdAt);
   const locale = navigator?.languages[0];
   const roundTime = d.toLocaleTimeString(locale !== null ? locale : "en-US", {
@@ -24,7 +25,7 @@ export default function RoundPreview({ round }: Props): ReactElement {
       ? round.contacts.items.length
       : 0;
 
-  const label = `Round 1: ${roundTime} (${contactsCount} ${
+  const label = `Round ${index}: ${roundTime} (${contactsCount} ${
     contactsCount === 1 ? "contact" : "contacts"
   })`;
 

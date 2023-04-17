@@ -6,7 +6,7 @@ import NetPreview from "../components/NetPreview";
 import { useUser } from "../context/AuthContext";
 import { type Net, type ListNetsQuery } from "../API";
 
-const netsQuery = /* GraphQL */ `
+const netsQuery = `
   query AllNets($filter: ModelNetFilterInput, $limit: Int, $nextToken: String) {
     listNets(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
@@ -18,6 +18,7 @@ const netsQuery = /* GraphQL */ `
             createdAt
             contacts {
               items {
+                id
                 callSign
               }
             }
