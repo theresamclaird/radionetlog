@@ -23,10 +23,7 @@ type Contact
   callSign: String!
   name: String!
   location: String!
-  inAndOut: Boolean!
-  mobile: Boolean!
-  internet: Boolean!
-  recheck: Boolean!
+  attributes: [String]!
   reportCompleted: Boolean!
   owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
@@ -34,15 +31,10 @@ type Contact
 type Station
   @model
   @auth(rules: [{ allow: owner, operations: [create, update, delete, read] }]) {
-  id: ID!
-  callsign: String!
+  callSign: String! @primaryKey
   name: String!
   location: String!
-  spouse: String!
   notes: String!
-  inAndOut: Boolean!
-  mobile: Boolean!
-  internet: Boolean!
-  recheck: Boolean!
+  attributes: [String]!
   owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }

@@ -86,10 +86,7 @@ export const createRound = /* GraphQL */ `
           callSign
           name
           location
-          inAndOut
-          mobile
-          internet
-          recheck
+          attributes
           reportCompleted
           owner
           createdAt
@@ -118,10 +115,7 @@ export const updateRound = /* GraphQL */ `
           callSign
           name
           location
-          inAndOut
-          mobile
-          internet
-          recheck
+          attributes
           reportCompleted
           owner
           createdAt
@@ -150,10 +144,7 @@ export const deleteRound = /* GraphQL */ `
           callSign
           name
           location
-          inAndOut
-          mobile
-          internet
-          recheck
+          attributes
           reportCompleted
           owner
           createdAt
@@ -178,10 +169,7 @@ export const createContact = /* GraphQL */ `
       callSign
       name
       location
-      inAndOut
-      mobile
-      internet
-      recheck
+      attributes
       reportCompleted
       owner
       createdAt
@@ -200,10 +188,7 @@ export const updateContact = /* GraphQL */ `
       callSign
       name
       location
-      inAndOut
-      mobile
-      internet
-      recheck
+      attributes
       reportCompleted
       owner
       createdAt
@@ -222,10 +207,7 @@ export const deleteContact = /* GraphQL */ `
       callSign
       name
       location
-      inAndOut
-      mobile
-      internet
-      recheck
+      attributes
       reportCompleted
       owner
       createdAt
@@ -239,16 +221,11 @@ export const createStation = /* GraphQL */ `
     $condition: ModelStationConditionInput
   ) {
     createStation(input: $input, condition: $condition) {
-      id
-      callsign
+      callSign
       name
       location
-      spouse
       notes
-      inAndOut
-      mobile
-      internet
-      recheck
+      attributes
       owner
       createdAt
       updatedAt
@@ -261,16 +238,11 @@ export const updateStation = /* GraphQL */ `
     $condition: ModelStationConditionInput
   ) {
     updateStation(input: $input, condition: $condition) {
-      id
-      callsign
+      callSign
       name
       location
-      spouse
       notes
-      inAndOut
-      mobile
-      internet
-      recheck
+      attributes
       owner
       createdAt
       updatedAt
@@ -283,16 +255,11 @@ export const deleteStation = /* GraphQL */ `
     $condition: ModelStationConditionInput
   ) {
     deleteStation(input: $input, condition: $condition) {
-      id
-      callsign
+      callSign
       name
       location
-      spouse
       notes
-      inAndOut
-      mobile
-      internet
-      recheck
+      attributes
       owner
       createdAt
       updatedAt

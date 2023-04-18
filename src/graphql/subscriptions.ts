@@ -86,10 +86,7 @@ export const onCreateRound = /* GraphQL */ `
           callSign
           name
           location
-          inAndOut
-          mobile
-          internet
-          recheck
+          attributes
           reportCompleted
           owner
           createdAt
@@ -118,10 +115,7 @@ export const onUpdateRound = /* GraphQL */ `
           callSign
           name
           location
-          inAndOut
-          mobile
-          internet
-          recheck
+          attributes
           reportCompleted
           owner
           createdAt
@@ -150,10 +144,7 @@ export const onDeleteRound = /* GraphQL */ `
           callSign
           name
           location
-          inAndOut
-          mobile
-          internet
-          recheck
+          attributes
           reportCompleted
           owner
           createdAt
@@ -178,10 +169,7 @@ export const onCreateContact = /* GraphQL */ `
       callSign
       name
       location
-      inAndOut
-      mobile
-      internet
-      recheck
+      attributes
       reportCompleted
       owner
       createdAt
@@ -200,10 +188,7 @@ export const onUpdateContact = /* GraphQL */ `
       callSign
       name
       location
-      inAndOut
-      mobile
-      internet
-      recheck
+      attributes
       reportCompleted
       owner
       createdAt
@@ -222,10 +207,7 @@ export const onDeleteContact = /* GraphQL */ `
       callSign
       name
       location
-      inAndOut
-      mobile
-      internet
-      recheck
+      attributes
       reportCompleted
       owner
       createdAt
@@ -239,16 +221,11 @@ export const onCreateStation = /* GraphQL */ `
     $owner: String
   ) {
     onCreateStation(filter: $filter, owner: $owner) {
-      id
-      callsign
+      callSign
       name
       location
-      spouse
       notes
-      inAndOut
-      mobile
-      internet
-      recheck
+      attributes
       owner
       createdAt
       updatedAt
@@ -261,16 +238,11 @@ export const onUpdateStation = /* GraphQL */ `
     $owner: String
   ) {
     onUpdateStation(filter: $filter, owner: $owner) {
-      id
-      callsign
+      callSign
       name
       location
-      spouse
       notes
-      inAndOut
-      mobile
-      internet
-      recheck
+      attributes
       owner
       createdAt
       updatedAt
@@ -283,16 +255,11 @@ export const onDeleteStation = /* GraphQL */ `
     $owner: String
   ) {
     onDeleteStation(filter: $filter, owner: $owner) {
-      id
-      callsign
+      callSign
       name
       location
-      spouse
       notes
-      inAndOut
-      mobile
-      internet
-      recheck
+      attributes
       owner
       createdAt
       updatedAt

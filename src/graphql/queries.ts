@@ -54,10 +54,7 @@ export const getRound = /* GraphQL */ `
           callSign
           name
           location
-          inAndOut
-          mobile
-          internet
-          recheck
+          attributes
           reportCompleted
           owner
           createdAt
@@ -129,10 +126,7 @@ export const getContact = /* GraphQL */ `
       callSign
       name
       location
-      inAndOut
-      mobile
-      internet
-      recheck
+      attributes
       reportCompleted
       owner
       createdAt
@@ -153,10 +147,7 @@ export const listContacts = /* GraphQL */ `
         callSign
         name
         location
-        inAndOut
-        mobile
-        internet
-        recheck
+        attributes
         reportCompleted
         owner
         createdAt
@@ -187,10 +178,7 @@ export const contactsByRoundId = /* GraphQL */ `
         callSign
         name
         location
-        inAndOut
-        mobile
-        internet
-        recheck
+        attributes
         reportCompleted
         owner
         createdAt
@@ -201,18 +189,13 @@ export const contactsByRoundId = /* GraphQL */ `
   }
 `;
 export const getStation = /* GraphQL */ `
-  query GetStation($id: ID!) {
-    getStation(id: $id) {
-      id
-      callsign
+  query GetStation($callSign: String!) {
+    getStation(callSign: $callSign) {
+      callSign
       name
       location
-      spouse
       notes
-      inAndOut
-      mobile
-      internet
-      recheck
+      attributes
       owner
       createdAt
       updatedAt
@@ -221,22 +204,25 @@ export const getStation = /* GraphQL */ `
 `;
 export const listStations = /* GraphQL */ `
   query ListStations(
+    $callSign: String
     $filter: ModelStationFilterInput
     $limit: Int
     $nextToken: String
+    $sortDirection: ModelSortDirection
   ) {
-    listStations(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listStations(
+      callSign: $callSign
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
       items {
-        id
-        callsign
+        callSign
         name
         location
-        spouse
         notes
-        inAndOut
-        mobile
-        internet
-        recheck
+        attributes
         owner
         createdAt
         updatedAt
