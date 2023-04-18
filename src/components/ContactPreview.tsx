@@ -1,9 +1,11 @@
-import React, { type ReactElement, useState } from "react";
+import React, { type ReactElement, useState, useRef } from "react";
 import {
   Typography,
   Box,
   ToggleButtonGroup,
   ToggleButton,
+  TextField,
+  TextareaAutosize,
 } from "@mui/material";
 import {
   Check,
@@ -24,6 +26,9 @@ export default function ContactPreview({ contact }: Props): ReactElement {
   const [reportComplete, setReportComplete] = useState<string[]>(
     contact.reportCompleted ? ["reportCompleted"] : []
   );
+  const [notes, setNotes] = useState<string>("");
+  const [spouse, setSpouse] = useState<string>("");
+  const spouseRef = useRef(null);
   const label = (
     <Box
       sx={{
@@ -70,8 +75,41 @@ export default function ContactPreview({ contact }: Props): ReactElement {
 
   return (
     <LineItem label={label}>
-      <Box sx={{ p: 1 }}>
-        <Typography>Contact Details</Typography>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-start",
+          gap: 2,
+          px: 6,
+          pt: 3,
+        }}
+      >
+        <Box>
+          <TextField
+            sx={{ width: "100%" }}
+            autoFocus
+            label="Spouse"
+            value={spouse}
+            inputRef={spouseRef}
+            variant="outlined"
+            size="small"
+            onChange={(e) => {
+              setSpouse(e.target.value);
+            }}
+          />
+        </Box>
+        <Box>
+          <Typography>Notes:</Typography>
+          <TextareaAutosize
+            autoFocus
+            value={notes}
+            onChange={(e) => {
+              setNotes(e.target.value);
+            }}
+            style={{ width: "100%", height: "5rem" }}
+          />
+        </Box>
       </Box>
     </LineItem>
   );
