@@ -21,7 +21,9 @@ interface Props {
 }
 
 export default function ContactPreview({ contact }: Props): ReactElement {
-  const [reportComplete, setReportComplete] = useState<string[]>([]);
+  const [reportComplete, setReportComplete] = useState<string[]>(
+    contact.reportCompleted ? ["reportCompleted"] : []
+  );
   const label = (
     <Box
       sx={{
@@ -40,8 +42,8 @@ export default function ContactPreview({ contact }: Props): ReactElement {
           setReportComplete(values);
         }}
       >
-        <ToggleButton value="reportComplete">
-          {reportComplete.includes("reportComplete") ? (
+        <ToggleButton value="reportCompleted">
+          {reportComplete.includes("reportCompleted") ? (
             <Check />
           ) : (
             <CheckBoxOutlineBlank />

@@ -27,6 +27,7 @@ type Contact
   mobile: Boolean!
   internet: Boolean!
   recheck: Boolean!
+  reportCompleted: Boolean!
   owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 

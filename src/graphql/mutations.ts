@@ -90,6 +90,7 @@ export const createRound = /* GraphQL */ `
           mobile
           internet
           recheck
+          reportCompleted
           owner
           createdAt
           updatedAt
@@ -121,6 +122,7 @@ export const updateRound = /* GraphQL */ `
           mobile
           internet
           recheck
+          reportCompleted
           owner
           createdAt
           updatedAt
@@ -152,6 +154,7 @@ export const deleteRound = /* GraphQL */ `
           mobile
           internet
           recheck
+          reportCompleted
           owner
           createdAt
           updatedAt
@@ -179,6 +182,7 @@ export const createContact = /* GraphQL */ `
       mobile
       internet
       recheck
+      reportCompleted
       owner
       createdAt
       updatedAt
@@ -200,6 +204,7 @@ export const updateContact = /* GraphQL */ `
       mobile
       internet
       recheck
+      reportCompleted
       owner
       createdAt
       updatedAt
@@ -221,6 +226,7 @@ export const deleteContact = /* GraphQL */ `
       mobile
       internet
       recheck
+      reportCompleted
       owner
       createdAt
       updatedAt

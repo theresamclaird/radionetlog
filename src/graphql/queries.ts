@@ -58,6 +58,7 @@ export const getRound = /* GraphQL */ `
           mobile
           internet
           recheck
+          reportCompleted
           owner
           createdAt
           updatedAt
@@ -132,6 +133,7 @@ export const getContact = /* GraphQL */ `
       mobile
       internet
       recheck
+      reportCompleted
       owner
       createdAt
       updatedAt
@@ -155,6 +157,7 @@ export const listContacts = /* GraphQL */ `
         mobile
         internet
         recheck
+        reportCompleted
         owner
         createdAt
         updatedAt
@@ -188,6 +191,7 @@ export const contactsByRoundId = /* GraphQL */ `
         mobile
         internet
         recheck
+        reportCompleted
         owner
         createdAt
         updatedAt
