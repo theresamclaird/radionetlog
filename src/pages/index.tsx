@@ -3,7 +3,6 @@ import { Container, Grid } from "@mui/material";
 import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
 import { API } from "aws-amplify";
 import NetPreview from "../components/NetPreview";
-import { useUser } from "../context/AuthContext";
 import { type Net, type ListNetsQuery } from "../API";
 
 const netsQuery = `
@@ -19,7 +18,14 @@ const netsQuery = `
             contacts {
               items {
                 id
+                createdAt
                 callSign
+                name
+                location
+                inAndOut
+                mobile
+                internet
+                recheck
               }
             }
           }
@@ -33,7 +39,6 @@ const netsQuery = `
 `;
 
 export default function Home(): ReactElement {
-  const { user } = useUser();
   const [nets, setNets] = useState<Net[]>([]);
 
   useEffect(() => {
@@ -47,10 +52,8 @@ export default function Home(): ReactElement {
           errors: any[];
         };
 
-        if (allNets.data?.listNets?.items != null) {
-          setNets(allNets.data.listNets.items as Net[]);
-          return allNets.data.listNets.items as Net[];
-        }
+        setNets(allNets?.data?.listNets?.items as Net[]);
+        return allNets?.data?.listNets?.items as Net[];
       } catch (error) {
         console.error(error);
       }
@@ -62,9 +65,6 @@ export default function Home(): ReactElement {
       console.error(error);
     });
   }, []);
-
-  console.log("user", user);
-  console.log("nets", nets);
 
   return (
     <Container maxWidth="md" style={{ marginTop: 32 }}>

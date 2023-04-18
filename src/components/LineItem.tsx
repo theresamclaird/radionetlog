@@ -3,7 +3,7 @@ import { Grid, Box, IconButton, Typography } from "@mui/material";
 import { Delete, ExpandLess, ExpandMore } from "@mui/icons-material";
 
 interface Props {
-  label: string;
+  label: string | ReactElement;
   children: ReactElement;
 }
 

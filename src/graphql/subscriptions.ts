@@ -242,6 +242,7 @@ export const onCreateStation = /* GraphQL */ `
       inAndOut
       mobile
       internet
+      recheck
       owner
       createdAt
       updatedAt
@@ -263,6 +264,7 @@ export const onUpdateStation = /* GraphQL */ `
       inAndOut
       mobile
       internet
+      recheck
       owner
       createdAt
       updatedAt
@@ -284,6 +286,7 @@ export const onDeleteStation = /* GraphQL */ `
       inAndOut
       mobile
       internet
+      recheck
       owner
       createdAt
       updatedAt

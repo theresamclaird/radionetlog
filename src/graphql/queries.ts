@@ -208,6 +208,7 @@ export const getStation = /* GraphQL */ `
       inAndOut
       mobile
       internet
+      recheck
       owner
       createdAt
       updatedAt
@@ -231,6 +232,7 @@ export const listStations = /* GraphQL */ `
         inAndOut
         mobile
         internet
+        recheck
         owner
         createdAt
         updatedAt
