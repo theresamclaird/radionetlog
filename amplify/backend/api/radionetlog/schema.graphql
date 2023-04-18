@@ -3,7 +3,7 @@ type Net
   @auth(rules: [{ allow: owner, operations: [create, update, delete, read] }]) {
   id: ID!
   rounds: [Round] @hasMany(indexName: "byNet", fields: ["id"])
-  owner: String! @auth(rules: [{ allow: owner, operations: [read, delete] }])
+  owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
 type Round
@@ -12,7 +12,7 @@ type Round
   id: ID!
   netId: ID! @index(name: "byNet")
   contacts: [Contact] @hasMany(indexName: "byRound", fields: ["id"])
-  owner: String! @auth(rules: [{ allow: owner, operations: [read, delete] }])
+  owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
 type Contact
@@ -27,7 +27,7 @@ type Contact
   mobile: Boolean!
   internet: Boolean!
   recheck: Boolean!
-  owner: String! @auth(rules: [{ allow: owner, operations: [read, delete] }])
+  owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
 type Station
@@ -43,5 +43,5 @@ type Station
   mobile: Boolean!
   internet: Boolean!
   recheck: Boolean!
-  owner: String! @auth(rules: [{ allow: owner, operations: [read, delete] }])
+  owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }

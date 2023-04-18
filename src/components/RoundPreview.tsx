@@ -33,7 +33,7 @@ export default function RoundPreview({ index, round }: Props): ReactElement {
     <LineItem label={label}>
       <Grid item container direction="column">
         {contacts.map((contact) => (
-          <Grid item key={contact?.id}>
+          <Grid item key={contact?.id} sx={{ my: 1 }}>
             <ContactPreview contact={contact as Contact} />
           </Grid>
         ))}

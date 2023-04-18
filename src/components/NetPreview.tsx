@@ -30,7 +30,7 @@ export default function NetPreview({ net }: Props): ReactElement {
   return (
     <Paper elevation={2} sx={{ padding: 1 }}>
       <LineItem label={label}>
-        <Grid item container direction="column">
+        <Grid item container direction="column" sx={{ my: 1 }}>
           {rounds.map((round, index) => (
             <Grid item key={round?.id}>
               <RoundPreview index={index + 1} round={round as Round} />

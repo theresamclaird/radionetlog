@@ -1,6 +1,19 @@
-import React, { type ReactElement } from "react";
-import { Typography, Box } from "@mui/material";
+import React, { type ReactElement, useState } from "react";
+import {
+  Typography,
+  Box,
+  ToggleButtonGroup,
+  ToggleButton,
+} from "@mui/material";
+import {
+  Check,
+  CheckBoxOutlineBlank,
+  DirectionsCar,
+  Language,
+  PublishedWithChanges,
+} from "@mui/icons-material";
 import LineItem from "./LineItem";
+import ContactAttributes from "./ContactAttributes";
 import { type Contact } from "../API";
 
 interface Props {
@@ -8,14 +21,50 @@ interface Props {
 }
 
 export default function ContactPreview({ contact }: Props): ReactElement {
-  console.log(contact);
-
-  const applesauce = (prefix: string, value: string) =>
-    typeof value === "string" ? `${prefix}${value}` : prefix;
-
-  let label: string = applesauce("", `${contact.callSign.toUpperCase()}: `);
-  label = applesauce(label, contact.name);
-  label = applesauce(label, `, ${contact.location}`);
+  const [reportComplete, setReportComplete] = useState<string[]>([]);
+  const label = (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        gap: 3,
+      }}
+    >
+      <ToggleButtonGroup
+        size="small"
+        value={reportComplete}
+        aria-label="station has completed their report."
+        onChange={(e, values) => {
+          setReportComplete(values);
+        }}
+      >
+        <ToggleButton value="reportComplete">
+          {reportComplete.includes("reportComplete") ? (
+            <Check />
+          ) : (
+            <CheckBoxOutlineBlank />
+          )}
+        </ToggleButton>
+      </ToggleButtonGroup>
+      <Typography sx={{ minWidth: "5rem" }}>
+        {contact.callSign.toUpperCase()}
+      </Typography>
+      <ContactAttributes
+        attributes={[
+          { key: "inAndOut", value: false, label: "I/O" },
+          { key: "mobile", value: false, label: <DirectionsCar /> },
+          { key: "internet", value: false, label: <Language /> },
+          { key: "recheck", value: false, label: <PublishedWithChanges /> },
+        ]}
+        setAttributes={() => null}
+      />
+      <Typography
+        sx={{ flex: 1 }}
+      >{`${contact.name}, ${contact.location}`}</Typography>
+    </Box>
+  );
 
   return (
     <LineItem label={label}>

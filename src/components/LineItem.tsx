@@ -1,5 +1,5 @@
 import React, { type ReactElement, useState } from "react";
-import { Grid, Box, IconButton, Typography } from "@mui/material";
+import { Grid, Box, IconButton } from "@mui/material";
 import { Delete, ExpandLess, ExpandMore } from "@mui/icons-material";
 
 interface Props {
@@ -28,6 +28,7 @@ export default function LineItem({ label, children }: Props): ReactElement {
               justifyContent: "flex-start",
               alignItems: "center",
               gap: 1,
+              width: "100%",
             }}
           >
             <IconButton
@@ -37,7 +38,7 @@ export default function LineItem({ label, children }: Props): ReactElement {
             >
               {expanded ? <ExpandLess /> : <ExpandMore />}
             </IconButton>
-            <Typography>{label}</Typography>
+            <Box sx={{ flex: 1 }}>{label}</Box>
           </Box>
           <IconButton>
             <Delete />
