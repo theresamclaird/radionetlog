@@ -1,6 +1,7 @@
 import React, { type ReactElement } from "react";
 import Head from "next/head";
 import type { AppProps } from "next/app";
+import { Container } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import type { EmotionCache } from "@emotion/react";
@@ -31,7 +32,9 @@ export default function MyApp(props: MyAppProps): ReactElement {
         </Head>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Component {...pageProps} />
+          <Container maxWidth="md">
+            <Component {...pageProps} />
+          </Container>
         </ThemeProvider>
       </CacheProvider>
     </AuthContext>

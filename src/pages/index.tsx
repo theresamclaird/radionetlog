@@ -1,5 +1,5 @@
 import React, { type ReactElement, useState, useEffect } from "react";
-import { Container, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
 import { API } from "aws-amplify";
 import NetPreview from "../components/NetPreview";
@@ -67,14 +67,12 @@ export default function Home(): ReactElement {
   }, []);
 
   return (
-    <Container maxWidth="md" style={{ marginTop: 32 }}>
-      <Grid container direction="column">
-        {nets.map((net) => (
-          <Grid item key={net.id}>
-            <NetPreview net={net} />
-          </Grid>
-        ))}
-      </Grid>
-    </Container>
+    <Grid container direction="column" sx={{ marginTop: 32 }}>
+      {nets.map((net) => (
+        <Grid item key={net.id}>
+          <NetPreview net={net} />
+        </Grid>
+      ))}
+    </Grid>
   );
 }

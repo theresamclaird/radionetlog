@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useForm, Controller, type SubmitHandler } from "react-hook-form";
 import {
   Button,
   Grid,
   TextField,
-  Container,
   ToggleButtonGroup,
   ToggleButton,
+  Paper,
 } from "@mui/material";
 import { DirectionsCar, Language } from "@mui/icons-material";
 import { API } from "aws-amplify";
@@ -22,7 +22,11 @@ interface IFormInput {
   attributes: string[];
 }
 
-export default function Station() {
+export interface StationFormProps {
+  station: IFormInput;
+}
+
+export default function StationForm({ station }: StationFormProps) {
   const {
     control,
     register,
@@ -30,7 +34,9 @@ export default function Station() {
     handleSubmit,
     reset,
     setFocus,
-  } = useForm<IFormInput>();
+  } = useForm<IFormInput>({
+    defaultValues: station,
+  });
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     try {
@@ -60,14 +66,9 @@ export default function Station() {
   }, [setFocus]);
 
   return (
-    <Container maxWidth="md">
+    <Paper elevation={2} sx={{ p: 3, mt: 3 }}>
       <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-        <Grid
-          container
-          spacing={2}
-          alignItems="center"
-          style={{ marginTop: "1rem" }}
-        >
+        <Grid container spacing={2} alignItems="center">
           {/* callSign */}
           <Grid item xs={12} sm={4} md={2}>
             <TextField
@@ -124,7 +125,7 @@ export default function Station() {
             <Controller
               name="attributes"
               control={control}
-              defaultValue={[]}
+              defaultValue={station.attributes}
               render={({ field: { onChange, value } }) => {
                 return (
                   <ToggleButtonGroup
@@ -174,6 +175,6 @@ export default function Station() {
           </Grid>
         </Grid>
       </form>
-    </Container>
+    </Paper>
   );
 }
