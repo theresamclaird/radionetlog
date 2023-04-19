@@ -221,6 +221,7 @@ export const onCreateStation = /* GraphQL */ `
     $owner: String
   ) {
     onCreateStation(filter: $filter, owner: $owner) {
+      id
       callSign
       name
       location
@@ -238,6 +239,7 @@ export const onUpdateStation = /* GraphQL */ `
     $owner: String
   ) {
     onUpdateStation(filter: $filter, owner: $owner) {
+      id
       callSign
       name
       location
@@ -255,6 +257,7 @@ export const onDeleteStation = /* GraphQL */ `
     $owner: String
   ) {
     onDeleteStation(filter: $filter, owner: $owner) {
+      id
       callSign
       name
       location

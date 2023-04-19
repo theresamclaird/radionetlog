@@ -221,6 +221,7 @@ export const createStation = /* GraphQL */ `
     $condition: ModelStationConditionInput
   ) {
     createStation(input: $input, condition: $condition) {
+      id
       callSign
       name
       location
@@ -238,6 +239,7 @@ export const updateStation = /* GraphQL */ `
     $condition: ModelStationConditionInput
   ) {
     updateStation(input: $input, condition: $condition) {
+      id
       callSign
       name
       location
@@ -255,6 +257,7 @@ export const deleteStation = /* GraphQL */ `
     $condition: ModelStationConditionInput
   ) {
     deleteStation(input: $input, condition: $condition) {
+      id
       callSign
       name
       location

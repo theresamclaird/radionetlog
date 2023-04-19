@@ -10,6 +10,7 @@ import theme from "../theme";
 import createEmotionCache from "../createEmotionCache";
 import { Amplify } from "aws-amplify";
 import AuthContext from "../context/AuthContext";
+import StatusBar from "../components/StatusBar";
 
 import awsconfig from "../aws-exports";
 Amplify.configure({ ...awsconfig, ssr: true });
@@ -32,6 +33,7 @@ export default function MyApp(props: MyAppProps): ReactElement {
         </Head>
         <ThemeProvider theme={theme}>
           <CssBaseline />
+          <StatusBar />
           <Container maxWidth="md">
             <Component {...pageProps} />
           </Container>

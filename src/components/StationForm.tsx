@@ -12,7 +12,7 @@ import { DirectionsCar, Language } from "@mui/icons-material";
 import { API } from "aws-amplify";
 import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
 import { createStation } from "../graphql/mutations";
-import { type CreateStationInput } from "../API";
+import { type CreateStationInput, type Station } from "../API";
 
 interface IFormInput {
   callSign: string;
@@ -23,7 +23,7 @@ interface IFormInput {
 }
 
 export interface StationFormProps {
-  station: IFormInput;
+  station: Station;
 }
 
 export default function StationForm({ station }: StationFormProps) {
@@ -125,7 +125,7 @@ export default function StationForm({ station }: StationFormProps) {
             <Controller
               name="attributes"
               control={control}
-              defaultValue={station.attributes}
+              defaultValue={station.attributes || []}
               render={({ field: { onChange, value } }) => {
                 return (
                   <ToggleButtonGroup

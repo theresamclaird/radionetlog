@@ -2,11 +2,10 @@ import { type ReactElement } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { Amplify, withSSRContext } from "aws-amplify";
-import { getStation } from "../../graphql/queries";
+import { stationsByCallSign } from "../../graphql/queries";
 import awsExports from "../../aws-exports";
-import StationForm, {
-  type StationFormProps,
-} from "../../components/StationForm";
+import StationForm from "../../components/StationForm";
+import { type Station } from "../../API";
 
 Amplify.configure({ ...awsExports, ssr: true });
 
@@ -19,25 +18,22 @@ interface PageContext {
 
 export async function getServerSideProps({ req, params }: PageContext) {
   const SSR = withSSRContext({ req });
+  console.log("params", params);
 
   try {
-    const { data, errors } = await SSR.API.graphql({
-      query: getStation,
+    const { data } = await SSR.API.graphql({
+      query: stationsByCallSign,
       authMode: "AMAZON_COGNITO_USER_POOLS",
       variables: {
         callSign: params.callSign,
       },
     });
 
-    if (Array.isArray(errors) && errors[0].message !== null) {
-      errors.forEach((error) => {
-        throw new Error(error.message);
-      });
-    }
+    console.log("data", data);
 
     return {
       props: {
-        station: data.getStation,
+        stations: data.stationsByCallSign.items,
       },
     };
   } catch (error) {
@@ -46,12 +42,22 @@ export async function getServerSideProps({ req, params }: PageContext) {
 
   return {
     props: {
-      station: "",
+      stations: {
+        callSign: "",
+        name: "",
+        location: "",
+        notes: "",
+        attributes: [],
+      },
     },
   };
 }
 
-export default function Station({ station }: StationFormProps): ReactElement {
+interface Applesauce {
+  stations: Station[];
+}
+
+export default function StationData({ stations }: Applesauce): ReactElement {
   const router = useRouter();
   const { callSign } = router.query;
   return (
@@ -60,7 +66,9 @@ export default function Station({ station }: StationFormProps): ReactElement {
         <title>{callSign}</title>
       </Head>
       <main>
-        <StationForm station={station} />
+        {stations.map((station) => (
+          <StationForm key={station.id} station={station} />
+        ))}
       </main>
     </div>
   );

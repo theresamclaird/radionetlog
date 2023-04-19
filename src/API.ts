@@ -195,6 +195,7 @@ export type DeleteContactInput = {
 };
 
 export type CreateStationInput = {
+  id?: string | null,
   callSign: string,
   name: string,
   location: string,
@@ -204,6 +205,7 @@ export type CreateStationInput = {
 };
 
 export type ModelStationConditionInput = {
+  callSign?: ModelStringInput | null,
   name?: ModelStringInput | null,
   location?: ModelStringInput | null,
   notes?: ModelStringInput | null,
@@ -216,6 +218,7 @@ export type ModelStationConditionInput = {
 
 export type Station = {
   __typename: "Station",
+  id: string,
   callSign: string,
   name: string,
   location: string,
@@ -227,7 +230,8 @@ export type Station = {
 };
 
 export type UpdateStationInput = {
-  callSign: string,
+  id: string,
+  callSign?: string | null,
   name?: string | null,
   location?: string | null,
   notes?: string | null,
@@ -236,7 +240,7 @@ export type UpdateStationInput = {
 };
 
 export type DeleteStationInput = {
-  callSign: string,
+  id: string,
 };
 
 export type ModelNetFilterInput = {
@@ -283,6 +287,7 @@ export type ModelContactFilterInput = {
 };
 
 export type ModelStationFilterInput = {
+  id?: ModelIDInput | null,
   callSign?: ModelStringInput | null,
   name?: ModelStringInput | null,
   location?: ModelStringInput | null,
@@ -361,6 +366,7 @@ export type ModelSubscriptionBooleanInput = {
 };
 
 export type ModelSubscriptionStationFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
   callSign?: ModelSubscriptionStringInput | null,
   name?: ModelSubscriptionStringInput | null,
   location?: ModelSubscriptionStringInput | null,
@@ -621,6 +627,7 @@ export type CreateStationMutationVariables = {
 export type CreateStationMutation = {
   createStation?:  {
     __typename: "Station",
+    id: string,
     callSign: string,
     name: string,
     location: string,
@@ -640,6 +647,7 @@ export type UpdateStationMutationVariables = {
 export type UpdateStationMutation = {
   updateStation?:  {
     __typename: "Station",
+    id: string,
     callSign: string,
     name: string,
     location: string,
@@ -659,6 +667,7 @@ export type DeleteStationMutationVariables = {
 export type DeleteStationMutation = {
   deleteStation?:  {
     __typename: "Station",
+    id: string,
     callSign: string,
     name: string,
     location: string,
@@ -879,12 +888,13 @@ export type ContactsByRoundIdQuery = {
 };
 
 export type GetStationQueryVariables = {
-  callSign: string,
+  id: string,
 };
 
 export type GetStationQuery = {
   getStation?:  {
     __typename: "Station",
+    id: string,
     callSign: string,
     name: string,
     location: string,
@@ -897,11 +907,9 @@ export type GetStationQuery = {
 };
 
 export type ListStationsQueryVariables = {
-  callSign?: string | null,
   filter?: ModelStationFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
-  sortDirection?: ModelSortDirection | null,
 };
 
 export type ListStationsQuery = {
@@ -909,6 +917,34 @@ export type ListStationsQuery = {
     __typename: "ModelStationConnection",
     items:  Array< {
       __typename: "Station",
+      id: string,
+      callSign: string,
+      name: string,
+      location: string,
+      notes: string,
+      attributes: Array< string | null >,
+      owner?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type StationsByCallSignQueryVariables = {
+  callSign: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelStationFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type StationsByCallSignQuery = {
+  stationsByCallSign?:  {
+    __typename: "ModelStationConnection",
+    items:  Array< {
+      __typename: "Station",
+      id: string,
       callSign: string,
       name: string,
       location: string,
@@ -1173,6 +1209,7 @@ export type OnCreateStationSubscriptionVariables = {
 export type OnCreateStationSubscription = {
   onCreateStation?:  {
     __typename: "Station",
+    id: string,
     callSign: string,
     name: string,
     location: string,
@@ -1192,6 +1229,7 @@ export type OnUpdateStationSubscriptionVariables = {
 export type OnUpdateStationSubscription = {
   onUpdateStation?:  {
     __typename: "Station",
+    id: string,
     callSign: string,
     name: string,
     location: string,
@@ -1211,6 +1249,7 @@ export type OnDeleteStationSubscriptionVariables = {
 export type OnDeleteStationSubscription = {
   onDeleteStation?:  {
     __typename: "Station",
+    id: string,
     callSign: string,
     name: string,
     location: string,

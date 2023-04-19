@@ -31,7 +31,8 @@ type Contact
 type Station
   @model
   @auth(rules: [{ allow: owner, operations: [create, update, delete, read] }]) {
-  callSign: String! @primaryKey
+  id: ID!
+  callSign: String! @index(name: "byCallSign")
   name: String!
   location: String!
   notes: String!

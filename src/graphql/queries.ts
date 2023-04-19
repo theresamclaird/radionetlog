@@ -189,8 +189,9 @@ export const contactsByRoundId = /* GraphQL */ `
   }
 `;
 export const getStation = /* GraphQL */ `
-  query GetStation($callSign: String!) {
-    getStation(callSign: $callSign) {
+  query GetStation($id: ID!) {
+    getStation(id: $id) {
+      id
       callSign
       name
       location
@@ -204,20 +205,43 @@ export const getStation = /* GraphQL */ `
 `;
 export const listStations = /* GraphQL */ `
   query ListStations(
-    $callSign: String
     $filter: ModelStationFilterInput
     $limit: Int
     $nextToken: String
-    $sortDirection: ModelSortDirection
   ) {
-    listStations(
+    listStations(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        callSign
+        name
+        location
+        notes
+        attributes
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const stationsByCallSign = /* GraphQL */ `
+  query StationsByCallSign(
+    $callSign: String!
+    $sortDirection: ModelSortDirection
+    $filter: ModelStationFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    stationsByCallSign(
       callSign: $callSign
+      sortDirection: $sortDirection
       filter: $filter
       limit: $limit
       nextToken: $nextToken
-      sortDirection: $sortDirection
     ) {
       items {
+        id
         callSign
         name
         location
