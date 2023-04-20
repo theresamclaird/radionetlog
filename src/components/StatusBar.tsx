@@ -13,6 +13,7 @@ import { useUser } from "../context/AuthContext";
 
 const StatusBar = () => {
   const { user } = useUser();
+  const username = user === null ? "" : user.getUsername();
   const [anchorEl] = useState(null);
 
   return (
@@ -51,7 +52,7 @@ const StatusBar = () => {
             gap: "1rem",
           }}
         ></Box>
-        <Typography>{user.username}</Typography>
+        <Typography>{username}</Typography>
         <IconButton
           size="large"
           aria-label="qrz account"
