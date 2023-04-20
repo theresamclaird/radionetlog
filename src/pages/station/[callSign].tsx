@@ -5,9 +5,21 @@ import { Amplify, withSSRContext } from "aws-amplify";
 import { stationsByCallSign } from "../../graphql/queries";
 import awsExports from "../../aws-exports";
 import StationForm from "../../components/StationForm";
-import { type Station } from "../../API";
 
 Amplify.configure({ ...awsExports, ssr: true });
+
+interface Station {
+  __typename: "Station";
+  id: string | undefined;
+  callSign: string | undefined;
+  name: string | undefined;
+  location: string | undefined;
+  notes: string | undefined;
+  attributes: string[];
+  owner?: string | null;
+  createdAt: string | undefined;
+  updatedAt: string | undefined;
+}
 
 interface PageContext {
   req: any;
