@@ -12,15 +12,6 @@ interface Props {
   setAttributes: React.Dispatch<React.SetStateAction<string>>;
 }
 
-/*
-attributes: [
-    { key: "inAndOut", value: true, label: "I/O" },
-    { key: "mobile", value: false, label: <DirectionsCar /> },
-    { key: "internet", value: false, label: <Language /> },
-    { key: "recheck", value: false, label: <PublishedWithoutChanges /> },
-]
-*/
-
 export default function ContactAttributes({
   attributes,
   setAttributes,

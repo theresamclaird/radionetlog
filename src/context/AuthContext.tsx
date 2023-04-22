@@ -14,12 +14,19 @@ Exports { AuthContext, useUser }
 AuthContext provides { user }, and listens for auth events and executes setUser() after successful currentAuthenticatedUser().
 useUser() returns { user } (Must be within AuthContext.)
 */
-interface UserContextType {
+
+export interface UserContextType {
   user: CognitoUser | null;
+  username: string | null;
+  email: string | null;
+  isLoggedIn: boolean;
 }
 
 const UserContext = createContext<UserContextType>({
   user: null,
+  username: null,
+  email: null,
+  isLoggedIn: false,
 } satisfies UserContextType);
 
 interface Props {
@@ -27,13 +34,16 @@ interface Props {
 }
 
 export default function AuthContext({ children }: Props): ReactElement {
-  const [user, setUser] = useState<CognitoUser | null>(null);
+  const [user, setUser] = useState<any>(null);
+  const username =
+    user?.getUsername() !== undefined ? user.getUsername() : null;
+  const email = user?.attributes?.email;
 
   const checkUser = useCallback(async () => {
     try {
-      const amplifyUser = await Auth.currentAuthenticatedUser();
-      if (amplifyUser !== null) {
-        setUser(amplifyUser);
+      const cognitoUser = await Auth.currentAuthenticatedUser();
+      if (cognitoUser !== null) {
+        setUser(cognitoUser);
       }
     } catch (err) {
       setUser(null);
@@ -51,7 +61,16 @@ export default function AuthContext({ children }: Props): ReactElement {
   }, []);
 
   return (
-    <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>
+    <UserContext.Provider
+      value={{
+        user,
+        username,
+        email,
+        isLoggedIn: username !== null,
+      }}
+    >
+      {children}
+    </UserContext.Provider>
   );
 }
 

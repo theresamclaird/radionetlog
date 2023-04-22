@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { Alert, Button, Grid, TextField, Snackbar } from "@mui/material";
-import { useUser } from "../context/AuthContext";
+import Alert from "@mui/material/Alert";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
+import Snackbar from "@mui/material/Snackbar";
 import { Auth } from "aws-amplify";
 import { useRouter } from "next/router";
 
@@ -11,7 +14,6 @@ interface IFormInput {
 }
 
 export default function Login() {
-  const { user } = useUser();
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [loginError, setLoginError] = useState<string>("");
@@ -39,8 +41,6 @@ export default function Login() {
     }
     setOpen(false);
   };
-
-  console.log("The value of the user from the hook is:", user);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">

@@ -1,5 +1,5 @@
 import React, { type ReactElement } from "react";
-import { Paper, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import LineItem from "./LineItem";
 import { type Net, type Round, type Contact } from "../API";
 import RoundPreview from "./RoundPreview";
@@ -28,16 +28,14 @@ export default function NetPreview({ net }: Props): ReactElement {
                 ${contactsCount === 1 ? "contact" : "contacts"})`;
 
   return (
-    <Paper elevation={2} sx={{ padding: 1 }}>
-      <LineItem label={label}>
-        <Grid item container direction="column" sx={{ my: 1 }}>
-          {rounds.map((round, index) => (
-            <Grid item key={round?.id}>
-              <RoundPreview index={index + 1} round={round as Round} />
-            </Grid>
-          ))}
-        </Grid>
-      </LineItem>
-    </Paper>
+    <LineItem label={label}>
+      <Grid item container direction="column" sx={{ my: 1 }}>
+        {rounds.map((round, index) => (
+          <Grid item key={round?.id}>
+            <RoundPreview index={index + 1} round={round as Round} />
+          </Grid>
+        ))}
+      </Grid>
+    </LineItem>
   );
 }

@@ -10,6 +10,7 @@ const theme = createTheme({
       main: "#f50057",
     },
   },
+  typography: {},
 });
 
 export default responsiveFontSizes(theme);

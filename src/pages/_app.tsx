@@ -10,7 +10,7 @@ import theme from "../theme";
 import createEmotionCache from "../createEmotionCache";
 import { Amplify } from "aws-amplify";
 import AuthContext from "../context/AuthContext";
-import StatusBar from "../components/StatusBar";
+import NavBar from "../components/NavBar";
 
 import awsconfig from "../aws-exports";
 Amplify.configure({ ...awsconfig, ssr: true });
@@ -28,13 +28,13 @@ export default function MyApp(props: MyAppProps): ReactElement {
     <AuthContext>
       <CacheProvider value={emotionCache}>
         <Head>
-          <title>Radio Net Log</title>
+          <title>Net Logbook</title>
           <meta name="viewport" content="initial-scale=1, width=device-width" />
         </Head>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <StatusBar />
-          <Container maxWidth="md">
+          <NavBar />
+          <Container maxWidth="md" sx={{ mt: 4 }}>
             <Component {...pageProps} />
           </Container>
         </ThemeProvider>

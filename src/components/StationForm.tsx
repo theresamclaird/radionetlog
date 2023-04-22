@@ -6,13 +6,13 @@ import {
   TextField,
   ToggleButtonGroup,
   ToggleButton,
-  Paper,
 } from "@mui/material";
 import { DirectionsCar, Language } from "@mui/icons-material";
 import { API } from "aws-amplify";
 import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
 import { createStation } from "../graphql/mutations";
 import { type CreateStationInput } from "../API";
+import Slat from "../components/Slat";
 
 interface IFormInput {
   callSign: string;
@@ -79,7 +79,7 @@ export default function StationForm({ station }: StationFormProps) {
   }, [setFocus]);
 
   return (
-    <Paper elevation={2} sx={{ p: 3, mt: 3 }}>
+    <Slat>
       <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
         <Grid container spacing={2} alignItems="center">
           {/* callSign */}
@@ -188,6 +188,6 @@ export default function StationForm({ station }: StationFormProps) {
           </Grid>
         </Grid>
       </form>
-    </Paper>
+    </Slat>
   );
 }
