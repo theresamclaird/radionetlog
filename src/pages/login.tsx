@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 import Snackbar from "@mui/material/Snackbar";
 import { Auth } from "aws-amplify";
 import { useRouter } from "next/router";
@@ -44,52 +48,60 @@ export default function Login() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-      <Grid
-        container
-        direction="column"
-        alignItems="center"
-        justifyContent="center"
-        spacing={2}
-        style={{ marginTop: "1rem" }}
-      >
-        <Grid item>
-          <TextField
-            variant="outlined"
-            id="username"
-            label="Username"
-            type="text"
-            error={errors.username != null}
-            helperText={
-              errors.username != null ? errors.username.message : null
-            }
-            {...register("username", {
-              required: { value: true, message: "Please enter a username." },
-            })}
-          />
-        </Grid>
+      <Card>
+        <CardContent>
+          <Grid container direction="column" spacing={2}>
+            <Grid item>
+              <Typography variant="h1">Sign In</Typography>
+            </Grid>
+            <Grid item>
+              <TextField
+                variant="outlined"
+                id="username"
+                label="Username"
+                type="text"
+                fullWidth
+                error={errors.username != null}
+                helperText={
+                  errors.username != null ? errors.username.message : null
+                }
+                {...register("username", {
+                  required: {
+                    value: true,
+                    message: "Please enter a username.",
+                  },
+                })}
+              />
+            </Grid>
 
-        <Grid item>
-          <TextField
-            variant="outlined"
-            id="password"
-            label="Password"
-            type="password"
-            error={errors.password != null}
-            helperText={
-              errors.password != null ? errors.password.message : null
-            }
-            {...register("password", {
-              required: { value: true, message: "Please enter a password." },
-            })}
-          />
-        </Grid>
+            <Grid item>
+              <TextField
+                variant="outlined"
+                id="password"
+                label="Password"
+                type="password"
+                fullWidth
+                error={errors.password != null}
+                helperText={
+                  errors.password != null ? errors.password.message : null
+                }
+                {...register("password", {
+                  required: {
+                    value: true,
+                    message: "Please enter a password.",
+                  },
+                })}
+              />
+            </Grid>
+          </Grid>
+        </CardContent>
 
-        <Grid item>
+        <CardActions>
           <Button variant="contained" type="submit">
             Log In
           </Button>
-        </Grid>
-      </Grid>
+        </CardActions>
+      </Card>
       <Snackbar open={open} autoHideDuration={6000}>
         <Alert onClose={handleClose} severity="error">
           {loginError}

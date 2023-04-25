@@ -1,13 +1,18 @@
 import React, { type ReactElement, useState } from "react";
 import { Grid, Box, IconButton } from "@mui/material";
-import { Delete, ExpandLess, ExpandMore } from "@mui/icons-material";
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
 
 interface Props {
+  disabled?: boolean;
   label: string | ReactElement;
   children: ReactElement;
 }
 
-export default function LineItem({ label, children }: Props): ReactElement {
+export default function LineItem({
+  disabled = false,
+  label,
+  children,
+}: Props): ReactElement {
   const [expanded, setExpanded] = useState<boolean>(false);
 
   return (
@@ -32,6 +37,7 @@ export default function LineItem({ label, children }: Props): ReactElement {
             }}
           >
             <IconButton
+              disabled={disabled}
               onClick={() => {
                 setExpanded(!expanded);
               }}
@@ -40,12 +46,9 @@ export default function LineItem({ label, children }: Props): ReactElement {
             </IconButton>
             <Box sx={{ flex: 1 }}>{label}</Box>
           </Box>
-          <IconButton>
-            <Delete />
-          </IconButton>
         </Box>
       </Grid>
-      {expanded && children}
+      {expanded && !disabled && children}
     </Grid>
   );
 }

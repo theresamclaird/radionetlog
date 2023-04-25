@@ -1,81 +1,51 @@
 import React, { type ReactElement, useState } from "react";
-import { Grid, Box } from "@mui/material";
-// import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
-// import { API } from "aws-amplify";
-import ContactForm from "../components/ContactForm";
-import NetPreview from "../components/NetPreview";
-import Slat from "../components/Slat";
-import { type Net } from "../API";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
+import { API } from "aws-amplify";
+import { type CreateNetMutation } from "../API";
+import { createNet } from "../graphql/mutations";
+import RoundForm from "./RoundForm";
 
-/*
-actions:
-  - Add Net
-  - Add Round
-  - Add Contact to Round
-  - Close Net
-*/
+export default function NetForm(): ReactElement {
+  const [netId, setNetId] = useState<string | null>(null);
 
-// const newNetQuery = `
-// mutation CreateNetMutation {
-//   createNet(input: {}) {
-//     id
-//     rounds
-//     createdAt
-//   }
-// }
-// `;
+  const createNewNet = async (): Promise<string> => {
+    try {
+      const newNet = (await API.graphql({
+        query: createNet,
+        variables: { input: {} },
+        authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
+      })) as {
+        data: CreateNetMutation;
+        errors: any[];
+      };
 
-export default function Home(): ReactElement {
-  const [net] = useState<Net | null>(null);
+      const newNetId = newNet?.data?.createNet?.id as string;
+      setNetId(newNetId);
+      return newNetId;
+    } catch (error) {
+      console.warn(error);
+      throw new Error(error);
+    }
+  };
 
-  // const createNet = () => {
-  //   const AddNetFromApi = async (): Promise<Net | null> => {
-  //     try {
-  //       const newNet = (await API.graphql({
-  //         query: newNetQuery,
-  //         authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
-  //       })) as {
-  //         data: Net;
-  //         errors: any[];
-  //       };
-
-  //       console.log("newNet", newNet);
-
-  //       setNet(newNet?.data);
-  //       return newNet?.data;
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-
-  //     return null;
-  //   };
-
-  //   AddNetFromApi().catch((error) => {
-  //     console.error(error);
-  //   });
-  // };
+  const handleAddClick = () => {
+    createNewNet().catch((error) => {
+      console.warn(error);
+    });
+  };
 
   return (
-    <Slat>
-      <Grid container direction="column" spacing={2}>
-        <Grid item>
-          <ContactForm
-            contact={{
-              roundId: "",
-              callSign: "",
-              name: "",
-              location: "",
-              attributes: [],
-              reportCompleted: false,
-            }}
-          />
-          {net !== null && (
-            <Box sx={{ borderTop: "solid 1px #ccc", my: 2 }}>
-              <NetPreview net={net} />
-            </Box>
-          )}
-        </Grid>
+    <Grid container direction="column" spacing={2}>
+      <Grid item>
+        <RoundForm netId={netId} />
       </Grid>
-    </Slat>
+      <Grid item>
+        <Button disabled={netId !== null} onClick={handleAddClick}>
+          New Net
+        </Button>
+      </Grid>
+    </Grid>
   );
 }

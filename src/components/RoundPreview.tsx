@@ -5,11 +5,14 @@ import ContactPreview from "./ContactPreview";
 import { type Round, type Contact } from "../API";
 
 interface Props {
-  index: number;
+  index?: number;
   round: Round;
 }
 
-export default function RoundPreview({ index, round }: Props): ReactElement {
+export default function RoundPreview({
+  index = 0,
+  round,
+}: Props): ReactElement {
   const d = new Date(round.createdAt);
   const locale = navigator?.languages[0];
   const roundTime = d.toLocaleTimeString(locale !== null ? locale : "en-US", {
@@ -31,7 +34,7 @@ export default function RoundPreview({ index, round }: Props): ReactElement {
 
   return (
     <LineItem label={label}>
-      <Grid item container direction="column">
+      <Grid container direction="column">
         {contacts.map((contact) => (
           <Grid item key={contact?.id} sx={{ my: 1 }}>
             <ContactPreview contact={contact as Contact} />

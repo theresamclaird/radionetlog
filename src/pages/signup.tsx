@@ -1,6 +1,16 @@
 import React, { useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { Alert, Button, Grid, TextField, Snackbar } from "@mui/material";
+import {
+  Alert,
+  Button,
+  Card,
+  CardContent,
+  CardActions,
+  Grid,
+  TextField,
+  Snackbar,
+  Typography,
+} from "@mui/material";
 import { useUser } from "../context/AuthContext";
 import { Auth } from "aws-amplify";
 import { type CognitoUser } from "@aws-amplify/auth";
@@ -95,105 +105,116 @@ export default function Signup() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-      <Grid
-        container
-        direction="column"
-        alignItems="center"
-        justifyContent="center"
-        spacing={2}
-        style={{ marginTop: "1rem" }}
-      >
-        <Grid item>
-          <TextField
-            variant="outlined"
-            id="username"
-            label="Username"
-            type="text"
-            error={errors.username != null}
-            helperText={
-              errors.username != null ? errors.username.message : null
-            }
-            {...register("username", {
-              required: { value: true, message: "Please enter a username." },
-              minLength: {
-                value: 3,
-                message: "Please enter a username between 3-16 characters.",
-              },
-              maxLength: {
-                value: 16,
-                message: "Please enter a username between 3-16 characters.",
-              },
-            })}
-          />
-        </Grid>
+      <Card>
+        <CardContent>
+          <Grid container direction="column" spacing={2}>
+            <Grid item>
+              <Typography variant="h1">Sign Up</Typography>
+            </Grid>
+            <Grid item>
+              <TextField
+                variant="outlined"
+                id="username"
+                label="Username"
+                type="text"
+                fullWidth
+                error={errors.username != null}
+                helperText={
+                  errors.username != null ? errors.username.message : null
+                }
+                {...register("username", {
+                  required: {
+                    value: true,
+                    message: "Please enter a username.",
+                  },
+                  minLength: {
+                    value: 3,
+                    message: "Please enter a username between 3-16 characters.",
+                  },
+                  maxLength: {
+                    value: 16,
+                    message: "Please enter a username between 3-16 characters.",
+                  },
+                })}
+              />
+            </Grid>
 
-        <Grid item>
-          <TextField
-            variant="outlined"
-            id="email"
-            label="Email"
-            type="email"
-            error={errors.email != null}
-            helperText={errors.email != null ? errors.email.message : null}
-            {...register("email", {
-              required: { value: true, message: "Please enter a valid email." },
-            })}
-          />
-        </Grid>
+            <Grid item>
+              <TextField
+                variant="outlined"
+                id="email"
+                label="Email"
+                type="email"
+                fullWidth
+                error={errors.email != null}
+                helperText={errors.email != null ? errors.email.message : null}
+                {...register("email", {
+                  required: {
+                    value: true,
+                    message: "Please enter a valid email.",
+                  },
+                })}
+              />
+            </Grid>
 
-        <Grid item>
-          <TextField
-            variant="outlined"
-            id="password"
-            label="Password"
-            type="password"
-            error={errors.password != null}
-            helperText={
-              errors.password != null ? errors.password.message : null
-            }
-            {...register("password", {
-              required: { value: true, message: "Please enter a password." },
-              minLength: {
-                value: 8,
-                message: "Please enter a stronger password.",
-              },
-            })}
-          />
-        </Grid>
+            <Grid item>
+              <TextField
+                variant="outlined"
+                id="password"
+                label="Password"
+                type="password"
+                fullWidth
+                error={errors.password != null}
+                helperText={
+                  errors.password != null ? errors.password.message : null
+                }
+                {...register("password", {
+                  required: {
+                    value: true,
+                    message: "Please enter a password.",
+                  },
+                  minLength: {
+                    value: 8,
+                    message: "Please enter a stronger password.",
+                  },
+                })}
+              />
+            </Grid>
 
-        {showCode && (
-          <Grid item>
-            <TextField
-              variant="outlined"
-              id="code"
-              label="Verification Code"
-              type="text"
-              error={errors.code != null}
-              helperText={errors.code != null ? errors.code.message : null}
-              {...register("code", {
-                required: {
-                  value: true,
-                  message: "Please enter an authentication code.",
-                },
-                minLength: {
-                  value: 6,
-                  message: "Your verification code is 6 characters long.",
-                },
-                maxLength: {
-                  value: 6,
-                  message: "Your verification code is 6 characters long.",
-                },
-              })}
-            />
+            {showCode && (
+              <Grid item>
+                <TextField
+                  variant="outlined"
+                  id="code"
+                  label="Verification Code"
+                  type="text"
+                  error={errors.code != null}
+                  helperText={errors.code != null ? errors.code.message : null}
+                  {...register("code", {
+                    required: {
+                      value: true,
+                      message: "Please enter an authentication code.",
+                    },
+                    minLength: {
+                      value: 6,
+                      message: "Your verification code is 6 characters long.",
+                    },
+                    maxLength: {
+                      value: 6,
+                      message: "Your verification code is 6 characters long.",
+                    },
+                  })}
+                />
+              </Grid>
+            )}
           </Grid>
-        )}
-
-        <Grid item>
+        </CardContent>
+        <CardActions>
           <Button variant="contained" type="submit">
             {showCode ? "Confirm Code" : "Sign Up"}
           </Button>
-        </Grid>
-      </Grid>
+        </CardActions>
+      </Card>
       <Snackbar open={open} autoHideDuration={6000}>
         <Alert onClose={handleClose} severity="error">
           {signUpError}

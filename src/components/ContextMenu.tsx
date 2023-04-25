@@ -29,10 +29,10 @@ export default function ContextMenu() {
     >
       <MenuList>
         <MenuItem component={Link} href="/">
-          Net Logbook
+          Logbook
         </MenuItem>
         <MenuItem component={Link} href="/station">
-          Known Stations
+          Stations
         </MenuItem>
         <MenuItem
           onClick={() => {

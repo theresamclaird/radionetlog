@@ -1,6 +1,7 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
 import StationForm from "../../components/StationForm";
+import StationsList from "../../components/StationsList";
 
 export default function Station() {
   return (
@@ -16,7 +17,9 @@ export default function Station() {
           }}
         />
       </Grid>
-      <Grid item>Stations List</Grid>
+      <Grid item>
+        <StationsList />
+      </Grid>
     </Grid>
   );
 }

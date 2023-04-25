@@ -18,20 +18,11 @@ import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
 import { createContact } from "../graphql/mutations";
 import { type CreateContactInput } from "../API";
 
-interface ContactData {
-  roundId: string;
-  callSign: string;
-  name: string;
-  location: string;
-  attributes: string[];
-  reportCompleted: boolean;
+export interface Props {
+  roundId: string | null;
 }
 
-export interface ContactFormProps {
-  contact: ContactData;
-}
-
-export default function ContactForm({ contact }: ContactFormProps) {
+export default function ContactForm({ roundId }: Props) {
   const {
     control,
     register,
@@ -39,21 +30,31 @@ export default function ContactForm({ contact }: ContactFormProps) {
     handleSubmit,
     reset,
     setFocus,
-  } = useForm<ContactData>({
-    defaultValues: contact,
+  } = useForm<CreateContactInput>({
+    defaultValues: {
+      roundId: roundId === null ? "" : roundId,
+      callSign: "",
+      name: "",
+      location: "",
+      attributes: [],
+      reportCompleted: false,
+    },
   });
 
-  const onSubmit: SubmitHandler<ContactData> = async (data) => {
+  const onSubmit: SubmitHandler<CreateContactInput> = async (data) => {
+    if (roundId === null) {
+      return;
+    }
+
     try {
       const createContactInput: CreateContactInput = {
-        roundId: data.roundId,
+        roundId,
         callSign: data.callSign,
         name: data.name,
         location: data.location,
         attributes: data.attributes,
         reportCompleted: data.reportCompleted,
       };
-      console.log(createContactInput);
 
       await API.graphql({
         query: createContact,
@@ -71,6 +72,8 @@ export default function ContactForm({ contact }: ContactFormProps) {
     setFocus("callSign");
   }, [setFocus]);
 
+  const disableForm = roundId === null;
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
       <Box
@@ -84,6 +87,7 @@ export default function ContactForm({ contact }: ContactFormProps) {
       >
         {/* callSign */}
         <TextField
+          disabled={disableForm}
           variant="outlined"
           fullWidth
           id="callSign"
@@ -102,6 +106,7 @@ export default function ContactForm({ contact }: ContactFormProps) {
 
         {/* name */}
         <TextField
+          disabled={disableForm}
           variant="outlined"
           fullWidth
           id="name"
@@ -115,6 +120,7 @@ export default function ContactForm({ contact }: ContactFormProps) {
 
         {/* location */}
         <TextField
+          disabled={disableForm}
           variant="outlined"
           fullWidth
           id="location"
@@ -131,6 +137,7 @@ export default function ContactForm({ contact }: ContactFormProps) {
             display: "flex",
             flexDirection: "row",
             justifyContent: "flex-end",
+            alignItems: "center",
             gap: 2,
           }}
         >
@@ -138,10 +145,11 @@ export default function ContactForm({ contact }: ContactFormProps) {
           <Controller
             name="attributes"
             control={control}
-            defaultValue={contact.attributes}
+            defaultValue={[]}
             render={({ field: { onChange, value } }) => {
               return (
                 <ToggleButtonGroup
+                  disabled={disableForm}
                   color="primary"
                   size="small"
                   aria-label="contact attributes"
@@ -166,11 +174,7 @@ export default function ContactForm({ contact }: ContactFormProps) {
               );
             }}
           />
-          <IconButton
-            onClick={() => {
-              console.log("add");
-            }}
-          >
+          <IconButton disabled={disableForm} type="submit">
             <AddBox />
           </IconButton>
         </Box>
