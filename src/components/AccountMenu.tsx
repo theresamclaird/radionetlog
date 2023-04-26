@@ -24,6 +24,7 @@ export default function AccountMenu() {
       renderTrigger={(handleOnClick) => {
         return (
           <IconButton
+            disabled={username === null}
             size="large"
             aria-label="account menu"
             aria-controls="menu-appbar"
@@ -38,31 +39,20 @@ export default function AccountMenu() {
         );
       }}
     >
-      {username !== null ? (
-        <MenuList>
-          <MenuItem component={Link} href="/account">
-            {`${username} Account`}
-          </MenuItem>
-          <MenuItem
-            onClick={(event) => {
-              signOut().catch((error) => {
-                console.error(error);
-              });
-            }}
-          >
-            Sign Out
-          </MenuItem>
-        </MenuList>
-      ) : (
-        <MenuList>
-          <MenuItem component={Link} href="/signup">
-            Sign Up
-          </MenuItem>
-          <MenuItem component={Link} href="/login">
-            Sign In
-          </MenuItem>
-        </MenuList>
-      )}
+      <MenuList>
+        <MenuItem component={Link} href="/account">
+          {`Account (${username === null ? "UNKNOWN" : username})`}
+        </MenuItem>
+        <MenuItem
+          onClick={(event) => {
+            signOut().catch((error) => {
+              console.error(error);
+            });
+          }}
+        >
+          Sign Out
+        </MenuItem>
+      </MenuList>
     </PopperMenu>
   );
 }

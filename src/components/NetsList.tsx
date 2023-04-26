@@ -1,5 +1,5 @@
 import React, { type ReactElement, useState, useEffect } from "react";
-import { Box, Card, CardContent, Grid } from "@mui/material";
+import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import Delete from "@mui/icons-material/Delete";
 import { type GraphQLSubscription, GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
@@ -12,6 +12,7 @@ import {
 } from "../API";
 import { deleteNet } from "../graphql/mutations";
 import { onCreateNet } from "../graphql/subscriptions";
+import Slat from "../components/Slat";
 
 const netsQuery = `
   query AllNets($filter: ModelNetFilterInput, $limit: Int, $nextToken: String) {
@@ -112,30 +113,26 @@ export default function NetsList(): ReactElement {
     <Grid container direction="column" spacing={2}>
       {nets.map((net) => (
         <Grid item key={net.id}>
-          <Card>
-            <CardContent>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  alignItems: "flex-start",
-                  gap: 2,
-                }}
-              >
-                <NetPreview net={net} />
-                <IconButton
-                  onClick={() => {
-                    deleteNetById(net.id).catch((error) => {
-                      console.warn(error);
-                    });
-                  }}
-                >
-                  <Delete />
-                </IconButton>
-              </Box>
-            </CardContent>
-          </Card>
+          <Slat
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "flex-start",
+              gap: 2,
+            }}
+          >
+            <NetPreview netId={net.id} />
+            <IconButton
+              onClick={() => {
+                deleteNetById(net.id).catch((error) => {
+                  console.warn(error);
+                });
+              }}
+            >
+              <Delete />
+            </IconButton>
+          </Slat>
         </Grid>
       ))}
     </Grid>

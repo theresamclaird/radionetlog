@@ -6,7 +6,7 @@ import {
   ToggleButton,
 } from "@mui/material";
 import { Check, CheckBoxOutlineBlank } from "@mui/icons-material";
-import LineItem from "./LineItem";
+import Accordion from "./Accordion";
 import { type Contact } from "../API";
 
 interface Props {
@@ -53,8 +53,8 @@ export default function ContactPreview({ contact }: Props): ReactElement {
   );
 
   return (
-    <LineItem label={label}>
+    <Accordion label={label}>
       <Typography>Contact Details</Typography>
-    </LineItem>
+    </Accordion>
   );
 }

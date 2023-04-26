@@ -1,11 +1,13 @@
 import React, { type ReactElement } from "react";
-import { Typography } from "@mui/material";
-import { v4 as uuidv4 } from "uuid";
+import SignIn from "./SignIn";
+import RegistrationForm from "./RegistrationForm";
+import SlatFiftyFifty from "./SlatFiftyFifty";
 
 export default function VisitorHome(): ReactElement {
   return (
-    <Typography key={uuidv4()}>
-      Welcome. You must sign in to use this service.
-    </Typography>
+    <SlatFiftyFifty
+      leftContent={<RegistrationForm />}
+      rightContent={<SignIn />}
+    />
   );
 }

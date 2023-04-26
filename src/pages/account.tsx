@@ -1,17 +1,17 @@
 import { type ReactElement } from "react";
 import Head from "next/head";
 import {
-  Card,
-  CardContent,
-  CardActions,
+  Box,
   Typography,
-  Grid,
+  List,
+  ListItem,
   TextField,
   Button,
 } from "@mui/material";
 import { Auth } from "aws-amplify";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useUser } from "../context/AuthContext";
+import SlatFiftyFifty from "../components/SlatFiftyFifty";
 
 // TODO: Add change password, update email address.
 // TODO: Add preamble and closing scripts.
@@ -44,78 +44,77 @@ export default function Account(): ReactElement {
         <title>{username}</title>
       </Head>
       <main>
-        <Grid container direction="column" spacing={2}>
-          <Grid item>
-            <Card>
-              <CardContent>
-                <Typography>{`Username: ${
-                  username !== null ? username : "UNKNOWN"
-                }`}</Typography>
-                <Typography>{`Email Address: ${
-                  email !== null ? email : "UNKNOWN"
-                }`}</Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item>
+        <SlatFiftyFifty
+          leftContent={
+            <>
+              <Typography variant="h2">Account</Typography>
+              <List>
+                <ListItem disableGutters>
+                  <Typography>{`Username: ${
+                    username !== null ? username : "UNKNOWN"
+                  }`}</Typography>
+                </ListItem>
+                <ListItem disableGutters>
+                  <Typography>{`Email Address: ${
+                    email !== null ? email : "UNKNOWN"
+                  }`}</Typography>
+                </ListItem>
+              </List>
+            </>
+          }
+          rightContent={
             <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-              <Card>
-                <CardContent>
-                  <Grid container direction="column" spacing={2}>
-                    <Grid item>
-                      <Typography variant="h1">Change Password</Typography>
-                    </Grid>
-                    <Grid item>
-                      <TextField
-                        variant="outlined"
-                        id="oldPassword"
-                        label="Old Password"
-                        type="password"
-                        error={errors.oldPassword != null}
-                        helperText={
-                          errors.oldPassword != null
-                            ? errors.oldPassword.message
-                            : null
-                        }
-                        {...register("oldPassword", {
-                          required: {
-                            value: true,
-                            message: "Please enter your old password.",
-                          },
-                        })}
-                      />
-                    </Grid>
-                    <Grid item>
-                      <TextField
-                        variant="outlined"
-                        id="newPassword"
-                        label="New Password"
-                        type="password"
-                        error={errors.newPassword != null}
-                        helperText={
-                          errors.newPassword != null
-                            ? errors.newPassword.message
-                            : null
-                        }
-                        {...register("newPassword", {
-                          required: {
-                            value: true,
-                            message: "Please enter a new password.",
-                          },
-                        })}
-                      />
-                    </Grid>
-                  </Grid>
-                </CardContent>
-                <CardActions>
-                  <Button variant="contained" type="submit">
-                    Submit
-                  </Button>
-                </CardActions>
-              </Card>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 4,
+                }}
+              >
+                <Typography variant="h2">Change Password</Typography>
+                <TextField
+                  variant="outlined"
+                  id="oldPassword"
+                  label="Old Password"
+                  type="password"
+                  error={errors.oldPassword != null}
+                  helperText={
+                    errors.oldPassword != null
+                      ? errors.oldPassword.message
+                      : null
+                  }
+                  {...register("oldPassword", {
+                    required: {
+                      value: true,
+                      message: "Please enter your old password.",
+                    },
+                  })}
+                />
+                <TextField
+                  variant="outlined"
+                  id="newPassword"
+                  label="New Password"
+                  type="password"
+                  error={errors.newPassword != null}
+                  helperText={
+                    errors.newPassword != null
+                      ? errors.newPassword.message
+                      : null
+                  }
+                  {...register("newPassword", {
+                    required: {
+                      value: true,
+                      message: "Please enter a new password.",
+                    },
+                  })}
+                />
+                <Button variant="contained" type="submit">
+                  Submit
+                </Button>
+              </Box>
             </form>
-          </Grid>
-        </Grid>
+          }
+        />
       </main>
     </div>
   );

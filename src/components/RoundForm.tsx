@@ -4,7 +4,7 @@ import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
 import { API } from "aws-amplify";
 import { type CreateRoundMutation, type CreateRoundInput } from "../API";
 import { createRound } from "../graphql/mutations";
-import CurrentRound from "./CurrentRound";
+import RoundPreview from "./RoundPreview";
 import ContactForm from "./ContactForm";
 
 interface Props {
@@ -46,7 +46,7 @@ export default function RoundForm({ netId }: Props): ReactElement {
       </Grid>
       {roundId !== null && (
         <Grid item>
-          <CurrentRound roundId={roundId} />
+          <RoundPreview roundId={roundId} expanded={true} />
         </Grid>
       )}
     </Grid>

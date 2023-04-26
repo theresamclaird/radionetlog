@@ -39,12 +39,12 @@ export default function NetForm(): ReactElement {
   return (
     <Grid container direction="column" spacing={2}>
       <Grid item>
-        <RoundForm netId={netId} />
-      </Grid>
-      <Grid item>
         <Button disabled={netId !== null} onClick={handleAddClick}>
           New Net
         </Button>
+      </Grid>
+      <Grid item>
+        <RoundForm netId={netId} />
       </Grid>
     </Grid>
   );

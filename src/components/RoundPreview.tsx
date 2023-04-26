@@ -1,18 +1,83 @@
-import React, { type ReactElement } from "react";
+import React, { type ReactElement, useState, useEffect } from "react";
 import { Grid } from "@mui/material";
-import LineItem from "./LineItem";
+import { GRAPHQL_AUTH_MODE, type GraphQLSubscription } from "@aws-amplify/api";
+import { API, graphqlOperation } from "aws-amplify";
+import {
+  type Round,
+  type Contact,
+  type GetRoundQuery,
+  type OnCreateContactSubscription,
+} from "../API";
+import { getRound } from "../graphql/queries";
+import { onCreateContact } from "../graphql/subscriptions";
+import Accordion from "./Accordion";
 import ContactPreview from "./ContactPreview";
-import { type Round, type Contact } from "../API";
 
 interface Props {
   index?: number;
-  round: Round;
+  roundId: string;
+  expanded?: boolean;
 }
 
 export default function RoundPreview({
   index = 0,
-  round,
-}: Props): ReactElement {
+  roundId,
+  expanded = false,
+}: Props): ReactElement | null {
+  const [round, setRound] = useState<Round | null>(null);
+
+  const fetchRound = async (): Promise<Round | null> => {
+    if (roundId === null) {
+      return null;
+    }
+    const roundData = (await API.graphql({
+      query: getRound,
+      variables: { id: roundId },
+      authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
+    })) as {
+      data: GetRoundQuery;
+      errors: any[];
+    };
+
+    if (roundData?.errors?.length > 0) {
+      setRound(null);
+      return null;
+    }
+
+    const fetchedRound = roundData?.data?.getRound as Round;
+    setRound(fetchedRound);
+    return fetchedRound;
+  };
+
+  useEffect(() => {
+    const sub = API.graphql<GraphQLSubscription<OnCreateContactSubscription>>({
+      ...graphqlOperation(onCreateContact),
+      authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
+    }).subscribe({
+      next: () => {
+        fetchRound().catch((error) => {
+          console.warn(error);
+        });
+      },
+      error: (error) => {
+        console.warn(error);
+      },
+    });
+    return () => {
+      sub.unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    fetchRound().catch((error) => {
+      console.warn(error);
+    });
+  }, [roundId]);
+
+  if (round === null) {
+    return null;
+  }
+
   const d = new Date(round.createdAt);
   const locale = navigator?.languages[0];
   const roundTime = d.toLocaleTimeString(locale !== null ? locale : "en-US", {
@@ -33,7 +98,7 @@ export default function RoundPreview({
   })`;
 
   return (
-    <LineItem label={label}>
+    <Accordion label={label} expanded={expanded} disabled={true}>
       <Grid container direction="column">
         {contacts.map((contact) => (
           <Grid item key={contact?.id} sx={{ my: 1 }}>
@@ -41,6 +106,6 @@ export default function RoundPreview({
           </Grid>
         ))}
       </Grid>
-    </LineItem>
+    </Accordion>
   );
 }
