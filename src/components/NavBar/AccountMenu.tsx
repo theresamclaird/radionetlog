@@ -2,8 +2,8 @@ import React from "react";
 import { IconButton, MenuList, MenuItem, Link } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { Auth } from "aws-amplify";
-import { useUser } from "../context/AuthContext";
-import PopperMenu from "../components/PopperMenu";
+import { useUser } from "../../context/AuthContext";
+import PopperMenu from "../PopperMenu";
 import { useRouter } from "next/router";
 
 export default function AccountMenu() {

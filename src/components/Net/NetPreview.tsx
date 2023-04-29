@@ -9,12 +9,11 @@ import {
   type Net,
   type Contact,
   type Round,
-} from "../API";
-import { getNet } from "../graphql/queries";
-import { onUpdateNet } from "../graphql/subscriptions";
-
-import Accordion from "./Accordion";
-import RoundPreview from "./RoundPreview";
+} from "../../API";
+import { getNet } from "../../graphql/queries";
+import { onUpdateNet } from "../../graphql/subscriptions";
+import Accordion from "../Accordion";
+import RoundPreview from "../Round/RoundPreview";
 
 interface Props {
   netId: string;

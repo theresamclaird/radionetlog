@@ -50,7 +50,7 @@ export default function Account(): ReactElement {
               <Typography variant="h2">Account</Typography>
               <List>
                 <ListItem disableGutters>
-                  <Typography>{`Username: ${
+                  <Typography>{`Call Sign: ${
                     username !== null ? username : "UNKNOWN"
                   }`}</Typography>
                 </ListItem>

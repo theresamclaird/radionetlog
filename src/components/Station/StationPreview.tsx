@@ -14,7 +14,7 @@ import {
   DirectionsCar,
   Language,
 } from "@mui/icons-material";
-import { type Station } from "../API";
+import { type Station } from "../../API";
 
 /*
 TODO:

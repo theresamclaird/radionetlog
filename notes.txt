@@ -1,0 +1,95 @@
+schema
+    Net (private)
+        id
+        rounds
+        owner
+        createdAt
+        updatedAt
+
+    Round (private)
+        id
+        netId
+        contacts
+        owner
+        createdAt
+        updatedAt
+
+    Contact (public?)
+        id
+        roundId?
+        callSign
+        name
+        location
+        attributes
+        owner
+        createdAt
+        updatedAt
+
+    Station (private)
+        id
+        callSign
+        name
+        location
+        notes
+        attributes
+        owner
+        createdAt
+        updatedAt
+
+    Scripts (private)
+        id
+        text
+        owner
+        createdAt
+        updatedAt
+
+pages
+    X index (homepage)
+        SlatFiftyFifty
+            Registration Form
+            Sign In Form
+    
+    X account
+        SlatFiftyFifty
+            accont details
+                username
+                email address
+            Change Password Form
+    
+    X station/
+        index
+            Station Form (create)
+            Station List (list of all known stations)
+                Station Preview
+        [callSign]
+            Station Form (update)
+            Contacts List (list of all contacts with this station)
+                Contact Preview
+    
+    net/
+        index (net form, list of nets)
+            state: netId: string | null
+            Round Form (create)
+                Contact Form (create)
+            Rounds List (list of all rounds associated with this net)
+                Round Preview (subscribe to round updates, new contacts)
+            Nets List (list of all nets except active)
+                Net Preview props: netId
+                    Round Preview props: roundId (subscribe to round updates, new contacts)
+                        Contact Preview props: contactId
+        [netId]
+            Round Form (update)
+                Contact Form (update)
+            Rounds List (list of rounds associated with this net)
+                Round Preview (subscribe to round updates, new contacts)
+                    Contact Preview
+
+    X contact/
+        Contact Form
+        Contacts List (list of all contacts)
+            Contact Preview (subscribe to contact changes)
+    
+    scripts/
+        Script Form (create, edit)
+        Scripts List
+            Script Preview

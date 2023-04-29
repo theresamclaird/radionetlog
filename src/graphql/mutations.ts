@@ -82,14 +82,14 @@ export const createRound = /* GraphQL */ `
       contacts {
         items {
           id
+          type
+          createdAt
           roundId
           callSign
           name
           location
           attributes
-          reportCompleted
           owner
-          createdAt
           updatedAt
         }
         nextToken
@@ -111,14 +111,14 @@ export const updateRound = /* GraphQL */ `
       contacts {
         items {
           id
+          type
+          createdAt
           roundId
           callSign
           name
           location
           attributes
-          reportCompleted
           owner
-          createdAt
           updatedAt
         }
         nextToken
@@ -140,14 +140,14 @@ export const deleteRound = /* GraphQL */ `
       contacts {
         items {
           id
+          type
+          createdAt
           roundId
           callSign
           name
           location
           attributes
-          reportCompleted
           owner
-          createdAt
           updatedAt
         }
         nextToken
@@ -165,14 +165,14 @@ export const createContact = /* GraphQL */ `
   ) {
     createContact(input: $input, condition: $condition) {
       id
+      type
+      createdAt
       roundId
       callSign
       name
       location
       attributes
-      reportCompleted
       owner
-      createdAt
       updatedAt
     }
   }
@@ -184,14 +184,14 @@ export const updateContact = /* GraphQL */ `
   ) {
     updateContact(input: $input, condition: $condition) {
       id
+      type
+      createdAt
       roundId
       callSign
       name
       location
       attributes
-      reportCompleted
       owner
-      createdAt
       updatedAt
     }
   }
@@ -203,14 +203,14 @@ export const deleteContact = /* GraphQL */ `
   ) {
     deleteContact(input: $input, condition: $condition) {
       id
+      type
+      createdAt
       roundId
       callSign
       name
       location
       attributes
-      reportCompleted
       owner
-      createdAt
       updatedAt
     }
   }

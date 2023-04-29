@@ -7,11 +7,11 @@ import {
   type Contact,
   type GetRoundQuery,
   type OnCreateContactSubscription,
-} from "../API";
-import { getRound } from "../graphql/queries";
-import { onCreateContact } from "../graphql/subscriptions";
-import Accordion from "./Accordion";
-import ContactPreview from "./ContactPreview";
+} from "../../API";
+import { getRound } from "../../graphql/queries";
+import { onCreateContact } from "../../graphql/subscriptions";
+import Accordion from "../Accordion";
+import ContactPreview from "../Contact/ContactReplay";
 
 interface Props {
   index?: number;

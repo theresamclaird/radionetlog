@@ -4,8 +4,8 @@ import IconButton from "@mui/material/IconButton";
 import MenuList from "@mui/material/MenuList";
 import MenuItem from "@mui/material/MenuItem";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useUser } from "../context/AuthContext";
-import PopperMenu from "../components/PopperMenu";
+import { useUser } from "../../context/AuthContext";
+import PopperMenu from "../PopperMenu";
 
 export default function ContextMenu() {
   const { username } = useUser();
@@ -28,25 +28,17 @@ export default function ContextMenu() {
       }}
     >
       <MenuList>
-        <MenuItem component={Link} href="/">
-          Logbook
+        <MenuItem component={Link} href="/contact">
+          Contacts
+        </MenuItem>
+        <MenuItem component={Link} href="/net">
+          Nets
         </MenuItem>
         <MenuItem component={Link} href="/station">
           Stations
         </MenuItem>
-        <MenuItem
-          onClick={() => {
-            console.log("Preamble Script");
-          }}
-        >
-          Preamble Script
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            console.log("Closing Script");
-          }}
-        >
-          Closing Script
+        <MenuItem component={Link} href="/script">
+          Scripts
         </MenuItem>
       </MenuList>
     </PopperMenu>

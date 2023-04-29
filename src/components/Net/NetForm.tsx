@@ -3,9 +3,9 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
 import { API } from "aws-amplify";
-import { type CreateNetMutation } from "../API";
-import { createNet } from "../graphql/mutations";
-import RoundForm from "./RoundForm";
+import { type CreateNetMutation } from "../../API";
+import { createNet } from "../../graphql/mutations";
+import RoundForm from "../Round/RoundForm";
 
 export default function NetForm(): ReactElement {
   const [netId, setNetId] = useState<string | null>(null);

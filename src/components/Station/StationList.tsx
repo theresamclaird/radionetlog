@@ -4,17 +4,17 @@ import { API, graphqlOperation } from "aws-amplify";
 import { type GraphQLSubscription } from "@aws-amplify/api";
 import { Delete } from "@mui/icons-material";
 import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
-import StationPreview from "../components/StationPreview";
+import StationPreview from "./StationPreview";
 import {
   type Station,
   type ListStationsQuery,
   type OnCreateStationSubscription,
-} from "../API";
-import { listStations } from "../graphql/queries";
-import { deleteStation } from "../graphql/mutations";
-import { onCreateStation } from "../graphql/subscriptions";
+} from "../../API";
+import { listStations } from "../../graphql/queries";
+import { deleteStation } from "../../graphql/mutations";
+import { onCreateStation } from "../../graphql/subscriptions";
 
-export default function Stations(): ReactElement {
+export default function StationList(): ReactElement {
   const [stations, setStations] = useState<Station[]>([]);
 
   const fetchStationsFromApi = async (): Promise<Station[]> => {

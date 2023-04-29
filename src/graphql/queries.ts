@@ -50,14 +50,14 @@ export const getRound = /* GraphQL */ `
       contacts {
         items {
           id
+          type
+          createdAt
           roundId
           callSign
           name
           location
           attributes
-          reportCompleted
           owner
-          createdAt
           updatedAt
         }
         nextToken
@@ -122,14 +122,14 @@ export const getContact = /* GraphQL */ `
   query GetContact($id: ID!) {
     getContact(id: $id) {
       id
+      type
+      createdAt
       roundId
       callSign
       name
       location
       attributes
-      reportCompleted
       owner
-      createdAt
       updatedAt
     }
   }
@@ -143,14 +143,47 @@ export const listContacts = /* GraphQL */ `
     listContacts(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        type
+        createdAt
         roundId
         callSign
         name
         location
         attributes
-        reportCompleted
         owner
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const contactsByDate = /* GraphQL */ `
+  query ContactsByDate(
+    $type: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelContactFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    contactsByDate(
+      type: $type
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        type
         createdAt
+        roundId
+        callSign
+        name
+        location
+        attributes
+        owner
         updatedAt
       }
       nextToken
@@ -174,14 +207,14 @@ export const contactsByRoundId = /* GraphQL */ `
     ) {
       items {
         id
+        type
+        createdAt
         roundId
         callSign
         name
         location
         attributes
-        reportCompleted
         owner
-        createdAt
         updatedAt
       }
       nextToken

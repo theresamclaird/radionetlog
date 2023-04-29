@@ -4,15 +4,15 @@ import IconButton from "@mui/material/IconButton";
 import Delete from "@mui/icons-material/Delete";
 import { type GraphQLSubscription, GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
 import { API, graphqlOperation } from "aws-amplify";
-import NetPreview from "../components/NetPreview";
+import NetPreview from "./NetPreview";
 import {
   type Net,
   type ListNetsQuery,
   type OnCreateNetSubscription,
-} from "../API";
-import { deleteNet } from "../graphql/mutations";
-import { onCreateNet } from "../graphql/subscriptions";
-import Slat from "../components/Slat";
+} from "../../API";
+import { deleteNet } from "../../graphql/mutations";
+import { onCreateNet } from "../../graphql/subscriptions";
+import Slat from "../Slat";
 
 const netsQuery = `
   query AllNets($filter: ModelNetFilterInput, $limit: Int, $nextToken: String) {
@@ -44,7 +44,7 @@ const netsQuery = `
   }
 `;
 
-export default function NetsList(): ReactElement {
+export default function NetList(): ReactElement {
   const [nets, setNets] = useState<Net[]>([]);
 
   const fetchNetsFromApi = async (): Promise<Net[]> => {

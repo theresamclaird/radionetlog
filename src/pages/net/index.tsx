@@ -1,8 +1,8 @@
 import React, { type ReactElement } from "react";
 import { Grid } from "@mui/material";
-import NetsList from "../components/NetsList";
-import NetForm from "./NetForm";
-import Slat from "./Slat";
+import NetList from "../../components/Net/NetList";
+import NetForm from "../../components/Net/NetForm";
+import Slat from "../../components/Slat";
 
 export default function UserHome(): ReactElement {
   return (
@@ -13,7 +13,7 @@ export default function UserHome(): ReactElement {
         </Slat>
       </Grid>
       <Grid item>
-        <NetsList />
+        <NetList />
       </Grid>
     </Grid>
   );

@@ -20,19 +20,11 @@ import {
 
 import { API } from "aws-amplify";
 import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
-import { createStation } from "../graphql/mutations";
-import { type Station, type CreateStationInput } from "../API";
-
-interface IFormInput {
-  callSign: string;
-  name: string;
-  location: string;
-  notes: string;
-  attributes: Array<string | null>;
-}
+import { createStation } from "../../graphql/mutations";
+import { type Station, type CreateStationInput } from "../../API";
 
 export interface StationFormProps {
-  station: Station | IFormInput;
+  station: Station | CreateStationInput;
 }
 
 export default function StationForm({ station }: StationFormProps) {
@@ -44,11 +36,11 @@ export default function StationForm({ station }: StationFormProps) {
     handleSubmit,
     reset,
     setFocus,
-  } = useForm<IFormInput>({
+  } = useForm<CreateStationInput>({
     defaultValues: station,
   });
 
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+  const onSubmit: SubmitHandler<CreateStationInput> = async (data) => {
     try {
       const createStationInput: CreateStationInput = {
         callSign: data.callSign,

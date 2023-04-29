@@ -19,12 +19,19 @@ type Contact
   @model
   @auth(rules: [{ allow: owner, operations: [create, update, delete, read] }]) {
   id: ID!
-  roundId: ID! @index(name: "byRound")
+  type: String!
+    @index(
+      name: "contactsByDate"
+      queryField: "contactsByDate"
+      sortKeyFields: ["createdAt"]
+    )
+
+  createdAt: String!
+  roundId: ID @index(name: "byRound")
   callSign: String!
-  name: String!
-  location: String!
-  attributes: [String]!
-  reportCompleted: Boolean!
+  name: String
+  location: String
+  attributes: [String]
   owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
@@ -33,9 +40,9 @@ type Station
   @auth(rules: [{ allow: owner, operations: [create, update, delete, read] }]) {
   id: ID!
   callSign: String! @index(name: "byCallSign")
-  name: String!
-  location: String!
-  notes: String!
-  attributes: [String]!
+  name: String
+  location: String
+  notes: String
+  attributes: [String]
   owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }

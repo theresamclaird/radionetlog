@@ -10,7 +10,7 @@ import theme from "../theme";
 import createEmotionCache from "../createEmotionCache";
 import { Amplify } from "aws-amplify";
 import AuthContext from "../context/AuthContext";
-import NavBar from "../components/NavBar";
+import NavBar from "../components/NavBar/NavBar";
 
 import awsconfig from "../aws-exports";
 Amplify.configure({ ...awsconfig, ssr: true });

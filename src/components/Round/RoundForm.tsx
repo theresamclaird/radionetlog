@@ -2,10 +2,10 @@ import React, { type ReactElement, useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
 import { API } from "aws-amplify";
-import { type CreateRoundMutation, type CreateRoundInput } from "../API";
-import { createRound } from "../graphql/mutations";
+import { type CreateRoundMutation, type CreateRoundInput } from "../../API";
+import { createRound } from "../../graphql/mutations";
 import RoundPreview from "./RoundPreview";
-import ContactForm from "./ContactForm";
+import ContactForm from "../Contact/ContactForm";
 
 interface Props {
   netId: string | null;
@@ -42,7 +42,16 @@ export default function RoundForm({ netId }: Props): ReactElement {
   return (
     <Grid container direction="column" spacing={2}>
       <Grid item>
-        <ContactForm roundId={roundId} />
+        <ContactForm
+          contact={{
+            type: "qso",
+            roundId: null,
+            callSign: "",
+            name: "",
+            location: "",
+            attributes: [],
+          }}
+        />
       </Grid>
       {roundId !== null && (
         <Grid item>

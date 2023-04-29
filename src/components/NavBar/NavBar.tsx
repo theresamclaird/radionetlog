@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, AppBar, Toolbar, Link } from "@mui/material";
-import AccountMenu from "../components/AccountMenu";
-import ContextMenu from "../components/ContextMenu";
+import AccountMenu from "./AccountMenu";
+import ContextMenu from "./ContextMenu";
 
 export default function NavBar() {
   return (

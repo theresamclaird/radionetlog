@@ -15,14 +15,14 @@ import {
 } from "@mui/icons-material";
 import { API } from "aws-amplify";
 import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
-import { createContact } from "../graphql/mutations";
-import { type CreateContactInput } from "../API";
+import { createContact } from "../../graphql/mutations";
+import { type CreateContactInput } from "../../API";
 
 export interface Props {
-  roundId: string | null;
+  contact: CreateContactInput | null;
 }
 
-export default function ContactForm({ roundId }: Props) {
+export default function ContactForm({ contact }: Props) {
   const {
     control,
     register,
@@ -31,38 +31,33 @@ export default function ContactForm({ roundId }: Props) {
     reset,
     setFocus,
   } = useForm<CreateContactInput>({
-    defaultValues: {
-      roundId: roundId === null ? "" : roundId,
-      callSign: "",
-      name: "",
-      location: "",
-      attributes: [],
-      reportCompleted: false,
-    },
+    defaultValues:
+      contact === null
+        ? {
+            roundId: null,
+            callSign: "",
+            name: "",
+            location: "",
+            attributes: [],
+          }
+        : contact,
   });
 
   const onSubmit: SubmitHandler<CreateContactInput> = async (data) => {
-    if (roundId === null) {
+    if (contact?.roundId === null) {
       return;
     }
 
     try {
-      const createContactInput: CreateContactInput = {
-        roundId,
-        callSign: data.callSign,
-        name: data.name,
-        location: data.location,
-        attributes: data.attributes,
-        reportCompleted: data.reportCompleted,
-      };
+      const createContactInput: CreateContactInput = data;
 
       await API.graphql({
         query: createContact,
         variables: { input: createContactInput },
         authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
       });
-      reset();
       setFocus("callSign");
+      reset();
     } catch (error) {
       console.error(error);
     }
@@ -70,9 +65,7 @@ export default function ContactForm({ roundId }: Props) {
 
   React.useEffect(() => {
     setFocus("callSign");
-  }, [setFocus]);
-
-  const disableForm = roundId === null;
+  }, []);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
@@ -87,7 +80,6 @@ export default function ContactForm({ roundId }: Props) {
       >
         {/* callSign */}
         <TextField
-          disabled={disableForm}
           variant="outlined"
           fullWidth
           id="callSign"
@@ -106,7 +98,6 @@ export default function ContactForm({ roundId }: Props) {
 
         {/* name */}
         <TextField
-          disabled={disableForm}
           variant="outlined"
           fullWidth
           id="name"
@@ -120,7 +111,6 @@ export default function ContactForm({ roundId }: Props) {
 
         {/* location */}
         <TextField
-          disabled={disableForm}
           variant="outlined"
           fullWidth
           id="location"
@@ -149,7 +139,6 @@ export default function ContactForm({ roundId }: Props) {
             render={({ field: { onChange, value } }) => {
               return (
                 <ToggleButtonGroup
-                  disabled={disableForm}
                   color="primary"
                   size="small"
                   aria-label="contact attributes"
@@ -174,7 +163,7 @@ export default function ContactForm({ roundId }: Props) {
               );
             }}
           />
-          <IconButton disabled={disableForm} type="submit">
+          <IconButton type="submit">
             <AddBox />
           </IconButton>
         </Box>

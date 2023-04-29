@@ -33,7 +33,7 @@ export default function SignIn({ sx }: Props) {
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     try {
       await Auth.signIn(data.signinusername, data.signinpassword);
-      void router.push("/");
+      void router.push("/contact");
     } catch (error) {
       console.error(error);
       setLoginError(error.message);
