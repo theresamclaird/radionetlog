@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm, Controller, type SubmitHandler } from "react-hook-form";
 import {
-  Box,
+  Grid,
   TextField,
   ToggleButtonGroup,
   ToggleButton,
@@ -69,105 +69,137 @@ export default function ContactForm({ contact }: Props) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "flex-start",
-          gap: 2,
-          flexWrap: "wrap",
-        }}
+      <Grid
+        container
+        direction="row"
+        spacing={0}
+        justifyContent="space-between"
+        alignItems="center"
       >
-        {/* callSign */}
-        <TextField
-          variant="outlined"
-          fullWidth
-          id="callSign"
-          label="Call Sign"
-          type="text"
-          error={errors.callSign != null}
-          helperText={errors.callSign != null ? errors.callSign.message : null}
-          {...register("callSign", {
-            required: {
-              value: true,
-              message: "Required Field",
-            },
-          })}
-          sx={{ flex: 1, minWidth: 100 }}
-        />
-
-        {/* name */}
-        <TextField
-          variant="outlined"
-          fullWidth
-          id="name"
-          label="Name"
-          type="text"
-          error={errors.name != null}
-          helperText={errors.name != null ? errors.name.message : null}
-          {...register("name")}
-          sx={{ flex: 2, minWidth: 200 }}
-        />
-
-        {/* location */}
-        <TextField
-          variant="outlined"
-          fullWidth
-          id="location"
-          label="Location"
-          type="text"
-          error={errors.location != null}
-          helperText={errors.location != null ? errors.location.message : null}
-          {...register("location")}
-          sx={{ flex: 2, minWidth: 200 }}
-        />
-
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "flex-end",
-            alignItems: "center",
-            gap: 2,
-          }}
+        <Grid
+          item
+          container
+          xs={8}
+          direction="row"
+          spacing={1}
+          alignItems="center"
         >
-          {/* attributes */}
-          <Controller
-            name="attributes"
-            control={control}
-            defaultValue={[]}
-            render={({ field: { onChange, value } }) => {
-              return (
-                <ToggleButtonGroup
-                  color="primary"
-                  size="small"
-                  aria-label="contact attributes"
-                  onChange={(e, value) => {
-                    onChange(value);
-                  }}
-                  value={value}
-                >
-                  <ToggleButton value="inAndOut" aria-label="in-and-out">
-                    I/O
-                  </ToggleButton>
-                  <ToggleButton value="mobile" aria-label="mobile">
-                    <DirectionsCar />
-                  </ToggleButton>
-                  <ToggleButton value="internet" aria-label="internet">
-                    <Language />
-                  </ToggleButton>
-                  <ToggleButton value="recheck" aria-label="recheck">
-                    <PublishedWithChanges />
-                  </ToggleButton>
-                </ToggleButtonGroup>
-              );
-            }}
-          />
-          <IconButton type="submit">
-            <AddBox />
-          </IconButton>
-        </Box>
-      </Box>
+          {/* callSign */}
+          <Grid item xs={2}>
+            <TextField
+              variant="outlined"
+              fullWidth
+              id="callSign"
+              label="Call Sign"
+              type="text"
+              error={errors.callSign != null}
+              helperText={
+                errors.callSign != null ? errors.callSign.message : null
+              }
+              {...register("callSign", {
+                required: {
+                  value: true,
+                  message: "Required Field",
+                },
+              })}
+            />
+          </Grid>
+
+          {/* name */}
+          <Grid item xs={4}>
+            <TextField
+              variant="outlined"
+              fullWidth
+              id="name"
+              label="Name"
+              type="text"
+              error={errors.name != null}
+              helperText={errors.name != null ? errors.name.message : null}
+              {...register("name")}
+            />
+          </Grid>
+          {/* location */}
+          <Grid item xs={5}>
+            <TextField
+              variant="outlined"
+              fullWidth
+              id="location"
+              label="Location"
+              type="text"
+              error={errors.location != null}
+              helperText={
+                errors.location != null ? errors.location.message : null
+              }
+              {...register("location")}
+            />
+          </Grid>
+        </Grid>
+        <Grid
+          item
+          xs={3}
+          container
+          spacing={1}
+          direction="row"
+          justifySelf="end"
+          justifyContent="end"
+          alignItems="center"
+        >
+          <Grid item xs>
+            {/* signal report */}
+            <TextField
+              variant="outlined"
+              fullWidth
+              id="signalReport"
+              label="Signal Report"
+              type="text"
+              error={errors.signalReport != null}
+              helperText={
+                errors.signalReport != null ? errors.signalReport.message : null
+              }
+              {...register("signalReport")}
+            />
+          </Grid>
+          <Grid item>
+            {/* attributes */}
+            <Controller
+              name="attributes"
+              control={control}
+              defaultValue={[]}
+              render={({ field: { onChange, value } }) => {
+                return (
+                  <ToggleButtonGroup
+                    color="primary"
+                    size="small"
+                    aria-label="contact attributes"
+                    onChange={(e, value) => {
+                      onChange(value);
+                    }}
+                    value={value}
+                  >
+                    <ToggleButton value="inAndOut" aria-label="in-and-out">
+                      I/O
+                    </ToggleButton>
+                    <ToggleButton value="mobile" aria-label="mobile">
+                      <DirectionsCar />
+                    </ToggleButton>
+                    <ToggleButton value="internet" aria-label="internet">
+                      <Language />
+                    </ToggleButton>
+                    <ToggleButton value="recheck" aria-label="recheck">
+                      <PublishedWithChanges />
+                    </ToggleButton>
+                  </ToggleButtonGroup>
+                );
+              }}
+            />
+          </Grid>
+          <Grid item>
+            <IconButton type="submit">
+              <AddBox />
+            </IconButton>
+          </Grid>
+        </Grid>
+      </Grid>
     </form>
   );
 }

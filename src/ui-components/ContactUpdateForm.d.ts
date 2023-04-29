@@ -20,6 +20,7 @@ export declare type ContactUpdateFormInputValues = {
     name?: string;
     location?: string;
     attributes?: string[];
+    signalReport?: string;
     owner?: string;
 };
 export declare type ContactUpdateFormValidationValues = {
@@ -29,6 +30,7 @@ export declare type ContactUpdateFormValidationValues = {
     name?: ValidationFunction<string>;
     location?: ValidationFunction<string>;
     attributes?: ValidationFunction<string>;
+    signalReport?: ValidationFunction<string>;
     owner?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
@@ -40,6 +42,7 @@ export declare type ContactUpdateFormOverridesProps = {
     name?: PrimitiveOverrideProps<TextFieldProps>;
     location?: PrimitiveOverrideProps<TextFieldProps>;
     attributes?: PrimitiveOverrideProps<TextFieldProps>;
+    signalReport?: PrimitiveOverrideProps<TextFieldProps>;
     owner?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type ContactUpdateFormProps = React.PropsWithChildren<{

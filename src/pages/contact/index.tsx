@@ -5,7 +5,7 @@ import ContactList from "../../components/Contact/ContactList";
 
 export default function Station() {
   return (
-    <Grid container direction="column" spacing={4}>
+    <Grid container direction="column" spacing={1}>
       <Grid item>
         <ContactForm
           contact={{

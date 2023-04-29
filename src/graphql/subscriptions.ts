@@ -89,6 +89,7 @@ export const onCreateRound = /* GraphQL */ `
           name
           location
           attributes
+          signalReport
           owner
           updatedAt
         }
@@ -118,6 +119,7 @@ export const onUpdateRound = /* GraphQL */ `
           name
           location
           attributes
+          signalReport
           owner
           updatedAt
         }
@@ -147,6 +149,7 @@ export const onDeleteRound = /* GraphQL */ `
           name
           location
           attributes
+          signalReport
           owner
           updatedAt
         }
@@ -172,6 +175,7 @@ export const onCreateContact = /* GraphQL */ `
       name
       location
       attributes
+      signalReport
       owner
       updatedAt
     }
@@ -191,6 +195,7 @@ export const onUpdateContact = /* GraphQL */ `
       name
       location
       attributes
+      signalReport
       owner
       updatedAt
     }
@@ -210,6 +215,7 @@ export const onDeleteContact = /* GraphQL */ `
       name
       location
       attributes
+      signalReport
       owner
       updatedAt
     }

@@ -19,6 +19,7 @@ export declare type ContactCreateFormInputValues = {
     name?: string;
     location?: string;
     attributes?: string[];
+    signalReport?: string;
     owner?: string;
 };
 export declare type ContactCreateFormValidationValues = {
@@ -28,6 +29,7 @@ export declare type ContactCreateFormValidationValues = {
     name?: ValidationFunction<string>;
     location?: ValidationFunction<string>;
     attributes?: ValidationFunction<string>;
+    signalReport?: ValidationFunction<string>;
     owner?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
@@ -39,6 +41,7 @@ export declare type ContactCreateFormOverridesProps = {
     name?: PrimitiveOverrideProps<TextFieldProps>;
     location?: PrimitiveOverrideProps<TextFieldProps>;
     attributes?: PrimitiveOverrideProps<TextFieldProps>;
+    signalReport?: PrimitiveOverrideProps<TextFieldProps>;
     owner?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type ContactCreateFormProps = React.PropsWithChildren<{

@@ -57,6 +57,7 @@ export const getRound = /* GraphQL */ `
           name
           location
           attributes
+          signalReport
           owner
           updatedAt
         }
@@ -129,6 +130,7 @@ export const getContact = /* GraphQL */ `
       name
       location
       attributes
+      signalReport
       owner
       updatedAt
     }
@@ -150,6 +152,7 @@ export const listContacts = /* GraphQL */ `
         name
         location
         attributes
+        signalReport
         owner
         updatedAt
       }
@@ -183,6 +186,7 @@ export const contactsByDate = /* GraphQL */ `
         name
         location
         attributes
+        signalReport
         owner
         updatedAt
       }
@@ -214,6 +218,7 @@ export const contactsByRoundId = /* GraphQL */ `
         name
         location
         attributes
+        signalReport
         owner
         updatedAt
       }

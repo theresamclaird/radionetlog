@@ -199,6 +199,7 @@ export default function ContactUpdateForm(props) {
     name: "",
     location: "",
     attributes: [],
+    signalReport: "",
     owner: "",
   };
   const [type, setType] = React.useState(initialValues.type);
@@ -207,6 +208,9 @@ export default function ContactUpdateForm(props) {
   const [name, setName] = React.useState(initialValues.name);
   const [location, setLocation] = React.useState(initialValues.location);
   const [attributes, setAttributes] = React.useState(initialValues.attributes);
+  const [signalReport, setSignalReport] = React.useState(
+    initialValues.signalReport
+  );
   const [owner, setOwner] = React.useState(initialValues.owner);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
@@ -220,6 +224,7 @@ export default function ContactUpdateForm(props) {
     setLocation(cleanValues.location);
     setAttributes(cleanValues.attributes ?? []);
     setCurrentAttributesValue("");
+    setSignalReport(cleanValues.signalReport);
     setOwner(cleanValues.owner);
     setErrors({});
   };
@@ -244,6 +249,7 @@ export default function ContactUpdateForm(props) {
     name: [],
     location: [],
     attributes: [],
+    signalReport: [],
     owner: [],
   };
   const runValidationTasks = async (
@@ -278,6 +284,7 @@ export default function ContactUpdateForm(props) {
           name,
           location,
           attributes,
+          signalReport,
           owner,
         };
         const validationResponses = await Promise.all(
@@ -340,6 +347,7 @@ export default function ContactUpdateForm(props) {
               name,
               location,
               attributes,
+              signalReport,
               owner,
             };
             const result = onChange(modelFields);
@@ -370,6 +378,7 @@ export default function ContactUpdateForm(props) {
               name,
               location,
               attributes,
+              signalReport,
               owner,
             };
             const result = onChange(modelFields);
@@ -400,6 +409,7 @@ export default function ContactUpdateForm(props) {
               name,
               location,
               attributes,
+              signalReport,
               owner,
             };
             const result = onChange(modelFields);
@@ -430,6 +440,7 @@ export default function ContactUpdateForm(props) {
               name: value,
               location,
               attributes,
+              signalReport,
               owner,
             };
             const result = onChange(modelFields);
@@ -460,6 +471,7 @@ export default function ContactUpdateForm(props) {
               name,
               location: value,
               attributes,
+              signalReport,
               owner,
             };
             const result = onChange(modelFields);
@@ -486,6 +498,7 @@ export default function ContactUpdateForm(props) {
               name,
               location,
               attributes: values,
+              signalReport,
               owner,
             };
             const result = onChange(modelFields);
@@ -526,6 +539,37 @@ export default function ContactUpdateForm(props) {
         ></TextField>
       </ArrayField>
       <TextField
+        label="Signal report"
+        isRequired={false}
+        isReadOnly={false}
+        value={signalReport}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              type,
+              createdAt,
+              callSign,
+              name,
+              location,
+              attributes,
+              signalReport: value,
+              owner,
+            };
+            const result = onChange(modelFields);
+            value = result?.signalReport ?? value;
+          }
+          if (errors.signalReport?.hasError) {
+            runValidationTasks("signalReport", value);
+          }
+          setSignalReport(value);
+        }}
+        onBlur={() => runValidationTasks("signalReport", signalReport)}
+        errorMessage={errors.signalReport?.errorMessage}
+        hasError={errors.signalReport?.hasError}
+        {...getOverrideProps(overrides, "signalReport")}
+      ></TextField>
+      <TextField
         label="Owner"
         isRequired={false}
         isReadOnly={false}
@@ -540,6 +584,7 @@ export default function ContactUpdateForm(props) {
               name,
               location,
               attributes,
+              signalReport,
               owner: value,
             };
             const result = onChange(modelFields);

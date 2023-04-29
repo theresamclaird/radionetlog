@@ -3,7 +3,6 @@ import { GRAPHQL_AUTH_MODE, type GraphQLSubscription } from "@aws-amplify/api";
 import { API, graphqlOperation } from "aws-amplify";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
-import Box from "@mui/material/Box";
 import Delete from "@mui/icons-material/Delete";
 import {
   type OnCreateContactSubscription,
@@ -96,31 +95,30 @@ export default function ContactList(): ReactElement {
       container
       direction="column"
       spacing={0}
-      sx={{ borderBottom: "solid 1px #ccc" }}
+      sx={{ borderBottom: "solid 1px #ccc", justifyContent: "center" }}
     >
       {contacts.map((contact) => (
-        <Grid item key={contact.id}>
-          <Box
-            sx={{
-              borderTop: "solid 1px #ccc",
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              p: 1,
+        <Grid
+          item
+          key={contact.id}
+          sx={{
+            borderTop: "solid 1px #ccc",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <ContactReplay contact={contact} />
+          <IconButton
+            onClick={() => {
+              deleteContactById(contact.id).catch((error) => {
+                console.warn(error);
+              });
             }}
           >
-            <ContactReplay contact={contact} />
-            <IconButton
-              onClick={() => {
-                deleteContactById(contact.id).catch((error) => {
-                  console.warn(error);
-                });
-              }}
-            >
-              <Delete />
-            </IconButton>
-          </Box>
+            <Delete />
+          </IconButton>
         </Grid>
       ))}
     </Grid>

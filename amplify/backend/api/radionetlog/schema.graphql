@@ -32,6 +32,7 @@ type Contact
   name: String
   location: String
   attributes: [String]
+  signalReport: String
   owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
