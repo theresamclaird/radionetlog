@@ -45,7 +45,7 @@ export default function StationForm({ station }: StationFormProps) {
       const createStationInput: CreateStationInput = {
         callSign: data.callSign,
         name: data.name,
-        location: data.location,
+        qth: data.qth,
         notes: data.notes,
         attributes: data.attributes,
       };
@@ -130,14 +130,12 @@ export default function StationForm({ station }: StationFormProps) {
                 sx={{ flex: 2 }}
                 variant="outlined"
                 fullWidth
-                id="location"
-                label="Location"
+                id="qth"
+                label="QTH"
                 type="text"
-                error={errors.location != null}
-                helperText={
-                  errors.location != null ? errors.location.message : null
-                }
-                {...register("location")}
+                error={errors.qth != null}
+                helperText={errors.qth != null ? errors.qth.message : null}
+                {...register("qth")}
               />
 
               <Controller

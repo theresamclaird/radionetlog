@@ -15,16 +15,18 @@ export declare type ValidationResponse = {
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type StationUpdateFormInputValues = {
     callSign?: string;
+    grid?: string;
     name?: string;
-    location?: string;
+    qth?: string;
     notes?: string;
     attributes?: string[];
     owner?: string;
 };
 export declare type StationUpdateFormValidationValues = {
     callSign?: ValidationFunction<string>;
+    grid?: ValidationFunction<string>;
     name?: ValidationFunction<string>;
-    location?: ValidationFunction<string>;
+    qth?: ValidationFunction<string>;
     notes?: ValidationFunction<string>;
     attributes?: ValidationFunction<string>;
     owner?: ValidationFunction<string>;
@@ -33,8 +35,9 @@ export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes
 export declare type StationUpdateFormOverridesProps = {
     StationUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
     callSign?: PrimitiveOverrideProps<TextFieldProps>;
+    grid?: PrimitiveOverrideProps<TextFieldProps>;
     name?: PrimitiveOverrideProps<TextFieldProps>;
-    location?: PrimitiveOverrideProps<TextFieldProps>;
+    qth?: PrimitiveOverrideProps<TextFieldProps>;
     notes?: PrimitiveOverrideProps<TextFieldProps>;
     attributes?: PrimitiveOverrideProps<TextFieldProps>;
     owner?: PrimitiveOverrideProps<TextFieldProps>;

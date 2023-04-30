@@ -193,23 +193,26 @@ export default function StationCreateForm(props) {
   } = props;
   const initialValues = {
     callSign: "",
+    grid: "",
     name: "",
-    location: "",
+    qth: "",
     notes: "",
     attributes: [],
     owner: "",
   };
   const [callSign, setCallSign] = React.useState(initialValues.callSign);
+  const [grid, setGrid] = React.useState(initialValues.grid);
   const [name, setName] = React.useState(initialValues.name);
-  const [location, setLocation] = React.useState(initialValues.location);
+  const [qth, setQth] = React.useState(initialValues.qth);
   const [notes, setNotes] = React.useState(initialValues.notes);
   const [attributes, setAttributes] = React.useState(initialValues.attributes);
   const [owner, setOwner] = React.useState(initialValues.owner);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setCallSign(initialValues.callSign);
+    setGrid(initialValues.grid);
     setName(initialValues.name);
-    setLocation(initialValues.location);
+    setQth(initialValues.qth);
     setNotes(initialValues.notes);
     setAttributes(initialValues.attributes);
     setCurrentAttributesValue("");
@@ -221,8 +224,9 @@ export default function StationCreateForm(props) {
   const attributesRef = React.createRef();
   const validations = {
     callSign: [{ type: "Required" }],
+    grid: [],
     name: [],
-    location: [],
+    qth: [],
     notes: [],
     attributes: [],
     owner: [],
@@ -254,8 +258,9 @@ export default function StationCreateForm(props) {
         event.preventDefault();
         let modelFields = {
           callSign,
+          grid,
           name,
-          location,
+          qth,
           notes,
           attributes,
           owner,
@@ -314,8 +319,9 @@ export default function StationCreateForm(props) {
           if (onChange) {
             const modelFields = {
               callSign: value,
+              grid,
               name,
-              location,
+              qth,
               notes,
               attributes,
               owner,
@@ -334,6 +340,36 @@ export default function StationCreateForm(props) {
         {...getOverrideProps(overrides, "callSign")}
       ></TextField>
       <TextField
+        label="Grid"
+        isRequired={false}
+        isReadOnly={false}
+        value={grid}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              callSign,
+              grid: value,
+              name,
+              qth,
+              notes,
+              attributes,
+              owner,
+            };
+            const result = onChange(modelFields);
+            value = result?.grid ?? value;
+          }
+          if (errors.grid?.hasError) {
+            runValidationTasks("grid", value);
+          }
+          setGrid(value);
+        }}
+        onBlur={() => runValidationTasks("grid", grid)}
+        errorMessage={errors.grid?.errorMessage}
+        hasError={errors.grid?.hasError}
+        {...getOverrideProps(overrides, "grid")}
+      ></TextField>
+      <TextField
         label="Name"
         isRequired={false}
         isReadOnly={false}
@@ -343,8 +379,9 @@ export default function StationCreateForm(props) {
           if (onChange) {
             const modelFields = {
               callSign,
+              grid,
               name: value,
-              location,
+              qth,
               notes,
               attributes,
               owner,
@@ -363,33 +400,34 @@ export default function StationCreateForm(props) {
         {...getOverrideProps(overrides, "name")}
       ></TextField>
       <TextField
-        label="Location"
+        label="Qth"
         isRequired={false}
         isReadOnly={false}
-        value={location}
+        value={qth}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
               callSign,
+              grid,
               name,
-              location: value,
+              qth: value,
               notes,
               attributes,
               owner,
             };
             const result = onChange(modelFields);
-            value = result?.location ?? value;
+            value = result?.qth ?? value;
           }
-          if (errors.location?.hasError) {
-            runValidationTasks("location", value);
+          if (errors.qth?.hasError) {
+            runValidationTasks("qth", value);
           }
-          setLocation(value);
+          setQth(value);
         }}
-        onBlur={() => runValidationTasks("location", location)}
-        errorMessage={errors.location?.errorMessage}
-        hasError={errors.location?.hasError}
-        {...getOverrideProps(overrides, "location")}
+        onBlur={() => runValidationTasks("qth", qth)}
+        errorMessage={errors.qth?.errorMessage}
+        hasError={errors.qth?.hasError}
+        {...getOverrideProps(overrides, "qth")}
       ></TextField>
       <TextField
         label="Notes"
@@ -401,8 +439,9 @@ export default function StationCreateForm(props) {
           if (onChange) {
             const modelFields = {
               callSign,
+              grid,
               name,
-              location,
+              qth,
               notes: value,
               attributes,
               owner,
@@ -426,8 +465,9 @@ export default function StationCreateForm(props) {
           if (onChange) {
             const modelFields = {
               callSign,
+              grid,
               name,
-              location,
+              qth,
               notes,
               attributes: values,
               owner,
@@ -479,8 +519,9 @@ export default function StationCreateForm(props) {
           if (onChange) {
             const modelFields = {
               callSign,
+              grid,
               name,
-              location,
+              qth,
               notes,
               attributes,
               owner: value,

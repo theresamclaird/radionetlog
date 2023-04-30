@@ -6,6 +6,12 @@ export const getNet = /* GraphQL */ `
   query GetNet($id: ID!) {
     getNet(id: $id) {
       id
+      repeater
+      frequency
+      mode
+      power
+      createdAt
+      completedAt
       rounds {
         items {
           id
@@ -17,7 +23,6 @@ export const getNet = /* GraphQL */ `
         nextToken
       }
       owner
-      createdAt
       updatedAt
     }
   }
@@ -31,11 +36,16 @@ export const listNets = /* GraphQL */ `
     listNets(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        repeater
+        frequency
+        mode
+        power
+        createdAt
+        completedAt
         rounds {
           nextToken
         }
         owner
-        createdAt
         updatedAt
       }
       nextToken
@@ -51,13 +61,24 @@ export const getRound = /* GraphQL */ `
         items {
           id
           type
+          frequency
+          repeater
+          allStar
+          echoLink
+          mode
+          power
           createdAt
+          completedAt
           roundId
           callSign
           name
-          location
+          qth
           attributes
-          signalReport
+          reportSent
+          reportReceived
+          qslSent
+          qslReceived
+          comments
           owner
           updatedAt
         }
@@ -124,13 +145,24 @@ export const getContact = /* GraphQL */ `
     getContact(id: $id) {
       id
       type
+      frequency
+      repeater
+      allStar
+      echoLink
+      mode
+      power
       createdAt
+      completedAt
       roundId
       callSign
       name
-      location
+      qth
       attributes
-      signalReport
+      reportSent
+      reportReceived
+      qslSent
+      qslReceived
+      comments
       owner
       updatedAt
     }
@@ -146,13 +178,24 @@ export const listContacts = /* GraphQL */ `
       items {
         id
         type
+        frequency
+        repeater
+        allStar
+        echoLink
+        mode
+        power
         createdAt
+        completedAt
         roundId
         callSign
         name
-        location
+        qth
         attributes
-        signalReport
+        reportSent
+        reportReceived
+        qslSent
+        qslReceived
+        comments
         owner
         updatedAt
       }
@@ -180,13 +223,24 @@ export const contactsByDate = /* GraphQL */ `
       items {
         id
         type
+        frequency
+        repeater
+        allStar
+        echoLink
+        mode
+        power
         createdAt
+        completedAt
         roundId
         callSign
         name
-        location
+        qth
         attributes
-        signalReport
+        reportSent
+        reportReceived
+        qslSent
+        qslReceived
+        comments
         owner
         updatedAt
       }
@@ -212,13 +266,24 @@ export const contactsByRoundId = /* GraphQL */ `
       items {
         id
         type
+        frequency
+        repeater
+        allStar
+        echoLink
+        mode
+        power
         createdAt
+        completedAt
         roundId
         callSign
         name
-        location
+        qth
         attributes
-        signalReport
+        reportSent
+        reportReceived
+        qslSent
+        qslReceived
+        comments
         owner
         updatedAt
       }
@@ -231,8 +296,9 @@ export const getStation = /* GraphQL */ `
     getStation(id: $id) {
       id
       callSign
+      grid
       name
-      location
+      qth
       notes
       attributes
       owner
@@ -251,8 +317,9 @@ export const listStations = /* GraphQL */ `
       items {
         id
         callSign
+        grid
         name
-        location
+        qth
         notes
         attributes
         owner
@@ -281,10 +348,99 @@ export const stationsByCallSign = /* GraphQL */ `
       items {
         id
         callSign
+        grid
         name
-        location
+        qth
         notes
         attributes
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getRepeater = /* GraphQL */ `
+  query GetRepeater($id: ID!) {
+    getRepeater(id: $id) {
+      id
+      callSign
+      inputFrequency
+      inputTone
+      outputFrequency
+      outputTone
+      offset
+      grid
+      notes
+      sponsor
+      echoLink
+      allStar
+      url
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listRepeaters = /* GraphQL */ `
+  query ListRepeaters(
+    $filter: ModelRepeaterFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listRepeaters(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        callSign
+        inputFrequency
+        inputTone
+        outputFrequency
+        outputTone
+        offset
+        grid
+        notes
+        sponsor
+        echoLink
+        allStar
+        url
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const repeatersByCallSign = /* GraphQL */ `
+  query RepeatersByCallSign(
+    $callSign: String!
+    $sortDirection: ModelSortDirection
+    $filter: ModelRepeaterFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    repeatersByCallSign(
+      callSign: $callSign
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        callSign
+        inputFrequency
+        inputTone
+        outputFrequency
+        outputTone
+        offset
+        grid
+        notes
+        sponsor
+        echoLink
+        allStar
+        url
         owner
         createdAt
         updatedAt

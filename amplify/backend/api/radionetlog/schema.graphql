@@ -2,6 +2,12 @@ type Net
   @model
   @auth(rules: [{ allow: owner, operations: [create, update, delete, read] }]) {
   id: ID!
+  repeater: String
+  frequency: String
+  mode: String
+  power: String
+  createdAt: String!
+  completedAt: String!
   rounds: [Round] @hasMany(indexName: "byNet", fields: ["id"])
   owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
@@ -25,14 +31,24 @@ type Contact
       queryField: "contactsByDate"
       sortKeyFields: ["createdAt"]
     )
-
+  frequency: String
+  repeater: String
+  allStar: String
+  echoLink: String
+  mode: String
+  power: String
   createdAt: String!
+  completedAt: String
   roundId: ID @index(name: "byRound")
   callSign: String!
   name: String
-  location: String
+  qth: String
   attributes: [String]
-  signalReport: String
+  reportSent: String
+  reportReceived: String
+  qslSent: Boolean
+  qslReceived: Boolean
+  comments: String
   owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
@@ -41,9 +57,29 @@ type Station
   @auth(rules: [{ allow: owner, operations: [create, update, delete, read] }]) {
   id: ID!
   callSign: String! @index(name: "byCallSign")
+  grid: String
   name: String
-  location: String
+  qth: String
   notes: String
   attributes: [String]
+  owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
+}
+
+type Repeater
+  @model
+  @auth(rules: [{ allow: owner, operations: [create, update, delete, read] }]) {
+  id: ID!
+  callSign: String! @index(name: "byCallSign")
+  inputFrequency: String
+  inputTone: String
+  outputFrequency: String
+  outputTone: String
+  offset: String
+  grid: String
+  notes: String
+  sponsor: String
+  echoLink: String
+  allStar: String
+  url: String
   owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }

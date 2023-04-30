@@ -48,7 +48,7 @@ export default function RoundForm({ netId }: Props): ReactElement {
             roundId: null,
             callSign: "",
             name: "",
-            location: "",
+            qth: "",
             attributes: [],
           }}
         />

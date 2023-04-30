@@ -13,14 +13,32 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type NetCreateFormInputValues = {
+    repeater?: string;
+    frequency?: string;
+    mode?: string;
+    power?: string;
+    createdAt?: string;
+    completedAt?: string;
     owner?: string;
 };
 export declare type NetCreateFormValidationValues = {
+    repeater?: ValidationFunction<string>;
+    frequency?: ValidationFunction<string>;
+    mode?: ValidationFunction<string>;
+    power?: ValidationFunction<string>;
+    createdAt?: ValidationFunction<string>;
+    completedAt?: ValidationFunction<string>;
     owner?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type NetCreateFormOverridesProps = {
     NetCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
+    repeater?: PrimitiveOverrideProps<TextFieldProps>;
+    frequency?: PrimitiveOverrideProps<TextFieldProps>;
+    mode?: PrimitiveOverrideProps<TextFieldProps>;
+    power?: PrimitiveOverrideProps<TextFieldProps>;
+    createdAt?: PrimitiveOverrideProps<TextFieldProps>;
+    completedAt?: PrimitiveOverrideProps<TextFieldProps>;
     owner?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type NetCreateFormProps = React.PropsWithChildren<{

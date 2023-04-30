@@ -12,7 +12,7 @@ export default function Station() {
             type: "qso",
             callSign: "",
             name: "",
-            location: "",
+            qth: "",
             attributes: [],
           }}
         />

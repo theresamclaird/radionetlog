@@ -27,7 +27,7 @@ export interface Props {
 
 export default function StationPreview({ station }: Props) {
   const [showNotes, setShowNotes] = useState(false);
-  const { callSign, name, location, attributes, notes } = station;
+  const { callSign, name, qth, attributes, notes } = station;
 
   return (
     <Grid container direction="row" spacing={2} alignItems="center">
@@ -52,7 +52,7 @@ export default function StationPreview({ station }: Props) {
         </IconButton>
         <Typography sx={{ flex: 1 }}>{callSign}</Typography>
         <Typography sx={{ flex: 2 }}>{name}</Typography>
-        <Typography sx={{ flex: 2 }}>{location}</Typography>
+        <Typography sx={{ flex: 2 }}>{qth}</Typography>
         <ToggleButtonGroup
           color="primary"
           size="small"

@@ -24,14 +24,34 @@ export default function NetUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
+    repeater: "",
+    frequency: "",
+    mode: "",
+    power: "",
+    createdAt: "",
+    completedAt: "",
     owner: "",
   };
+  const [repeater, setRepeater] = React.useState(initialValues.repeater);
+  const [frequency, setFrequency] = React.useState(initialValues.frequency);
+  const [mode, setMode] = React.useState(initialValues.mode);
+  const [power, setPower] = React.useState(initialValues.power);
+  const [createdAt, setCreatedAt] = React.useState(initialValues.createdAt);
+  const [completedAt, setCompletedAt] = React.useState(
+    initialValues.completedAt
+  );
   const [owner, setOwner] = React.useState(initialValues.owner);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = netRecord
       ? { ...initialValues, ...netRecord }
       : initialValues;
+    setRepeater(cleanValues.repeater);
+    setFrequency(cleanValues.frequency);
+    setMode(cleanValues.mode);
+    setPower(cleanValues.power);
+    setCreatedAt(cleanValues.createdAt);
+    setCompletedAt(cleanValues.completedAt);
     setOwner(cleanValues.owner);
     setErrors({});
   };
@@ -45,6 +65,12 @@ export default function NetUpdateForm(props) {
   }, [idProp, netModelProp]);
   React.useEffect(resetStateValues, [netRecord]);
   const validations = {
+    repeater: [],
+    frequency: [],
+    mode: [],
+    power: [],
+    createdAt: [{ type: "Required" }],
+    completedAt: [{ type: "Required" }],
     owner: [],
   };
   const runValidationTasks = async (
@@ -73,6 +99,12 @@ export default function NetUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
+          repeater,
+          frequency,
+          mode,
+          power,
+          createdAt,
+          completedAt,
           owner,
         };
         const validationResponses = await Promise.all(
@@ -121,6 +153,186 @@ export default function NetUpdateForm(props) {
       {...rest}
     >
       <TextField
+        label="Repeater"
+        isRequired={false}
+        isReadOnly={false}
+        value={repeater}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              repeater: value,
+              frequency,
+              mode,
+              power,
+              createdAt,
+              completedAt,
+              owner,
+            };
+            const result = onChange(modelFields);
+            value = result?.repeater ?? value;
+          }
+          if (errors.repeater?.hasError) {
+            runValidationTasks("repeater", value);
+          }
+          setRepeater(value);
+        }}
+        onBlur={() => runValidationTasks("repeater", repeater)}
+        errorMessage={errors.repeater?.errorMessage}
+        hasError={errors.repeater?.hasError}
+        {...getOverrideProps(overrides, "repeater")}
+      ></TextField>
+      <TextField
+        label="Frequency"
+        isRequired={false}
+        isReadOnly={false}
+        value={frequency}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              repeater,
+              frequency: value,
+              mode,
+              power,
+              createdAt,
+              completedAt,
+              owner,
+            };
+            const result = onChange(modelFields);
+            value = result?.frequency ?? value;
+          }
+          if (errors.frequency?.hasError) {
+            runValidationTasks("frequency", value);
+          }
+          setFrequency(value);
+        }}
+        onBlur={() => runValidationTasks("frequency", frequency)}
+        errorMessage={errors.frequency?.errorMessage}
+        hasError={errors.frequency?.hasError}
+        {...getOverrideProps(overrides, "frequency")}
+      ></TextField>
+      <TextField
+        label="Mode"
+        isRequired={false}
+        isReadOnly={false}
+        value={mode}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              repeater,
+              frequency,
+              mode: value,
+              power,
+              createdAt,
+              completedAt,
+              owner,
+            };
+            const result = onChange(modelFields);
+            value = result?.mode ?? value;
+          }
+          if (errors.mode?.hasError) {
+            runValidationTasks("mode", value);
+          }
+          setMode(value);
+        }}
+        onBlur={() => runValidationTasks("mode", mode)}
+        errorMessage={errors.mode?.errorMessage}
+        hasError={errors.mode?.hasError}
+        {...getOverrideProps(overrides, "mode")}
+      ></TextField>
+      <TextField
+        label="Power"
+        isRequired={false}
+        isReadOnly={false}
+        value={power}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              repeater,
+              frequency,
+              mode,
+              power: value,
+              createdAt,
+              completedAt,
+              owner,
+            };
+            const result = onChange(modelFields);
+            value = result?.power ?? value;
+          }
+          if (errors.power?.hasError) {
+            runValidationTasks("power", value);
+          }
+          setPower(value);
+        }}
+        onBlur={() => runValidationTasks("power", power)}
+        errorMessage={errors.power?.errorMessage}
+        hasError={errors.power?.hasError}
+        {...getOverrideProps(overrides, "power")}
+      ></TextField>
+      <TextField
+        label="Created at"
+        isRequired={true}
+        isReadOnly={false}
+        value={createdAt}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              repeater,
+              frequency,
+              mode,
+              power,
+              createdAt: value,
+              completedAt,
+              owner,
+            };
+            const result = onChange(modelFields);
+            value = result?.createdAt ?? value;
+          }
+          if (errors.createdAt?.hasError) {
+            runValidationTasks("createdAt", value);
+          }
+          setCreatedAt(value);
+        }}
+        onBlur={() => runValidationTasks("createdAt", createdAt)}
+        errorMessage={errors.createdAt?.errorMessage}
+        hasError={errors.createdAt?.hasError}
+        {...getOverrideProps(overrides, "createdAt")}
+      ></TextField>
+      <TextField
+        label="Completed at"
+        isRequired={true}
+        isReadOnly={false}
+        value={completedAt}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              repeater,
+              frequency,
+              mode,
+              power,
+              createdAt,
+              completedAt: value,
+              owner,
+            };
+            const result = onChange(modelFields);
+            value = result?.completedAt ?? value;
+          }
+          if (errors.completedAt?.hasError) {
+            runValidationTasks("completedAt", value);
+          }
+          setCompletedAt(value);
+        }}
+        onBlur={() => runValidationTasks("completedAt", completedAt)}
+        errorMessage={errors.completedAt?.errorMessage}
+        hasError={errors.completedAt?.hasError}
+        {...getOverrideProps(overrides, "completedAt")}
+      ></TextField>
+      <TextField
         label="Owner"
         isRequired={false}
         isReadOnly={false}
@@ -129,6 +341,12 @@ export default function NetUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
+              repeater,
+              frequency,
+              mode,
+              power,
+              createdAt,
+              completedAt,
               owner: value,
             };
             const result = onChange(modelFields);

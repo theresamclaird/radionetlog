@@ -14,6 +14,7 @@ import {
   Grid,
   Icon,
   ScrollView,
+  SwitchField,
   Text,
   TextField,
   useTheme,
@@ -193,34 +194,71 @@ export default function ContactCreateForm(props) {
   } = props;
   const initialValues = {
     type: "",
+    frequency: "",
+    repeater: "",
+    allStar: "",
+    echoLink: "",
+    mode: "",
+    power: "",
     createdAt: "",
+    completedAt: "",
     callSign: "",
     name: "",
-    location: "",
+    qth: "",
     attributes: [],
-    signalReport: "",
+    reportSent: "",
+    reportReceived: "",
+    qslSent: false,
+    qslReceived: false,
+    comments: "",
     owner: "",
   };
   const [type, setType] = React.useState(initialValues.type);
+  const [frequency, setFrequency] = React.useState(initialValues.frequency);
+  const [repeater, setRepeater] = React.useState(initialValues.repeater);
+  const [allStar, setAllStar] = React.useState(initialValues.allStar);
+  const [echoLink, setEchoLink] = React.useState(initialValues.echoLink);
+  const [mode, setMode] = React.useState(initialValues.mode);
+  const [power, setPower] = React.useState(initialValues.power);
   const [createdAt, setCreatedAt] = React.useState(initialValues.createdAt);
+  const [completedAt, setCompletedAt] = React.useState(
+    initialValues.completedAt
+  );
   const [callSign, setCallSign] = React.useState(initialValues.callSign);
   const [name, setName] = React.useState(initialValues.name);
-  const [location, setLocation] = React.useState(initialValues.location);
+  const [qth, setQth] = React.useState(initialValues.qth);
   const [attributes, setAttributes] = React.useState(initialValues.attributes);
-  const [signalReport, setSignalReport] = React.useState(
-    initialValues.signalReport
+  const [reportSent, setReportSent] = React.useState(initialValues.reportSent);
+  const [reportReceived, setReportReceived] = React.useState(
+    initialValues.reportReceived
   );
+  const [qslSent, setQslSent] = React.useState(initialValues.qslSent);
+  const [qslReceived, setQslReceived] = React.useState(
+    initialValues.qslReceived
+  );
+  const [comments, setComments] = React.useState(initialValues.comments);
   const [owner, setOwner] = React.useState(initialValues.owner);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setType(initialValues.type);
+    setFrequency(initialValues.frequency);
+    setRepeater(initialValues.repeater);
+    setAllStar(initialValues.allStar);
+    setEchoLink(initialValues.echoLink);
+    setMode(initialValues.mode);
+    setPower(initialValues.power);
     setCreatedAt(initialValues.createdAt);
+    setCompletedAt(initialValues.completedAt);
     setCallSign(initialValues.callSign);
     setName(initialValues.name);
-    setLocation(initialValues.location);
+    setQth(initialValues.qth);
     setAttributes(initialValues.attributes);
     setCurrentAttributesValue("");
-    setSignalReport(initialValues.signalReport);
+    setReportSent(initialValues.reportSent);
+    setReportReceived(initialValues.reportReceived);
+    setQslSent(initialValues.qslSent);
+    setQslReceived(initialValues.qslReceived);
+    setComments(initialValues.comments);
     setOwner(initialValues.owner);
     setErrors({});
   };
@@ -229,12 +267,23 @@ export default function ContactCreateForm(props) {
   const attributesRef = React.createRef();
   const validations = {
     type: [{ type: "Required" }],
+    frequency: [],
+    repeater: [],
+    allStar: [],
+    echoLink: [],
+    mode: [],
+    power: [],
     createdAt: [{ type: "Required" }],
+    completedAt: [],
     callSign: [{ type: "Required" }],
     name: [],
-    location: [],
+    qth: [],
     attributes: [],
-    signalReport: [],
+    reportSent: [],
+    reportReceived: [],
+    qslSent: [],
+    qslReceived: [],
+    comments: [],
     owner: [],
   };
   const runValidationTasks = async (
@@ -264,12 +313,23 @@ export default function ContactCreateForm(props) {
         event.preventDefault();
         let modelFields = {
           type,
+          frequency,
+          repeater,
+          allStar,
+          echoLink,
+          mode,
+          power,
           createdAt,
+          completedAt,
           callSign,
           name,
-          location,
+          qth,
           attributes,
-          signalReport,
+          reportSent,
+          reportReceived,
+          qslSent,
+          qslReceived,
+          comments,
           owner,
         };
         const validationResponses = await Promise.all(
@@ -326,12 +386,23 @@ export default function ContactCreateForm(props) {
           if (onChange) {
             const modelFields = {
               type: value,
+              frequency,
+              repeater,
+              allStar,
+              echoLink,
+              mode,
+              power,
               createdAt,
+              completedAt,
               callSign,
               name,
-              location,
+              qth,
               attributes,
-              signalReport,
+              reportSent,
+              reportReceived,
+              qslSent,
+              qslReceived,
+              comments,
               owner,
             };
             const result = onChange(modelFields);
@@ -348,6 +419,258 @@ export default function ContactCreateForm(props) {
         {...getOverrideProps(overrides, "type")}
       ></TextField>
       <TextField
+        label="Frequency"
+        isRequired={false}
+        isReadOnly={false}
+        value={frequency}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              type,
+              frequency: value,
+              repeater,
+              allStar,
+              echoLink,
+              mode,
+              power,
+              createdAt,
+              completedAt,
+              callSign,
+              name,
+              qth,
+              attributes,
+              reportSent,
+              reportReceived,
+              qslSent,
+              qslReceived,
+              comments,
+              owner,
+            };
+            const result = onChange(modelFields);
+            value = result?.frequency ?? value;
+          }
+          if (errors.frequency?.hasError) {
+            runValidationTasks("frequency", value);
+          }
+          setFrequency(value);
+        }}
+        onBlur={() => runValidationTasks("frequency", frequency)}
+        errorMessage={errors.frequency?.errorMessage}
+        hasError={errors.frequency?.hasError}
+        {...getOverrideProps(overrides, "frequency")}
+      ></TextField>
+      <TextField
+        label="Repeater"
+        isRequired={false}
+        isReadOnly={false}
+        value={repeater}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              type,
+              frequency,
+              repeater: value,
+              allStar,
+              echoLink,
+              mode,
+              power,
+              createdAt,
+              completedAt,
+              callSign,
+              name,
+              qth,
+              attributes,
+              reportSent,
+              reportReceived,
+              qslSent,
+              qslReceived,
+              comments,
+              owner,
+            };
+            const result = onChange(modelFields);
+            value = result?.repeater ?? value;
+          }
+          if (errors.repeater?.hasError) {
+            runValidationTasks("repeater", value);
+          }
+          setRepeater(value);
+        }}
+        onBlur={() => runValidationTasks("repeater", repeater)}
+        errorMessage={errors.repeater?.errorMessage}
+        hasError={errors.repeater?.hasError}
+        {...getOverrideProps(overrides, "repeater")}
+      ></TextField>
+      <TextField
+        label="All star"
+        isRequired={false}
+        isReadOnly={false}
+        value={allStar}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              type,
+              frequency,
+              repeater,
+              allStar: value,
+              echoLink,
+              mode,
+              power,
+              createdAt,
+              completedAt,
+              callSign,
+              name,
+              qth,
+              attributes,
+              reportSent,
+              reportReceived,
+              qslSent,
+              qslReceived,
+              comments,
+              owner,
+            };
+            const result = onChange(modelFields);
+            value = result?.allStar ?? value;
+          }
+          if (errors.allStar?.hasError) {
+            runValidationTasks("allStar", value);
+          }
+          setAllStar(value);
+        }}
+        onBlur={() => runValidationTasks("allStar", allStar)}
+        errorMessage={errors.allStar?.errorMessage}
+        hasError={errors.allStar?.hasError}
+        {...getOverrideProps(overrides, "allStar")}
+      ></TextField>
+      <TextField
+        label="Echo link"
+        isRequired={false}
+        isReadOnly={false}
+        value={echoLink}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              type,
+              frequency,
+              repeater,
+              allStar,
+              echoLink: value,
+              mode,
+              power,
+              createdAt,
+              completedAt,
+              callSign,
+              name,
+              qth,
+              attributes,
+              reportSent,
+              reportReceived,
+              qslSent,
+              qslReceived,
+              comments,
+              owner,
+            };
+            const result = onChange(modelFields);
+            value = result?.echoLink ?? value;
+          }
+          if (errors.echoLink?.hasError) {
+            runValidationTasks("echoLink", value);
+          }
+          setEchoLink(value);
+        }}
+        onBlur={() => runValidationTasks("echoLink", echoLink)}
+        errorMessage={errors.echoLink?.errorMessage}
+        hasError={errors.echoLink?.hasError}
+        {...getOverrideProps(overrides, "echoLink")}
+      ></TextField>
+      <TextField
+        label="Mode"
+        isRequired={false}
+        isReadOnly={false}
+        value={mode}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              type,
+              frequency,
+              repeater,
+              allStar,
+              echoLink,
+              mode: value,
+              power,
+              createdAt,
+              completedAt,
+              callSign,
+              name,
+              qth,
+              attributes,
+              reportSent,
+              reportReceived,
+              qslSent,
+              qslReceived,
+              comments,
+              owner,
+            };
+            const result = onChange(modelFields);
+            value = result?.mode ?? value;
+          }
+          if (errors.mode?.hasError) {
+            runValidationTasks("mode", value);
+          }
+          setMode(value);
+        }}
+        onBlur={() => runValidationTasks("mode", mode)}
+        errorMessage={errors.mode?.errorMessage}
+        hasError={errors.mode?.hasError}
+        {...getOverrideProps(overrides, "mode")}
+      ></TextField>
+      <TextField
+        label="Power"
+        isRequired={false}
+        isReadOnly={false}
+        value={power}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              type,
+              frequency,
+              repeater,
+              allStar,
+              echoLink,
+              mode,
+              power: value,
+              createdAt,
+              completedAt,
+              callSign,
+              name,
+              qth,
+              attributes,
+              reportSent,
+              reportReceived,
+              qslSent,
+              qslReceived,
+              comments,
+              owner,
+            };
+            const result = onChange(modelFields);
+            value = result?.power ?? value;
+          }
+          if (errors.power?.hasError) {
+            runValidationTasks("power", value);
+          }
+          setPower(value);
+        }}
+        onBlur={() => runValidationTasks("power", power)}
+        errorMessage={errors.power?.errorMessage}
+        hasError={errors.power?.hasError}
+        {...getOverrideProps(overrides, "power")}
+      ></TextField>
+      <TextField
         label="Created at"
         isRequired={true}
         isReadOnly={false}
@@ -357,12 +680,23 @@ export default function ContactCreateForm(props) {
           if (onChange) {
             const modelFields = {
               type,
+              frequency,
+              repeater,
+              allStar,
+              echoLink,
+              mode,
+              power,
               createdAt: value,
+              completedAt,
               callSign,
               name,
-              location,
+              qth,
               attributes,
-              signalReport,
+              reportSent,
+              reportReceived,
+              qslSent,
+              qslReceived,
+              comments,
               owner,
             };
             const result = onChange(modelFields);
@@ -379,6 +713,48 @@ export default function ContactCreateForm(props) {
         {...getOverrideProps(overrides, "createdAt")}
       ></TextField>
       <TextField
+        label="Completed at"
+        isRequired={false}
+        isReadOnly={false}
+        value={completedAt}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              type,
+              frequency,
+              repeater,
+              allStar,
+              echoLink,
+              mode,
+              power,
+              createdAt,
+              completedAt: value,
+              callSign,
+              name,
+              qth,
+              attributes,
+              reportSent,
+              reportReceived,
+              qslSent,
+              qslReceived,
+              comments,
+              owner,
+            };
+            const result = onChange(modelFields);
+            value = result?.completedAt ?? value;
+          }
+          if (errors.completedAt?.hasError) {
+            runValidationTasks("completedAt", value);
+          }
+          setCompletedAt(value);
+        }}
+        onBlur={() => runValidationTasks("completedAt", completedAt)}
+        errorMessage={errors.completedAt?.errorMessage}
+        hasError={errors.completedAt?.hasError}
+        {...getOverrideProps(overrides, "completedAt")}
+      ></TextField>
+      <TextField
         label="Call sign"
         isRequired={true}
         isReadOnly={false}
@@ -388,12 +764,23 @@ export default function ContactCreateForm(props) {
           if (onChange) {
             const modelFields = {
               type,
+              frequency,
+              repeater,
+              allStar,
+              echoLink,
+              mode,
+              power,
               createdAt,
+              completedAt,
               callSign: value,
               name,
-              location,
+              qth,
               attributes,
-              signalReport,
+              reportSent,
+              reportReceived,
+              qslSent,
+              qslReceived,
+              comments,
               owner,
             };
             const result = onChange(modelFields);
@@ -419,12 +806,23 @@ export default function ContactCreateForm(props) {
           if (onChange) {
             const modelFields = {
               type,
+              frequency,
+              repeater,
+              allStar,
+              echoLink,
+              mode,
+              power,
               createdAt,
+              completedAt,
               callSign,
               name: value,
-              location,
+              qth,
               attributes,
-              signalReport,
+              reportSent,
+              reportReceived,
+              qslSent,
+              qslReceived,
+              comments,
               owner,
             };
             const result = onChange(modelFields);
@@ -441,35 +839,46 @@ export default function ContactCreateForm(props) {
         {...getOverrideProps(overrides, "name")}
       ></TextField>
       <TextField
-        label="Location"
+        label="Qth"
         isRequired={false}
         isReadOnly={false}
-        value={location}
+        value={qth}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
               type,
+              frequency,
+              repeater,
+              allStar,
+              echoLink,
+              mode,
+              power,
               createdAt,
+              completedAt,
               callSign,
               name,
-              location: value,
+              qth: value,
               attributes,
-              signalReport,
+              reportSent,
+              reportReceived,
+              qslSent,
+              qslReceived,
+              comments,
               owner,
             };
             const result = onChange(modelFields);
-            value = result?.location ?? value;
+            value = result?.qth ?? value;
           }
-          if (errors.location?.hasError) {
-            runValidationTasks("location", value);
+          if (errors.qth?.hasError) {
+            runValidationTasks("qth", value);
           }
-          setLocation(value);
+          setQth(value);
         }}
-        onBlur={() => runValidationTasks("location", location)}
-        errorMessage={errors.location?.errorMessage}
-        hasError={errors.location?.hasError}
-        {...getOverrideProps(overrides, "location")}
+        onBlur={() => runValidationTasks("qth", qth)}
+        errorMessage={errors.qth?.errorMessage}
+        hasError={errors.qth?.hasError}
+        {...getOverrideProps(overrides, "qth")}
       ></TextField>
       <ArrayField
         onChange={async (items) => {
@@ -477,12 +886,23 @@ export default function ContactCreateForm(props) {
           if (onChange) {
             const modelFields = {
               type,
+              frequency,
+              repeater,
+              allStar,
+              echoLink,
+              mode,
+              power,
               createdAt,
+              completedAt,
               callSign,
               name,
-              location,
+              qth,
               attributes: values,
-              signalReport,
+              reportSent,
+              reportReceived,
+              qslSent,
+              qslReceived,
+              comments,
               owner,
             };
             const result = onChange(modelFields);
@@ -523,35 +943,214 @@ export default function ContactCreateForm(props) {
         ></TextField>
       </ArrayField>
       <TextField
-        label="Signal report"
+        label="Report sent"
         isRequired={false}
         isReadOnly={false}
-        value={signalReport}
+        value={reportSent}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
               type,
+              frequency,
+              repeater,
+              allStar,
+              echoLink,
+              mode,
+              power,
               createdAt,
+              completedAt,
               callSign,
               name,
-              location,
+              qth,
               attributes,
-              signalReport: value,
+              reportSent: value,
+              reportReceived,
+              qslSent,
+              qslReceived,
+              comments,
               owner,
             };
             const result = onChange(modelFields);
-            value = result?.signalReport ?? value;
+            value = result?.reportSent ?? value;
           }
-          if (errors.signalReport?.hasError) {
-            runValidationTasks("signalReport", value);
+          if (errors.reportSent?.hasError) {
+            runValidationTasks("reportSent", value);
           }
-          setSignalReport(value);
+          setReportSent(value);
         }}
-        onBlur={() => runValidationTasks("signalReport", signalReport)}
-        errorMessage={errors.signalReport?.errorMessage}
-        hasError={errors.signalReport?.hasError}
-        {...getOverrideProps(overrides, "signalReport")}
+        onBlur={() => runValidationTasks("reportSent", reportSent)}
+        errorMessage={errors.reportSent?.errorMessage}
+        hasError={errors.reportSent?.hasError}
+        {...getOverrideProps(overrides, "reportSent")}
+      ></TextField>
+      <TextField
+        label="Report received"
+        isRequired={false}
+        isReadOnly={false}
+        value={reportReceived}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              type,
+              frequency,
+              repeater,
+              allStar,
+              echoLink,
+              mode,
+              power,
+              createdAt,
+              completedAt,
+              callSign,
+              name,
+              qth,
+              attributes,
+              reportSent,
+              reportReceived: value,
+              qslSent,
+              qslReceived,
+              comments,
+              owner,
+            };
+            const result = onChange(modelFields);
+            value = result?.reportReceived ?? value;
+          }
+          if (errors.reportReceived?.hasError) {
+            runValidationTasks("reportReceived", value);
+          }
+          setReportReceived(value);
+        }}
+        onBlur={() => runValidationTasks("reportReceived", reportReceived)}
+        errorMessage={errors.reportReceived?.errorMessage}
+        hasError={errors.reportReceived?.hasError}
+        {...getOverrideProps(overrides, "reportReceived")}
+      ></TextField>
+      <SwitchField
+        label="Qsl sent"
+        defaultChecked={false}
+        isDisabled={false}
+        isChecked={qslSent}
+        onChange={(e) => {
+          let value = e.target.checked;
+          if (onChange) {
+            const modelFields = {
+              type,
+              frequency,
+              repeater,
+              allStar,
+              echoLink,
+              mode,
+              power,
+              createdAt,
+              completedAt,
+              callSign,
+              name,
+              qth,
+              attributes,
+              reportSent,
+              reportReceived,
+              qslSent: value,
+              qslReceived,
+              comments,
+              owner,
+            };
+            const result = onChange(modelFields);
+            value = result?.qslSent ?? value;
+          }
+          if (errors.qslSent?.hasError) {
+            runValidationTasks("qslSent", value);
+          }
+          setQslSent(value);
+        }}
+        onBlur={() => runValidationTasks("qslSent", qslSent)}
+        errorMessage={errors.qslSent?.errorMessage}
+        hasError={errors.qslSent?.hasError}
+        {...getOverrideProps(overrides, "qslSent")}
+      ></SwitchField>
+      <SwitchField
+        label="Qsl received"
+        defaultChecked={false}
+        isDisabled={false}
+        isChecked={qslReceived}
+        onChange={(e) => {
+          let value = e.target.checked;
+          if (onChange) {
+            const modelFields = {
+              type,
+              frequency,
+              repeater,
+              allStar,
+              echoLink,
+              mode,
+              power,
+              createdAt,
+              completedAt,
+              callSign,
+              name,
+              qth,
+              attributes,
+              reportSent,
+              reportReceived,
+              qslSent,
+              qslReceived: value,
+              comments,
+              owner,
+            };
+            const result = onChange(modelFields);
+            value = result?.qslReceived ?? value;
+          }
+          if (errors.qslReceived?.hasError) {
+            runValidationTasks("qslReceived", value);
+          }
+          setQslReceived(value);
+        }}
+        onBlur={() => runValidationTasks("qslReceived", qslReceived)}
+        errorMessage={errors.qslReceived?.errorMessage}
+        hasError={errors.qslReceived?.hasError}
+        {...getOverrideProps(overrides, "qslReceived")}
+      ></SwitchField>
+      <TextField
+        label="Comments"
+        isRequired={false}
+        isReadOnly={false}
+        value={comments}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              type,
+              frequency,
+              repeater,
+              allStar,
+              echoLink,
+              mode,
+              power,
+              createdAt,
+              completedAt,
+              callSign,
+              name,
+              qth,
+              attributes,
+              reportSent,
+              reportReceived,
+              qslSent,
+              qslReceived,
+              comments: value,
+              owner,
+            };
+            const result = onChange(modelFields);
+            value = result?.comments ?? value;
+          }
+          if (errors.comments?.hasError) {
+            runValidationTasks("comments", value);
+          }
+          setComments(value);
+        }}
+        onBlur={() => runValidationTasks("comments", comments)}
+        errorMessage={errors.comments?.errorMessage}
+        hasError={errors.comments?.hasError}
+        {...getOverrideProps(overrides, "comments")}
       ></TextField>
       <TextField
         label="Owner"
@@ -563,12 +1162,23 @@ export default function ContactCreateForm(props) {
           if (onChange) {
             const modelFields = {
               type,
+              frequency,
+              repeater,
+              allStar,
+              echoLink,
+              mode,
+              power,
               createdAt,
+              completedAt,
               callSign,
               name,
-              location,
+              qth,
               attributes,
-              signalReport,
+              reportSent,
+              reportReceived,
+              qslSent,
+              qslReceived,
+              comments,
               owner: value,
             };
             const result = onChange(modelFields);

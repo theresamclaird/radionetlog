@@ -11,3 +11,5 @@ export { default as ContactCreateForm } from "./ContactCreateForm";
 export { default as ContactUpdateForm } from "./ContactUpdateForm";
 export { default as StationCreateForm } from "./StationCreateForm";
 export { default as StationUpdateForm } from "./StationUpdateForm";
+export { default as RepeaterCreateForm } from "./RepeaterCreateForm";
+export { default as RepeaterUpdateForm } from "./RepeaterUpdateForm";

@@ -11,7 +11,7 @@ export default function Station() {
           station={{
             callSign: "",
             name: "",
-            location: "",
+            qth: "",
             notes: "",
             attributes: [],
           }}

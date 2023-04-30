@@ -1,17 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm, Controller, type SubmitHandler } from "react-hook-form";
 import {
   Grid,
   TextField,
   ToggleButtonGroup,
   ToggleButton,
-  IconButton,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
 } from "@mui/material";
 import {
   DirectionsCar,
   Language,
   PublishedWithChanges,
-  AddBox,
 } from "@mui/icons-material";
 import { API } from "aws-amplify";
 import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
@@ -23,6 +26,7 @@ export interface Props {
 }
 
 export default function ContactForm({ contact }: Props) {
+  const [method, setMethod] = useState("rf");
   const {
     control,
     register,
@@ -34,11 +38,8 @@ export default function ContactForm({ contact }: Props) {
     defaultValues:
       contact === null
         ? {
-            roundId: null,
             callSign: "",
-            name: "",
-            location: "",
-            attributes: [],
+            type: "qso",
           }
         : contact,
   });
@@ -69,26 +70,142 @@ export default function ContactForm({ contact }: Props) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-      <Grid
-        container
-        direction="row"
-        spacing={0}
-        justifyContent="space-between"
-        alignItems="center"
-      >
-        <Grid
-          item
-          container
-          xs={8}
-          direction="row"
-          spacing={1}
-          alignItems="center"
-        >
-          {/* callSign */}
-          <Grid item xs={2}>
+      <Grid container direction="column" spacing={4}>
+        <Grid item container direction="row" spacing={1} alignItems="center">
+          <Grid item xs={12}>
+            <RadioGroup
+              name="contactMethod"
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "flex-start",
+                gap: 3,
+              }}
+            >
+              <FormControlLabel
+                value="rf"
+                checked={method === "rf"}
+                onClick={() => {
+                  setMethod("rf");
+                }}
+                control={<Radio />}
+                label="RF"
+              />
+              <FormControlLabel
+                value="allStar"
+                checked={method === "allStar"}
+                onClick={() => {
+                  setMethod("allStar");
+                }}
+                control={<Radio />}
+                label="AllStar"
+              />
+              <FormControlLabel
+                value="echoLink"
+                checked={method === "echoLink"}
+                onClick={() => {
+                  setMethod("echoLink");
+                }}
+                control={<Radio />}
+                label="EchoLink"
+              />
+            </RadioGroup>
+          </Grid>
+          {method === "allStar" && (
+            <Grid item>
+              <TextField
+                variant="outlined"
+                id="allStar"
+                label="Node"
+                type="text"
+                error={errors.allStar != null}
+                helperText={
+                  errors.allStar != null ? errors.allStar.message : null
+                }
+                {...register("allStar")}
+              />
+            </Grid>
+          )}
+
+          {method === "echoLink" && (
+            <Grid item>
+              <TextField
+                variant="outlined"
+                id="echoLink"
+                label="Node"
+                type="text"
+                error={errors.echoLink != null}
+                helperText={
+                  errors.echoLink != null ? errors.echoLink.message : null
+                }
+                {...register("echoLink")}
+              />
+            </Grid>
+          )}
+
+          <Grid item>
             <TextField
               variant="outlined"
+              id="repeater"
+              label="Repeater"
+              type="text"
+              error={errors.repeater != null}
+              helperText={
+                errors.repeater != null ? errors.repeater.message : null
+              }
+              {...register("repeater")}
+            />
+          </Grid>
+
+          {method === "rf" && (
+            <Grid item>
+              <TextField
+                variant="outlined"
+                id="frequency"
+                label="Frequency"
+                type="text"
+                error={errors.frequency != null}
+                helperText={
+                  errors.frequency != null ? errors.frequency.message : null
+                }
+                {...register("frequency")}
+              />
+            </Grid>
+          )}
+
+          {method === "rf" && (
+            <Grid item>
+              <TextField
+                variant="outlined"
+                id="mode"
+                label="Mode"
+                type="text"
+                error={errors.mode != null}
+                helperText={errors.mode != null ? errors.mode.message : null}
+                {...register("mode")}
+              />
+            </Grid>
+          )}
+
+          {method === "rf" && (
+            <Grid item>
+              <TextField
+                variant="outlined"
+                id="power"
+                label="Power"
+                type="text"
+                error={errors.power != null}
+                helperText={errors.power != null ? errors.power.message : null}
+                {...register("power")}
+              />
+            </Grid>
+          )}
+        </Grid>
+        <Grid item container spacing={1} alignItems="center">
+          <Grid item xs={2}>
+            <TextField
               fullWidth
+              variant="outlined"
               id="callSign"
               label="Call Sign"
               type="text"
@@ -105,11 +222,10 @@ export default function ContactForm({ contact }: Props) {
             />
           </Grid>
 
-          {/* name */}
           <Grid item xs={4}>
             <TextField
-              variant="outlined"
               fullWidth
+              variant="outlined"
               id="name"
               label="Name"
               type="text"
@@ -118,49 +234,21 @@ export default function ContactForm({ contact }: Props) {
               {...register("name")}
             />
           </Grid>
-          {/* location */}
-          <Grid item xs={5}>
+
+          <Grid item xs={4}>
             <TextField
-              variant="outlined"
               fullWidth
-              id="location"
-              label="Location"
+              variant="outlined"
+              id="qth"
+              label="QTH"
               type="text"
-              error={errors.location != null}
-              helperText={
-                errors.location != null ? errors.location.message : null
-              }
-              {...register("location")}
+              error={errors.qth != null}
+              helperText={errors.qth != null ? errors.qth.message : null}
+              {...register("qth")}
             />
           </Grid>
-        </Grid>
-        <Grid
-          item
-          xs={3}
-          container
-          spacing={1}
-          direction="row"
-          justifySelf="end"
-          justifyContent="end"
-          alignItems="center"
-        >
+
           <Grid item xs>
-            {/* signal report */}
-            <TextField
-              variant="outlined"
-              fullWidth
-              id="signalReport"
-              label="Signal Report"
-              type="text"
-              error={errors.signalReport != null}
-              helperText={
-                errors.signalReport != null ? errors.signalReport.message : null
-              }
-              {...register("signalReport")}
-            />
-          </Grid>
-          <Grid item>
-            {/* attributes */}
             <Controller
               name="attributes"
               control={control}
@@ -193,10 +281,72 @@ export default function ContactForm({ contact }: Props) {
               }}
             />
           </Grid>
+
+          <Grid item xs={1.5}>
+            <TextField
+              variant="outlined"
+              fullWidth
+              id="reportSent"
+              label="Report (Sent)"
+              type="text"
+              error={errors.reportSent != null}
+              helperText={
+                errors.reportSent != null ? errors.reportSent.message : null
+              }
+              {...register("reportSent")}
+            />
+          </Grid>
+
+          <Grid item xs={1.5}>
+            <TextField
+              variant="outlined"
+              fullWidth
+              id="reportReceived"
+              label="Report (Received)"
+              type="text"
+              error={errors.reportReceived != null}
+              helperText={
+                errors.reportReceived != null
+                  ? errors.reportReceived.message
+                  : null
+              }
+              {...register("reportReceived")}
+            />
+          </Grid>
+
+          <Grid item xs={1.5}>
+            <FormControlLabel
+              control={<Checkbox id="qslSent" {...register("qslSent")} />}
+              label="QSL Sent"
+            />
+          </Grid>
+
+          <Grid item xs={1.5}>
+            <FormControlLabel
+              control={
+                <Checkbox id="qslReceived" {...register("qslReceived")} />
+              }
+              label="QSL Received"
+            />
+          </Grid>
+
+          <Grid item xs={6}>
+            <TextField
+              variant="outlined"
+              fullWidth
+              id="comments"
+              label="Comments"
+              type="text"
+              error={errors.comments != null}
+              helperText={
+                errors.comments != null ? errors.comments.message : null
+              }
+              {...register("comments")}
+            />
+          </Grid>
+
           <Grid item>
-            <IconButton type="submit">
-              <AddBox />
-            </IconButton>
+            <Button type="submit">Log Contact</Button>
           </Grid>
         </Grid>
       </Grid>

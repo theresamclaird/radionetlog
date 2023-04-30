@@ -9,6 +9,12 @@ export const onCreateNet = /* GraphQL */ `
   ) {
     onCreateNet(filter: $filter, owner: $owner) {
       id
+      repeater
+      frequency
+      mode
+      power
+      createdAt
+      completedAt
       rounds {
         items {
           id
@@ -20,7 +26,6 @@ export const onCreateNet = /* GraphQL */ `
         nextToken
       }
       owner
-      createdAt
       updatedAt
     }
   }
@@ -32,6 +37,12 @@ export const onUpdateNet = /* GraphQL */ `
   ) {
     onUpdateNet(filter: $filter, owner: $owner) {
       id
+      repeater
+      frequency
+      mode
+      power
+      createdAt
+      completedAt
       rounds {
         items {
           id
@@ -43,7 +54,6 @@ export const onUpdateNet = /* GraphQL */ `
         nextToken
       }
       owner
-      createdAt
       updatedAt
     }
   }
@@ -55,6 +65,12 @@ export const onDeleteNet = /* GraphQL */ `
   ) {
     onDeleteNet(filter: $filter, owner: $owner) {
       id
+      repeater
+      frequency
+      mode
+      power
+      createdAt
+      completedAt
       rounds {
         items {
           id
@@ -66,7 +82,6 @@ export const onDeleteNet = /* GraphQL */ `
         nextToken
       }
       owner
-      createdAt
       updatedAt
     }
   }
@@ -83,13 +98,24 @@ export const onCreateRound = /* GraphQL */ `
         items {
           id
           type
+          frequency
+          repeater
+          allStar
+          echoLink
+          mode
+          power
           createdAt
+          completedAt
           roundId
           callSign
           name
-          location
+          qth
           attributes
-          signalReport
+          reportSent
+          reportReceived
+          qslSent
+          qslReceived
+          comments
           owner
           updatedAt
         }
@@ -113,13 +139,24 @@ export const onUpdateRound = /* GraphQL */ `
         items {
           id
           type
+          frequency
+          repeater
+          allStar
+          echoLink
+          mode
+          power
           createdAt
+          completedAt
           roundId
           callSign
           name
-          location
+          qth
           attributes
-          signalReport
+          reportSent
+          reportReceived
+          qslSent
+          qslReceived
+          comments
           owner
           updatedAt
         }
@@ -143,13 +180,24 @@ export const onDeleteRound = /* GraphQL */ `
         items {
           id
           type
+          frequency
+          repeater
+          allStar
+          echoLink
+          mode
+          power
           createdAt
+          completedAt
           roundId
           callSign
           name
-          location
+          qth
           attributes
-          signalReport
+          reportSent
+          reportReceived
+          qslSent
+          qslReceived
+          comments
           owner
           updatedAt
         }
@@ -169,13 +217,24 @@ export const onCreateContact = /* GraphQL */ `
     onCreateContact(filter: $filter, owner: $owner) {
       id
       type
+      frequency
+      repeater
+      allStar
+      echoLink
+      mode
+      power
       createdAt
+      completedAt
       roundId
       callSign
       name
-      location
+      qth
       attributes
-      signalReport
+      reportSent
+      reportReceived
+      qslSent
+      qslReceived
+      comments
       owner
       updatedAt
     }
@@ -189,13 +248,24 @@ export const onUpdateContact = /* GraphQL */ `
     onUpdateContact(filter: $filter, owner: $owner) {
       id
       type
+      frequency
+      repeater
+      allStar
+      echoLink
+      mode
+      power
       createdAt
+      completedAt
       roundId
       callSign
       name
-      location
+      qth
       attributes
-      signalReport
+      reportSent
+      reportReceived
+      qslSent
+      qslReceived
+      comments
       owner
       updatedAt
     }
@@ -209,13 +279,24 @@ export const onDeleteContact = /* GraphQL */ `
     onDeleteContact(filter: $filter, owner: $owner) {
       id
       type
+      frequency
+      repeater
+      allStar
+      echoLink
+      mode
+      power
       createdAt
+      completedAt
       roundId
       callSign
       name
-      location
+      qth
       attributes
-      signalReport
+      reportSent
+      reportReceived
+      qslSent
+      qslReceived
+      comments
       owner
       updatedAt
     }
@@ -229,8 +310,9 @@ export const onCreateStation = /* GraphQL */ `
     onCreateStation(filter: $filter, owner: $owner) {
       id
       callSign
+      grid
       name
-      location
+      qth
       notes
       attributes
       owner
@@ -247,8 +329,9 @@ export const onUpdateStation = /* GraphQL */ `
     onUpdateStation(filter: $filter, owner: $owner) {
       id
       callSign
+      grid
       name
-      location
+      qth
       notes
       attributes
       owner
@@ -265,10 +348,86 @@ export const onDeleteStation = /* GraphQL */ `
     onDeleteStation(filter: $filter, owner: $owner) {
       id
       callSign
+      grid
       name
-      location
+      qth
       notes
       attributes
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateRepeater = /* GraphQL */ `
+  subscription OnCreateRepeater(
+    $filter: ModelSubscriptionRepeaterFilterInput
+    $owner: String
+  ) {
+    onCreateRepeater(filter: $filter, owner: $owner) {
+      id
+      callSign
+      inputFrequency
+      inputTone
+      outputFrequency
+      outputTone
+      offset
+      grid
+      notes
+      sponsor
+      echoLink
+      allStar
+      url
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateRepeater = /* GraphQL */ `
+  subscription OnUpdateRepeater(
+    $filter: ModelSubscriptionRepeaterFilterInput
+    $owner: String
+  ) {
+    onUpdateRepeater(filter: $filter, owner: $owner) {
+      id
+      callSign
+      inputFrequency
+      inputTone
+      outputFrequency
+      outputTone
+      offset
+      grid
+      notes
+      sponsor
+      echoLink
+      allStar
+      url
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteRepeater = /* GraphQL */ `
+  subscription OnDeleteRepeater(
+    $filter: ModelSubscriptionRepeaterFilterInput
+    $owner: String
+  ) {
+    onDeleteRepeater(filter: $filter, owner: $owner) {
+      id
+      callSign
+      inputFrequency
+      inputTone
+      outputFrequency
+      outputTone
+      offset
+      grid
+      notes
+      sponsor
+      echoLink
+      allStar
+      url
       owner
       createdAt
       updatedAt

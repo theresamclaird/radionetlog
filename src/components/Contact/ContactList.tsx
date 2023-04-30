@@ -2,8 +2,6 @@ import React, { type ReactElement, useState, useEffect } from "react";
 import { GRAPHQL_AUTH_MODE, type GraphQLSubscription } from "@aws-amplify/api";
 import { API, graphqlOperation } from "aws-amplify";
 import Grid from "@mui/material/Grid";
-import IconButton from "@mui/material/IconButton";
-import Delete from "@mui/icons-material/Delete";
 import {
   type OnCreateContactSubscription,
   type Contact,
@@ -11,7 +9,6 @@ import {
 } from "../../API";
 import { contactsByDate } from "../../graphql/queries";
 import { onCreateContact } from "../../graphql/subscriptions";
-import { deleteContact } from "../../graphql/mutations";
 import ContactReplay from "./ContactReplay";
 
 export default function ContactList(): ReactElement {
@@ -76,49 +73,26 @@ export default function ContactList(): ReactElement {
     }
   }, []);
 
-  const deleteContactById = async (id: string) => {
-    try {
-      await API.graphql({
-        query: deleteContact,
-        variables: { input: { id } },
-        authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
-      });
-
-      await fetchContactFromApi();
-    } catch (error) {
-      console.warn(error);
-    }
-  };
-
   return (
     <Grid
       container
       direction="column"
       spacing={0}
-      sx={{ borderBottom: "solid 1px #ccc", justifyContent: "center" }}
+      sx={{ justifyContent: "center", mt: 2 }}
     >
-      {contacts.map((contact) => (
+      {contacts.map((contact, index) => (
         <Grid
           item
           key={contact.id}
           sx={{
-            borderTop: "solid 1px #ccc",
             display: "flex",
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
+            backgroundColor: index % 2 === 0 ? "#eee" : "#fff",
           }}
         >
           <ContactReplay contact={contact} />
-          <IconButton
-            onClick={() => {
-              deleteContactById(contact.id).catch((error) => {
-                console.warn(error);
-              });
-            }}
-          >
-            <Delete />
-          </IconButton>
         </Grid>
       ))}
     </Grid>
