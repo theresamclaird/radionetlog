@@ -17,8 +17,6 @@ export declare type ContactUpdateFormInputValues = {
     type?: string;
     frequency?: string;
     repeater?: string;
-    allStar?: string;
-    echoLink?: string;
     mode?: string;
     power?: string;
     createdAt?: string;
@@ -26,7 +24,9 @@ export declare type ContactUpdateFormInputValues = {
     callSign?: string;
     name?: string;
     qth?: string;
+    gridSquare?: string;
     attributes?: string[];
+    stationPower?: string;
     reportSent?: string;
     reportReceived?: string;
     qslSent?: boolean;
@@ -38,8 +38,6 @@ export declare type ContactUpdateFormValidationValues = {
     type?: ValidationFunction<string>;
     frequency?: ValidationFunction<string>;
     repeater?: ValidationFunction<string>;
-    allStar?: ValidationFunction<string>;
-    echoLink?: ValidationFunction<string>;
     mode?: ValidationFunction<string>;
     power?: ValidationFunction<string>;
     createdAt?: ValidationFunction<string>;
@@ -47,7 +45,9 @@ export declare type ContactUpdateFormValidationValues = {
     callSign?: ValidationFunction<string>;
     name?: ValidationFunction<string>;
     qth?: ValidationFunction<string>;
+    gridSquare?: ValidationFunction<string>;
     attributes?: ValidationFunction<string>;
+    stationPower?: ValidationFunction<string>;
     reportSent?: ValidationFunction<string>;
     reportReceived?: ValidationFunction<string>;
     qslSent?: ValidationFunction<boolean>;
@@ -61,8 +61,6 @@ export declare type ContactUpdateFormOverridesProps = {
     type?: PrimitiveOverrideProps<TextFieldProps>;
     frequency?: PrimitiveOverrideProps<TextFieldProps>;
     repeater?: PrimitiveOverrideProps<TextFieldProps>;
-    allStar?: PrimitiveOverrideProps<TextFieldProps>;
-    echoLink?: PrimitiveOverrideProps<TextFieldProps>;
     mode?: PrimitiveOverrideProps<TextFieldProps>;
     power?: PrimitiveOverrideProps<TextFieldProps>;
     createdAt?: PrimitiveOverrideProps<TextFieldProps>;
@@ -70,7 +68,9 @@ export declare type ContactUpdateFormOverridesProps = {
     callSign?: PrimitiveOverrideProps<TextFieldProps>;
     name?: PrimitiveOverrideProps<TextFieldProps>;
     qth?: PrimitiveOverrideProps<TextFieldProps>;
+    gridSquare?: PrimitiveOverrideProps<TextFieldProps>;
     attributes?: PrimitiveOverrideProps<TextFieldProps>;
+    stationPower?: PrimitiveOverrideProps<TextFieldProps>;
     reportSent?: PrimitiveOverrideProps<TextFieldProps>;
     reportReceived?: PrimitiveOverrideProps<TextFieldProps>;
     qslSent?: PrimitiveOverrideProps<SwitchFieldProps>;

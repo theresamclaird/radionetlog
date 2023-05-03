@@ -1,4 +1,4 @@
-import React, { type ReactElement } from "react";
+import React, { type ReactElement, useState } from "react";
 import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
 import { API } from "aws-amplify";
 import Grid from "@mui/material/Grid";
@@ -9,6 +9,8 @@ import IconButton from "@mui/material/IconButton";
 import DirectionsCar from "@mui/icons-material/DirectionsCar";
 import Language from "@mui/icons-material/Language";
 import Delete from "@mui/icons-material/Delete";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import ExpandLess from "@mui/icons-material/ExpandLess";
 import PublishedWithChanges from "@mui/icons-material/PublishedWithChanges";
 import { type Contact } from "../../API";
 import { deleteContact } from "../../graphql/mutations";
@@ -18,6 +20,7 @@ interface Props {
 }
 
 export default function ContactReplay({ contact }: Props): ReactElement {
+  const [expand, setExpand] = useState(false);
   const d = new Date(contact.createdAt);
   const locale = navigator?.languages[0];
   const contactTime = d.toLocaleString(locale !== null ? locale : "en-US", {
@@ -41,72 +44,109 @@ export default function ContactReplay({ contact }: Props): ReactElement {
   return (
     <Grid
       container
-      direction="row"
+      direction="column"
       spacing={1}
-      justifyContent="space-between"
-      alignItems="center"
+      justifyContent="center"
+      alignItems="start"
     >
-      <Grid item xs={1.5}>
-        <Typography>{contactTime}</Typography>
-      </Grid>
+      <Grid item container direction="row" spacing={1} alignItems="center">
+        <Grid item xs={1} sx={{ textAlign: "left" }}>
+          <IconButton
+            onClick={() => {
+              setExpand(!expand);
+            }}
+          >
+            {expand ? <ExpandLess /> : <ExpandMore />}
+          </IconButton>
+        </Grid>
 
-      <Grid item xs={1.25}>
-        <Typography>{contact.callSign}</Typography>
-      </Grid>
-
-      <Grid item xs={1.5}>
-        <Typography>{contact.name}</Typography>
-      </Grid>
-
-      <Grid item xs={3}>
-        <Typography>{contact.qth}</Typography>
-      </Grid>
-
-      <Grid item xs={1}>
-        <Typography>{contact.reportSent}</Typography>
-      </Grid>
-
-      <Grid
-        item
-        xs={2.25}
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "flex-end",
-          alignItems: "center",
-          gap: 1,
-        }}
-      >
-        <ToggleButtonGroup
-          color="primary"
-          size="small"
-          aria-label="contact attributes"
-          value={contact.attributes}
-          sx={{ float: "right" }}
+        <Grid
+          item
+          container
+          direction="row"
+          spacing={1}
+          justifyContent="space-between"
+          alignItems="center"
+          xs={10}
         >
-          <ToggleButton value="inAndOut" aria-label="in-and-out">
-            I/O
-          </ToggleButton>
-          <ToggleButton value="mobile" aria-label="mobile">
-            <DirectionsCar />
-          </ToggleButton>
-          <ToggleButton value="internet" aria-label="internet">
-            <Language />
-          </ToggleButton>
-          <ToggleButton value="recheck" aria-label="recheck">
-            <PublishedWithChanges />
-          </ToggleButton>
-        </ToggleButtonGroup>
-        <IconButton
-          onClick={() => {
-            deleteContactById(contact.id).catch((error) => {
-              console.warn(error);
-            });
-          }}
-        >
-          <Delete />
-        </IconButton>
+          <Grid item xs={4} md={2}>
+            <Typography>{contactTime}</Typography>
+          </Grid>
+
+          <Grid item xs={4} md={2}>
+            <Typography>{contact.callSign}</Typography>
+          </Grid>
+
+          <Grid item xs={4} md={2}>
+            <Typography>{contact.name}</Typography>
+          </Grid>
+
+          <Grid item xs={6} md={3}>
+            <Typography>{contact.qth}</Typography>
+          </Grid>
+
+          <Grid item xs={6} md={3}>
+            <ToggleButtonGroup
+              color="primary"
+              size="small"
+              aria-label="contact attributes"
+              value={contact.attributes}
+              sx={{ float: "right" }}
+            >
+              <ToggleButton value="inAndOut" aria-label="in-and-out">
+                I/O
+              </ToggleButton>
+              <ToggleButton value="mobile" aria-label="mobile">
+                <DirectionsCar />
+              </ToggleButton>
+              <ToggleButton value="internet" aria-label="internet">
+                <Language />
+              </ToggleButton>
+              <ToggleButton value="recheck" aria-label="recheck">
+                <PublishedWithChanges />
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </Grid>
+        </Grid>
+
+        <Grid item xs={1} sx={{ textAlign: "right" }}>
+          <IconButton
+            onClick={() => {
+              deleteContactById(contact.id).catch((error) => {
+                console.warn(error);
+              });
+            }}
+          >
+            <Delete />
+          </IconButton>
+        </Grid>
       </Grid>
+      {expand && (
+        <Grid item xs={12}>
+          <Typography>Comments</Typography>
+        </Grid>
+      )}
     </Grid>
   );
 }
+
+/*
+
+type Contact
+  frequency: String
+  repeater: String
+  mode: String
+  power: String
+  completedAt: String
+  roundId: ID @index(name: "byRound")
+  gridSquare: String
+  stationPower: String
+  reportSent: String
+  reportReceived: String
+  qslSent: Boolean
+  qslReceived: Boolean
+  comments: String
+  owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
+}
+
+*/

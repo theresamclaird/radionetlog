@@ -34,7 +34,7 @@ export default function MyApp(props: MyAppProps): ReactElement {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <NavBar />
-          <Container maxWidth="lg" sx={{ mt: 4 }}>
+          <Container maxWidth="xl" sx={{ mt: 4 }}>
             <Component {...pageProps} />
           </Container>
         </ThemeProvider>

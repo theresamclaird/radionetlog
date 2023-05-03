@@ -89,7 +89,8 @@ export default function ContactList(): ReactElement {
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
-            backgroundColor: index % 2 === 0 ? "#eee" : "#fff",
+            backgroundColor: index % 2 === 0 ? "#efefef" : "#fff",
+            p: 1,
           }}
         >
           <ContactReplay contact={contact} />

@@ -197,8 +197,6 @@ export default function ContactUpdateForm(props) {
     type: "",
     frequency: "",
     repeater: "",
-    allStar: "",
-    echoLink: "",
     mode: "",
     power: "",
     createdAt: "",
@@ -206,7 +204,9 @@ export default function ContactUpdateForm(props) {
     callSign: "",
     name: "",
     qth: "",
+    gridSquare: "",
     attributes: [],
+    stationPower: "",
     reportSent: "",
     reportReceived: "",
     qslSent: false,
@@ -217,8 +217,6 @@ export default function ContactUpdateForm(props) {
   const [type, setType] = React.useState(initialValues.type);
   const [frequency, setFrequency] = React.useState(initialValues.frequency);
   const [repeater, setRepeater] = React.useState(initialValues.repeater);
-  const [allStar, setAllStar] = React.useState(initialValues.allStar);
-  const [echoLink, setEchoLink] = React.useState(initialValues.echoLink);
   const [mode, setMode] = React.useState(initialValues.mode);
   const [power, setPower] = React.useState(initialValues.power);
   const [createdAt, setCreatedAt] = React.useState(initialValues.createdAt);
@@ -228,7 +226,11 @@ export default function ContactUpdateForm(props) {
   const [callSign, setCallSign] = React.useState(initialValues.callSign);
   const [name, setName] = React.useState(initialValues.name);
   const [qth, setQth] = React.useState(initialValues.qth);
+  const [gridSquare, setGridSquare] = React.useState(initialValues.gridSquare);
   const [attributes, setAttributes] = React.useState(initialValues.attributes);
+  const [stationPower, setStationPower] = React.useState(
+    initialValues.stationPower
+  );
   const [reportSent, setReportSent] = React.useState(initialValues.reportSent);
   const [reportReceived, setReportReceived] = React.useState(
     initialValues.reportReceived
@@ -247,8 +249,6 @@ export default function ContactUpdateForm(props) {
     setType(cleanValues.type);
     setFrequency(cleanValues.frequency);
     setRepeater(cleanValues.repeater);
-    setAllStar(cleanValues.allStar);
-    setEchoLink(cleanValues.echoLink);
     setMode(cleanValues.mode);
     setPower(cleanValues.power);
     setCreatedAt(cleanValues.createdAt);
@@ -256,8 +256,10 @@ export default function ContactUpdateForm(props) {
     setCallSign(cleanValues.callSign);
     setName(cleanValues.name);
     setQth(cleanValues.qth);
+    setGridSquare(cleanValues.gridSquare);
     setAttributes(cleanValues.attributes ?? []);
     setCurrentAttributesValue("");
+    setStationPower(cleanValues.stationPower);
     setReportSent(cleanValues.reportSent);
     setReportReceived(cleanValues.reportReceived);
     setQslSent(cleanValues.qslSent);
@@ -284,8 +286,6 @@ export default function ContactUpdateForm(props) {
     type: [{ type: "Required" }],
     frequency: [],
     repeater: [],
-    allStar: [],
-    echoLink: [],
     mode: [],
     power: [],
     createdAt: [{ type: "Required" }],
@@ -293,7 +293,9 @@ export default function ContactUpdateForm(props) {
     callSign: [{ type: "Required" }],
     name: [],
     qth: [],
+    gridSquare: [],
     attributes: [],
+    stationPower: [],
     reportSent: [],
     reportReceived: [],
     qslSent: [],
@@ -330,8 +332,6 @@ export default function ContactUpdateForm(props) {
           type,
           frequency,
           repeater,
-          allStar,
-          echoLink,
           mode,
           power,
           createdAt,
@@ -339,7 +339,9 @@ export default function ContactUpdateForm(props) {
           callSign,
           name,
           qth,
+          gridSquare,
           attributes,
+          stationPower,
           reportSent,
           reportReceived,
           qslSent,
@@ -404,8 +406,6 @@ export default function ContactUpdateForm(props) {
               type: value,
               frequency,
               repeater,
-              allStar,
-              echoLink,
               mode,
               power,
               createdAt,
@@ -413,7 +413,9 @@ export default function ContactUpdateForm(props) {
               callSign,
               name,
               qth,
+              gridSquare,
               attributes,
+              stationPower,
               reportSent,
               reportReceived,
               qslSent,
@@ -446,8 +448,6 @@ export default function ContactUpdateForm(props) {
               type,
               frequency: value,
               repeater,
-              allStar,
-              echoLink,
               mode,
               power,
               createdAt,
@@ -455,7 +455,9 @@ export default function ContactUpdateForm(props) {
               callSign,
               name,
               qth,
+              gridSquare,
               attributes,
+              stationPower,
               reportSent,
               reportReceived,
               qslSent,
@@ -488,8 +490,6 @@ export default function ContactUpdateForm(props) {
               type,
               frequency,
               repeater: value,
-              allStar,
-              echoLink,
               mode,
               power,
               createdAt,
@@ -497,7 +497,9 @@ export default function ContactUpdateForm(props) {
               callSign,
               name,
               qth,
+              gridSquare,
               attributes,
+              stationPower,
               reportSent,
               reportReceived,
               qslSent,
@@ -519,90 +521,6 @@ export default function ContactUpdateForm(props) {
         {...getOverrideProps(overrides, "repeater")}
       ></TextField>
       <TextField
-        label="All star"
-        isRequired={false}
-        isReadOnly={false}
-        value={allStar}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              type,
-              frequency,
-              repeater,
-              allStar: value,
-              echoLink,
-              mode,
-              power,
-              createdAt,
-              completedAt,
-              callSign,
-              name,
-              qth,
-              attributes,
-              reportSent,
-              reportReceived,
-              qslSent,
-              qslReceived,
-              comments,
-              owner,
-            };
-            const result = onChange(modelFields);
-            value = result?.allStar ?? value;
-          }
-          if (errors.allStar?.hasError) {
-            runValidationTasks("allStar", value);
-          }
-          setAllStar(value);
-        }}
-        onBlur={() => runValidationTasks("allStar", allStar)}
-        errorMessage={errors.allStar?.errorMessage}
-        hasError={errors.allStar?.hasError}
-        {...getOverrideProps(overrides, "allStar")}
-      ></TextField>
-      <TextField
-        label="Echo link"
-        isRequired={false}
-        isReadOnly={false}
-        value={echoLink}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              type,
-              frequency,
-              repeater,
-              allStar,
-              echoLink: value,
-              mode,
-              power,
-              createdAt,
-              completedAt,
-              callSign,
-              name,
-              qth,
-              attributes,
-              reportSent,
-              reportReceived,
-              qslSent,
-              qslReceived,
-              comments,
-              owner,
-            };
-            const result = onChange(modelFields);
-            value = result?.echoLink ?? value;
-          }
-          if (errors.echoLink?.hasError) {
-            runValidationTasks("echoLink", value);
-          }
-          setEchoLink(value);
-        }}
-        onBlur={() => runValidationTasks("echoLink", echoLink)}
-        errorMessage={errors.echoLink?.errorMessage}
-        hasError={errors.echoLink?.hasError}
-        {...getOverrideProps(overrides, "echoLink")}
-      ></TextField>
-      <TextField
         label="Mode"
         isRequired={false}
         isReadOnly={false}
@@ -614,8 +532,6 @@ export default function ContactUpdateForm(props) {
               type,
               frequency,
               repeater,
-              allStar,
-              echoLink,
               mode: value,
               power,
               createdAt,
@@ -623,7 +539,9 @@ export default function ContactUpdateForm(props) {
               callSign,
               name,
               qth,
+              gridSquare,
               attributes,
+              stationPower,
               reportSent,
               reportReceived,
               qslSent,
@@ -656,8 +574,6 @@ export default function ContactUpdateForm(props) {
               type,
               frequency,
               repeater,
-              allStar,
-              echoLink,
               mode,
               power: value,
               createdAt,
@@ -665,7 +581,9 @@ export default function ContactUpdateForm(props) {
               callSign,
               name,
               qth,
+              gridSquare,
               attributes,
+              stationPower,
               reportSent,
               reportReceived,
               qslSent,
@@ -698,8 +616,6 @@ export default function ContactUpdateForm(props) {
               type,
               frequency,
               repeater,
-              allStar,
-              echoLink,
               mode,
               power,
               createdAt: value,
@@ -707,7 +623,9 @@ export default function ContactUpdateForm(props) {
               callSign,
               name,
               qth,
+              gridSquare,
               attributes,
+              stationPower,
               reportSent,
               reportReceived,
               qslSent,
@@ -740,8 +658,6 @@ export default function ContactUpdateForm(props) {
               type,
               frequency,
               repeater,
-              allStar,
-              echoLink,
               mode,
               power,
               createdAt,
@@ -749,7 +665,9 @@ export default function ContactUpdateForm(props) {
               callSign,
               name,
               qth,
+              gridSquare,
               attributes,
+              stationPower,
               reportSent,
               reportReceived,
               qslSent,
@@ -782,8 +700,6 @@ export default function ContactUpdateForm(props) {
               type,
               frequency,
               repeater,
-              allStar,
-              echoLink,
               mode,
               power,
               createdAt,
@@ -791,7 +707,9 @@ export default function ContactUpdateForm(props) {
               callSign: value,
               name,
               qth,
+              gridSquare,
               attributes,
+              stationPower,
               reportSent,
               reportReceived,
               qslSent,
@@ -824,8 +742,6 @@ export default function ContactUpdateForm(props) {
               type,
               frequency,
               repeater,
-              allStar,
-              echoLink,
               mode,
               power,
               createdAt,
@@ -833,7 +749,9 @@ export default function ContactUpdateForm(props) {
               callSign,
               name: value,
               qth,
+              gridSquare,
               attributes,
+              stationPower,
               reportSent,
               reportReceived,
               qslSent,
@@ -866,8 +784,6 @@ export default function ContactUpdateForm(props) {
               type,
               frequency,
               repeater,
-              allStar,
-              echoLink,
               mode,
               power,
               createdAt,
@@ -875,7 +791,9 @@ export default function ContactUpdateForm(props) {
               callSign,
               name,
               qth: value,
+              gridSquare,
               attributes,
+              stationPower,
               reportSent,
               reportReceived,
               qslSent,
@@ -896,6 +814,48 @@ export default function ContactUpdateForm(props) {
         hasError={errors.qth?.hasError}
         {...getOverrideProps(overrides, "qth")}
       ></TextField>
+      <TextField
+        label="Grid square"
+        isRequired={false}
+        isReadOnly={false}
+        value={gridSquare}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              type,
+              frequency,
+              repeater,
+              mode,
+              power,
+              createdAt,
+              completedAt,
+              callSign,
+              name,
+              qth,
+              gridSquare: value,
+              attributes,
+              stationPower,
+              reportSent,
+              reportReceived,
+              qslSent,
+              qslReceived,
+              comments,
+              owner,
+            };
+            const result = onChange(modelFields);
+            value = result?.gridSquare ?? value;
+          }
+          if (errors.gridSquare?.hasError) {
+            runValidationTasks("gridSquare", value);
+          }
+          setGridSquare(value);
+        }}
+        onBlur={() => runValidationTasks("gridSquare", gridSquare)}
+        errorMessage={errors.gridSquare?.errorMessage}
+        hasError={errors.gridSquare?.hasError}
+        {...getOverrideProps(overrides, "gridSquare")}
+      ></TextField>
       <ArrayField
         onChange={async (items) => {
           let values = items;
@@ -904,8 +864,6 @@ export default function ContactUpdateForm(props) {
               type,
               frequency,
               repeater,
-              allStar,
-              echoLink,
               mode,
               power,
               createdAt,
@@ -913,7 +871,9 @@ export default function ContactUpdateForm(props) {
               callSign,
               name,
               qth,
+              gridSquare,
               attributes: values,
+              stationPower,
               reportSent,
               reportReceived,
               qslSent,
@@ -959,6 +919,48 @@ export default function ContactUpdateForm(props) {
         ></TextField>
       </ArrayField>
       <TextField
+        label="Station power"
+        isRequired={false}
+        isReadOnly={false}
+        value={stationPower}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              type,
+              frequency,
+              repeater,
+              mode,
+              power,
+              createdAt,
+              completedAt,
+              callSign,
+              name,
+              qth,
+              gridSquare,
+              attributes,
+              stationPower: value,
+              reportSent,
+              reportReceived,
+              qslSent,
+              qslReceived,
+              comments,
+              owner,
+            };
+            const result = onChange(modelFields);
+            value = result?.stationPower ?? value;
+          }
+          if (errors.stationPower?.hasError) {
+            runValidationTasks("stationPower", value);
+          }
+          setStationPower(value);
+        }}
+        onBlur={() => runValidationTasks("stationPower", stationPower)}
+        errorMessage={errors.stationPower?.errorMessage}
+        hasError={errors.stationPower?.hasError}
+        {...getOverrideProps(overrides, "stationPower")}
+      ></TextField>
+      <TextField
         label="Report sent"
         isRequired={false}
         isReadOnly={false}
@@ -970,8 +972,6 @@ export default function ContactUpdateForm(props) {
               type,
               frequency,
               repeater,
-              allStar,
-              echoLink,
               mode,
               power,
               createdAt,
@@ -979,7 +979,9 @@ export default function ContactUpdateForm(props) {
               callSign,
               name,
               qth,
+              gridSquare,
               attributes,
+              stationPower,
               reportSent: value,
               reportReceived,
               qslSent,
@@ -1012,8 +1014,6 @@ export default function ContactUpdateForm(props) {
               type,
               frequency,
               repeater,
-              allStar,
-              echoLink,
               mode,
               power,
               createdAt,
@@ -1021,7 +1021,9 @@ export default function ContactUpdateForm(props) {
               callSign,
               name,
               qth,
+              gridSquare,
               attributes,
+              stationPower,
               reportSent,
               reportReceived: value,
               qslSent,
@@ -1054,8 +1056,6 @@ export default function ContactUpdateForm(props) {
               type,
               frequency,
               repeater,
-              allStar,
-              echoLink,
               mode,
               power,
               createdAt,
@@ -1063,7 +1063,9 @@ export default function ContactUpdateForm(props) {
               callSign,
               name,
               qth,
+              gridSquare,
               attributes,
+              stationPower,
               reportSent,
               reportReceived,
               qslSent: value,
@@ -1096,8 +1098,6 @@ export default function ContactUpdateForm(props) {
               type,
               frequency,
               repeater,
-              allStar,
-              echoLink,
               mode,
               power,
               createdAt,
@@ -1105,7 +1105,9 @@ export default function ContactUpdateForm(props) {
               callSign,
               name,
               qth,
+              gridSquare,
               attributes,
+              stationPower,
               reportSent,
               reportReceived,
               qslSent,
@@ -1138,8 +1140,6 @@ export default function ContactUpdateForm(props) {
               type,
               frequency,
               repeater,
-              allStar,
-              echoLink,
               mode,
               power,
               createdAt,
@@ -1147,7 +1147,9 @@ export default function ContactUpdateForm(props) {
               callSign,
               name,
               qth,
+              gridSquare,
               attributes,
+              stationPower,
               reportSent,
               reportReceived,
               qslSent,
@@ -1180,8 +1182,6 @@ export default function ContactUpdateForm(props) {
               type,
               frequency,
               repeater,
-              allStar,
-              echoLink,
               mode,
               power,
               createdAt,
@@ -1189,7 +1189,9 @@ export default function ContactUpdateForm(props) {
               callSign,
               name,
               qth,
+              gridSquare,
               attributes,
+              stationPower,
               reportSent,
               reportReceived,
               qslSent,

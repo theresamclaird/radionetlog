@@ -37,6 +37,9 @@ export default function ContextMenu() {
         <MenuItem component={Link} href="/station">
           Stations
         </MenuItem>
+        <MenuItem component={Link} href="/repeater">
+          Repeaters
+        </MenuItem>
         <MenuItem component={Link} href="/script">
           Scripts
         </MenuItem>

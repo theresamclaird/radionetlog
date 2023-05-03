@@ -100,8 +100,6 @@ export const onCreateRound = /* GraphQL */ `
           type
           frequency
           repeater
-          allStar
-          echoLink
           mode
           power
           createdAt
@@ -110,7 +108,9 @@ export const onCreateRound = /* GraphQL */ `
           callSign
           name
           qth
+          gridSquare
           attributes
+          stationPower
           reportSent
           reportReceived
           qslSent
@@ -141,8 +141,6 @@ export const onUpdateRound = /* GraphQL */ `
           type
           frequency
           repeater
-          allStar
-          echoLink
           mode
           power
           createdAt
@@ -151,7 +149,9 @@ export const onUpdateRound = /* GraphQL */ `
           callSign
           name
           qth
+          gridSquare
           attributes
+          stationPower
           reportSent
           reportReceived
           qslSent
@@ -182,8 +182,6 @@ export const onDeleteRound = /* GraphQL */ `
           type
           frequency
           repeater
-          allStar
-          echoLink
           mode
           power
           createdAt
@@ -192,7 +190,9 @@ export const onDeleteRound = /* GraphQL */ `
           callSign
           name
           qth
+          gridSquare
           attributes
+          stationPower
           reportSent
           reportReceived
           qslSent
@@ -219,8 +219,6 @@ export const onCreateContact = /* GraphQL */ `
       type
       frequency
       repeater
-      allStar
-      echoLink
       mode
       power
       createdAt
@@ -229,7 +227,9 @@ export const onCreateContact = /* GraphQL */ `
       callSign
       name
       qth
+      gridSquare
       attributes
+      stationPower
       reportSent
       reportReceived
       qslSent
@@ -250,8 +250,6 @@ export const onUpdateContact = /* GraphQL */ `
       type
       frequency
       repeater
-      allStar
-      echoLink
       mode
       power
       createdAt
@@ -260,7 +258,9 @@ export const onUpdateContact = /* GraphQL */ `
       callSign
       name
       qth
+      gridSquare
       attributes
+      stationPower
       reportSent
       reportReceived
       qslSent
@@ -281,8 +281,6 @@ export const onDeleteContact = /* GraphQL */ `
       type
       frequency
       repeater
-      allStar
-      echoLink
       mode
       power
       createdAt
@@ -291,7 +289,9 @@ export const onDeleteContact = /* GraphQL */ `
       callSign
       name
       qth
+      gridSquare
       attributes
+      stationPower
       reportSent
       reportReceived
       qslSent

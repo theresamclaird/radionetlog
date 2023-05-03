@@ -63,8 +63,6 @@ export const getRound = /* GraphQL */ `
           type
           frequency
           repeater
-          allStar
-          echoLink
           mode
           power
           createdAt
@@ -73,7 +71,9 @@ export const getRound = /* GraphQL */ `
           callSign
           name
           qth
+          gridSquare
           attributes
+          stationPower
           reportSent
           reportReceived
           qslSent
@@ -147,8 +147,6 @@ export const getContact = /* GraphQL */ `
       type
       frequency
       repeater
-      allStar
-      echoLink
       mode
       power
       createdAt
@@ -157,7 +155,9 @@ export const getContact = /* GraphQL */ `
       callSign
       name
       qth
+      gridSquare
       attributes
+      stationPower
       reportSent
       reportReceived
       qslSent
@@ -180,8 +180,6 @@ export const listContacts = /* GraphQL */ `
         type
         frequency
         repeater
-        allStar
-        echoLink
         mode
         power
         createdAt
@@ -190,7 +188,9 @@ export const listContacts = /* GraphQL */ `
         callSign
         name
         qth
+        gridSquare
         attributes
+        stationPower
         reportSent
         reportReceived
         qslSent
@@ -225,8 +225,6 @@ export const contactsByDate = /* GraphQL */ `
         type
         frequency
         repeater
-        allStar
-        echoLink
         mode
         power
         createdAt
@@ -235,7 +233,9 @@ export const contactsByDate = /* GraphQL */ `
         callSign
         name
         qth
+        gridSquare
         attributes
+        stationPower
         reportSent
         reportReceived
         qslSent
@@ -268,8 +268,6 @@ export const contactsByRoundId = /* GraphQL */ `
         type
         frequency
         repeater
-        allStar
-        echoLink
         mode
         power
         createdAt
@@ -278,7 +276,9 @@ export const contactsByRoundId = /* GraphQL */ `
         callSign
         name
         qth
+        gridSquare
         attributes
+        stationPower
         reportSent
         reportReceived
         qslSent

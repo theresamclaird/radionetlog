@@ -33,8 +33,6 @@ type Contact
     )
   frequency: String
   repeater: String
-  allStar: String
-  echoLink: String
   mode: String
   power: String
   createdAt: String!
@@ -43,7 +41,9 @@ type Contact
   callSign: String!
   name: String
   qth: String
+  gridSquare: String
   attributes: [String]
+  stationPower: String
   reportSent: String
   reportReceived: String
   qslSent: Boolean
