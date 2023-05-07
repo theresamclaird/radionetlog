@@ -14,7 +14,6 @@ import {
   Grid,
   Icon,
   ScrollView,
-  SwitchField,
   Text,
   TextField,
   useTheme,
@@ -194,72 +193,48 @@ export default function ContactCreateForm(props) {
   } = props;
   const initialValues = {
     type: "",
-    frequency: "",
     repeater: "",
-    mode: "",
+    frequency: "",
     power: "",
     createdAt: "",
-    completedAt: "",
     callSign: "",
     name: "",
     qth: "",
-    gridSquare: "",
     attributes: [],
-    stationPower: "",
     reportSent: "",
     reportReceived: "",
-    qslSent: false,
-    qslReceived: false,
     comments: "",
     owner: "",
   };
   const [type, setType] = React.useState(initialValues.type);
-  const [frequency, setFrequency] = React.useState(initialValues.frequency);
   const [repeater, setRepeater] = React.useState(initialValues.repeater);
-  const [mode, setMode] = React.useState(initialValues.mode);
+  const [frequency, setFrequency] = React.useState(initialValues.frequency);
   const [power, setPower] = React.useState(initialValues.power);
   const [createdAt, setCreatedAt] = React.useState(initialValues.createdAt);
-  const [completedAt, setCompletedAt] = React.useState(
-    initialValues.completedAt
-  );
   const [callSign, setCallSign] = React.useState(initialValues.callSign);
   const [name, setName] = React.useState(initialValues.name);
   const [qth, setQth] = React.useState(initialValues.qth);
-  const [gridSquare, setGridSquare] = React.useState(initialValues.gridSquare);
   const [attributes, setAttributes] = React.useState(initialValues.attributes);
-  const [stationPower, setStationPower] = React.useState(
-    initialValues.stationPower
-  );
   const [reportSent, setReportSent] = React.useState(initialValues.reportSent);
   const [reportReceived, setReportReceived] = React.useState(
     initialValues.reportReceived
-  );
-  const [qslSent, setQslSent] = React.useState(initialValues.qslSent);
-  const [qslReceived, setQslReceived] = React.useState(
-    initialValues.qslReceived
   );
   const [comments, setComments] = React.useState(initialValues.comments);
   const [owner, setOwner] = React.useState(initialValues.owner);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setType(initialValues.type);
-    setFrequency(initialValues.frequency);
     setRepeater(initialValues.repeater);
-    setMode(initialValues.mode);
+    setFrequency(initialValues.frequency);
     setPower(initialValues.power);
     setCreatedAt(initialValues.createdAt);
-    setCompletedAt(initialValues.completedAt);
     setCallSign(initialValues.callSign);
     setName(initialValues.name);
     setQth(initialValues.qth);
-    setGridSquare(initialValues.gridSquare);
     setAttributes(initialValues.attributes);
     setCurrentAttributesValue("");
-    setStationPower(initialValues.stationPower);
     setReportSent(initialValues.reportSent);
     setReportReceived(initialValues.reportReceived);
-    setQslSent(initialValues.qslSent);
-    setQslReceived(initialValues.qslReceived);
     setComments(initialValues.comments);
     setOwner(initialValues.owner);
     setErrors({});
@@ -269,22 +244,16 @@ export default function ContactCreateForm(props) {
   const attributesRef = React.createRef();
   const validations = {
     type: [{ type: "Required" }],
-    frequency: [],
     repeater: [],
-    mode: [],
+    frequency: [],
     power: [],
     createdAt: [{ type: "Required" }],
-    completedAt: [],
     callSign: [{ type: "Required" }],
     name: [],
     qth: [],
-    gridSquare: [],
     attributes: [],
-    stationPower: [],
     reportSent: [],
     reportReceived: [],
-    qslSent: [],
-    qslReceived: [],
     comments: [],
     owner: [],
   };
@@ -315,22 +284,16 @@ export default function ContactCreateForm(props) {
         event.preventDefault();
         let modelFields = {
           type,
-          frequency,
           repeater,
-          mode,
+          frequency,
           power,
           createdAt,
-          completedAt,
           callSign,
           name,
           qth,
-          gridSquare,
           attributes,
-          stationPower,
           reportSent,
           reportReceived,
-          qslSent,
-          qslReceived,
           comments,
           owner,
         };
@@ -388,22 +351,16 @@ export default function ContactCreateForm(props) {
           if (onChange) {
             const modelFields = {
               type: value,
-              frequency,
               repeater,
-              mode,
+              frequency,
               power,
               createdAt,
-              completedAt,
               callSign,
               name,
               qth,
-              gridSquare,
               attributes,
-              stationPower,
               reportSent,
               reportReceived,
-              qslSent,
-              qslReceived,
               comments,
               owner,
             };
@@ -421,48 +378,6 @@ export default function ContactCreateForm(props) {
         {...getOverrideProps(overrides, "type")}
       ></TextField>
       <TextField
-        label="Frequency"
-        isRequired={false}
-        isReadOnly={false}
-        value={frequency}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              type,
-              frequency: value,
-              repeater,
-              mode,
-              power,
-              createdAt,
-              completedAt,
-              callSign,
-              name,
-              qth,
-              gridSquare,
-              attributes,
-              stationPower,
-              reportSent,
-              reportReceived,
-              qslSent,
-              qslReceived,
-              comments,
-              owner,
-            };
-            const result = onChange(modelFields);
-            value = result?.frequency ?? value;
-          }
-          if (errors.frequency?.hasError) {
-            runValidationTasks("frequency", value);
-          }
-          setFrequency(value);
-        }}
-        onBlur={() => runValidationTasks("frequency", frequency)}
-        errorMessage={errors.frequency?.errorMessage}
-        hasError={errors.frequency?.hasError}
-        {...getOverrideProps(overrides, "frequency")}
-      ></TextField>
-      <TextField
         label="Repeater"
         isRequired={false}
         isReadOnly={false}
@@ -472,22 +387,16 @@ export default function ContactCreateForm(props) {
           if (onChange) {
             const modelFields = {
               type,
-              frequency,
               repeater: value,
-              mode,
+              frequency,
               power,
               createdAt,
-              completedAt,
               callSign,
               name,
               qth,
-              gridSquare,
               attributes,
-              stationPower,
               reportSent,
               reportReceived,
-              qslSent,
-              qslReceived,
               comments,
               owner,
             };
@@ -505,46 +414,40 @@ export default function ContactCreateForm(props) {
         {...getOverrideProps(overrides, "repeater")}
       ></TextField>
       <TextField
-        label="Mode"
+        label="Frequency"
         isRequired={false}
         isReadOnly={false}
-        value={mode}
+        value={frequency}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
               type,
-              frequency,
               repeater,
-              mode: value,
+              frequency: value,
               power,
               createdAt,
-              completedAt,
               callSign,
               name,
               qth,
-              gridSquare,
               attributes,
-              stationPower,
               reportSent,
               reportReceived,
-              qslSent,
-              qslReceived,
               comments,
               owner,
             };
             const result = onChange(modelFields);
-            value = result?.mode ?? value;
+            value = result?.frequency ?? value;
           }
-          if (errors.mode?.hasError) {
-            runValidationTasks("mode", value);
+          if (errors.frequency?.hasError) {
+            runValidationTasks("frequency", value);
           }
-          setMode(value);
+          setFrequency(value);
         }}
-        onBlur={() => runValidationTasks("mode", mode)}
-        errorMessage={errors.mode?.errorMessage}
-        hasError={errors.mode?.hasError}
-        {...getOverrideProps(overrides, "mode")}
+        onBlur={() => runValidationTasks("frequency", frequency)}
+        errorMessage={errors.frequency?.errorMessage}
+        hasError={errors.frequency?.hasError}
+        {...getOverrideProps(overrides, "frequency")}
       ></TextField>
       <TextField
         label="Power"
@@ -556,22 +459,16 @@ export default function ContactCreateForm(props) {
           if (onChange) {
             const modelFields = {
               type,
-              frequency,
               repeater,
-              mode,
+              frequency,
               power: value,
               createdAt,
-              completedAt,
               callSign,
               name,
               qth,
-              gridSquare,
               attributes,
-              stationPower,
               reportSent,
               reportReceived,
-              qslSent,
-              qslReceived,
               comments,
               owner,
             };
@@ -598,22 +495,16 @@ export default function ContactCreateForm(props) {
           if (onChange) {
             const modelFields = {
               type,
-              frequency,
               repeater,
-              mode,
+              frequency,
               power,
               createdAt: value,
-              completedAt,
               callSign,
               name,
               qth,
-              gridSquare,
               attributes,
-              stationPower,
               reportSent,
               reportReceived,
-              qslSent,
-              qslReceived,
               comments,
               owner,
             };
@@ -631,48 +522,6 @@ export default function ContactCreateForm(props) {
         {...getOverrideProps(overrides, "createdAt")}
       ></TextField>
       <TextField
-        label="Completed at"
-        isRequired={false}
-        isReadOnly={false}
-        value={completedAt}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              type,
-              frequency,
-              repeater,
-              mode,
-              power,
-              createdAt,
-              completedAt: value,
-              callSign,
-              name,
-              qth,
-              gridSquare,
-              attributes,
-              stationPower,
-              reportSent,
-              reportReceived,
-              qslSent,
-              qslReceived,
-              comments,
-              owner,
-            };
-            const result = onChange(modelFields);
-            value = result?.completedAt ?? value;
-          }
-          if (errors.completedAt?.hasError) {
-            runValidationTasks("completedAt", value);
-          }
-          setCompletedAt(value);
-        }}
-        onBlur={() => runValidationTasks("completedAt", completedAt)}
-        errorMessage={errors.completedAt?.errorMessage}
-        hasError={errors.completedAt?.hasError}
-        {...getOverrideProps(overrides, "completedAt")}
-      ></TextField>
-      <TextField
         label="Call sign"
         isRequired={true}
         isReadOnly={false}
@@ -682,22 +531,16 @@ export default function ContactCreateForm(props) {
           if (onChange) {
             const modelFields = {
               type,
-              frequency,
               repeater,
-              mode,
+              frequency,
               power,
               createdAt,
-              completedAt,
               callSign: value,
               name,
               qth,
-              gridSquare,
               attributes,
-              stationPower,
               reportSent,
               reportReceived,
-              qslSent,
-              qslReceived,
               comments,
               owner,
             };
@@ -724,22 +567,16 @@ export default function ContactCreateForm(props) {
           if (onChange) {
             const modelFields = {
               type,
-              frequency,
               repeater,
-              mode,
+              frequency,
               power,
               createdAt,
-              completedAt,
               callSign,
               name: value,
               qth,
-              gridSquare,
               attributes,
-              stationPower,
               reportSent,
               reportReceived,
-              qslSent,
-              qslReceived,
               comments,
               owner,
             };
@@ -766,22 +603,16 @@ export default function ContactCreateForm(props) {
           if (onChange) {
             const modelFields = {
               type,
-              frequency,
               repeater,
-              mode,
+              frequency,
               power,
               createdAt,
-              completedAt,
               callSign,
               name,
               qth: value,
-              gridSquare,
               attributes,
-              stationPower,
               reportSent,
               reportReceived,
-              qslSent,
-              qslReceived,
               comments,
               owner,
             };
@@ -798,70 +629,22 @@ export default function ContactCreateForm(props) {
         hasError={errors.qth?.hasError}
         {...getOverrideProps(overrides, "qth")}
       ></TextField>
-      <TextField
-        label="Grid square"
-        isRequired={false}
-        isReadOnly={false}
-        value={gridSquare}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              type,
-              frequency,
-              repeater,
-              mode,
-              power,
-              createdAt,
-              completedAt,
-              callSign,
-              name,
-              qth,
-              gridSquare: value,
-              attributes,
-              stationPower,
-              reportSent,
-              reportReceived,
-              qslSent,
-              qslReceived,
-              comments,
-              owner,
-            };
-            const result = onChange(modelFields);
-            value = result?.gridSquare ?? value;
-          }
-          if (errors.gridSquare?.hasError) {
-            runValidationTasks("gridSquare", value);
-          }
-          setGridSquare(value);
-        }}
-        onBlur={() => runValidationTasks("gridSquare", gridSquare)}
-        errorMessage={errors.gridSquare?.errorMessage}
-        hasError={errors.gridSquare?.hasError}
-        {...getOverrideProps(overrides, "gridSquare")}
-      ></TextField>
       <ArrayField
         onChange={async (items) => {
           let values = items;
           if (onChange) {
             const modelFields = {
               type,
-              frequency,
               repeater,
-              mode,
+              frequency,
               power,
               createdAt,
-              completedAt,
               callSign,
               name,
               qth,
-              gridSquare,
               attributes: values,
-              stationPower,
               reportSent,
               reportReceived,
-              qslSent,
-              qslReceived,
               comments,
               owner,
             };
@@ -903,48 +686,6 @@ export default function ContactCreateForm(props) {
         ></TextField>
       </ArrayField>
       <TextField
-        label="Station power"
-        isRequired={false}
-        isReadOnly={false}
-        value={stationPower}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              type,
-              frequency,
-              repeater,
-              mode,
-              power,
-              createdAt,
-              completedAt,
-              callSign,
-              name,
-              qth,
-              gridSquare,
-              attributes,
-              stationPower: value,
-              reportSent,
-              reportReceived,
-              qslSent,
-              qslReceived,
-              comments,
-              owner,
-            };
-            const result = onChange(modelFields);
-            value = result?.stationPower ?? value;
-          }
-          if (errors.stationPower?.hasError) {
-            runValidationTasks("stationPower", value);
-          }
-          setStationPower(value);
-        }}
-        onBlur={() => runValidationTasks("stationPower", stationPower)}
-        errorMessage={errors.stationPower?.errorMessage}
-        hasError={errors.stationPower?.hasError}
-        {...getOverrideProps(overrides, "stationPower")}
-      ></TextField>
-      <TextField
         label="Report sent"
         isRequired={false}
         isReadOnly={false}
@@ -954,22 +695,16 @@ export default function ContactCreateForm(props) {
           if (onChange) {
             const modelFields = {
               type,
-              frequency,
               repeater,
-              mode,
+              frequency,
               power,
               createdAt,
-              completedAt,
               callSign,
               name,
               qth,
-              gridSquare,
               attributes,
-              stationPower,
               reportSent: value,
               reportReceived,
-              qslSent,
-              qslReceived,
               comments,
               owner,
             };
@@ -996,22 +731,16 @@ export default function ContactCreateForm(props) {
           if (onChange) {
             const modelFields = {
               type,
-              frequency,
               repeater,
-              mode,
+              frequency,
               power,
               createdAt,
-              completedAt,
               callSign,
               name,
               qth,
-              gridSquare,
               attributes,
-              stationPower,
               reportSent,
               reportReceived: value,
-              qslSent,
-              qslReceived,
               comments,
               owner,
             };
@@ -1028,90 +757,6 @@ export default function ContactCreateForm(props) {
         hasError={errors.reportReceived?.hasError}
         {...getOverrideProps(overrides, "reportReceived")}
       ></TextField>
-      <SwitchField
-        label="Qsl sent"
-        defaultChecked={false}
-        isDisabled={false}
-        isChecked={qslSent}
-        onChange={(e) => {
-          let value = e.target.checked;
-          if (onChange) {
-            const modelFields = {
-              type,
-              frequency,
-              repeater,
-              mode,
-              power,
-              createdAt,
-              completedAt,
-              callSign,
-              name,
-              qth,
-              gridSquare,
-              attributes,
-              stationPower,
-              reportSent,
-              reportReceived,
-              qslSent: value,
-              qslReceived,
-              comments,
-              owner,
-            };
-            const result = onChange(modelFields);
-            value = result?.qslSent ?? value;
-          }
-          if (errors.qslSent?.hasError) {
-            runValidationTasks("qslSent", value);
-          }
-          setQslSent(value);
-        }}
-        onBlur={() => runValidationTasks("qslSent", qslSent)}
-        errorMessage={errors.qslSent?.errorMessage}
-        hasError={errors.qslSent?.hasError}
-        {...getOverrideProps(overrides, "qslSent")}
-      ></SwitchField>
-      <SwitchField
-        label="Qsl received"
-        defaultChecked={false}
-        isDisabled={false}
-        isChecked={qslReceived}
-        onChange={(e) => {
-          let value = e.target.checked;
-          if (onChange) {
-            const modelFields = {
-              type,
-              frequency,
-              repeater,
-              mode,
-              power,
-              createdAt,
-              completedAt,
-              callSign,
-              name,
-              qth,
-              gridSquare,
-              attributes,
-              stationPower,
-              reportSent,
-              reportReceived,
-              qslSent,
-              qslReceived: value,
-              comments,
-              owner,
-            };
-            const result = onChange(modelFields);
-            value = result?.qslReceived ?? value;
-          }
-          if (errors.qslReceived?.hasError) {
-            runValidationTasks("qslReceived", value);
-          }
-          setQslReceived(value);
-        }}
-        onBlur={() => runValidationTasks("qslReceived", qslReceived)}
-        errorMessage={errors.qslReceived?.errorMessage}
-        hasError={errors.qslReceived?.hasError}
-        {...getOverrideProps(overrides, "qslReceived")}
-      ></SwitchField>
       <TextField
         label="Comments"
         isRequired={false}
@@ -1122,22 +767,16 @@ export default function ContactCreateForm(props) {
           if (onChange) {
             const modelFields = {
               type,
-              frequency,
               repeater,
-              mode,
+              frequency,
               power,
               createdAt,
-              completedAt,
               callSign,
               name,
               qth,
-              gridSquare,
               attributes,
-              stationPower,
               reportSent,
               reportReceived,
-              qslSent,
-              qslReceived,
               comments: value,
               owner,
             };
@@ -1164,22 +803,16 @@ export default function ContactCreateForm(props) {
           if (onChange) {
             const modelFields = {
               type,
-              frequency,
               repeater,
-              mode,
+              frequency,
               power,
               createdAt,
-              completedAt,
               callSign,
               name,
               qth,
-              gridSquare,
               attributes,
-              stationPower,
               reportSent,
               reportReceived,
-              qslSent,
-              qslReceived,
               comments,
               owner: value,
             };

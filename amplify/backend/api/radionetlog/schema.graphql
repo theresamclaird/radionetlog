@@ -31,23 +31,17 @@ type Contact
       queryField: "contactsByDate"
       sortKeyFields: ["createdAt"]
     )
-  frequency: String
   repeater: String
-  mode: String
+  frequency: String
   power: String
   createdAt: String!
-  completedAt: String
   roundId: ID @index(name: "byRound")
   callSign: String!
   name: String
   qth: String
-  gridSquare: String
   attributes: [String]
-  stationPower: String
   reportSent: String
   reportReceived: String
-  qslSent: Boolean
-  qslReceived: Boolean
   comments: String
   owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }

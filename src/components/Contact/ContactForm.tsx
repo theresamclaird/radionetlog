@@ -68,7 +68,7 @@ export default function ContactForm({ contact }: Props) {
     <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
       <Grid container direction="column" spacing={2}>
         <Grid item container direction="row" spacing={1}>
-          <Grid item xs={6} sm={3}>
+          <Grid item xs={6} sm={4}>
             <TextField
               size="small"
               fullWidth
@@ -83,7 +83,7 @@ export default function ContactForm({ contact }: Props) {
               {...register("repeater")}
             />
           </Grid>
-          <Grid item xs={6} sm={3}>
+          <Grid item xs={6} sm={4}>
             <TextField
               size="small"
               fullWidth
@@ -98,20 +98,7 @@ export default function ContactForm({ contact }: Props) {
               {...register("frequency")}
             />
           </Grid>
-          <Grid item xs={6} sm={3}>
-            <TextField
-              size="small"
-              fullWidth
-              variant="outlined"
-              id="mode"
-              label="Mode"
-              type="text"
-              error={errors.mode != null}
-              helperText={errors.mode != null ? errors.mode.message : null}
-              {...register("mode")}
-            />
-          </Grid>
-          <Grid item xs={6} sm={3}>
+          <Grid item xs={6} sm={4}>
             <TextField
               size="small"
               fullWidth

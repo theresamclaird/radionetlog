@@ -98,23 +98,17 @@ export const createRound = /* GraphQL */ `
         items {
           id
           type
-          frequency
           repeater
-          mode
+          frequency
           power
           createdAt
-          completedAt
           roundId
           callSign
           name
           qth
-          gridSquare
           attributes
-          stationPower
           reportSent
           reportReceived
-          qslSent
-          qslReceived
           comments
           owner
           updatedAt
@@ -139,23 +133,17 @@ export const updateRound = /* GraphQL */ `
         items {
           id
           type
-          frequency
           repeater
-          mode
+          frequency
           power
           createdAt
-          completedAt
           roundId
           callSign
           name
           qth
-          gridSquare
           attributes
-          stationPower
           reportSent
           reportReceived
-          qslSent
-          qslReceived
           comments
           owner
           updatedAt
@@ -180,23 +168,17 @@ export const deleteRound = /* GraphQL */ `
         items {
           id
           type
-          frequency
           repeater
-          mode
+          frequency
           power
           createdAt
-          completedAt
           roundId
           callSign
           name
           qth
-          gridSquare
           attributes
-          stationPower
           reportSent
           reportReceived
-          qslSent
-          qslReceived
           comments
           owner
           updatedAt
@@ -217,23 +199,17 @@ export const createContact = /* GraphQL */ `
     createContact(input: $input, condition: $condition) {
       id
       type
-      frequency
       repeater
-      mode
+      frequency
       power
       createdAt
-      completedAt
       roundId
       callSign
       name
       qth
-      gridSquare
       attributes
-      stationPower
       reportSent
       reportReceived
-      qslSent
-      qslReceived
       comments
       owner
       updatedAt
@@ -248,23 +224,17 @@ export const updateContact = /* GraphQL */ `
     updateContact(input: $input, condition: $condition) {
       id
       type
-      frequency
       repeater
-      mode
+      frequency
       power
       createdAt
-      completedAt
       roundId
       callSign
       name
       qth
-      gridSquare
       attributes
-      stationPower
       reportSent
       reportReceived
-      qslSent
-      qslReceived
       comments
       owner
       updatedAt
@@ -279,23 +249,17 @@ export const deleteContact = /* GraphQL */ `
     deleteContact(input: $input, condition: $condition) {
       id
       type
-      frequency
       repeater
-      mode
+      frequency
       power
       createdAt
-      completedAt
       roundId
       callSign
       name
       qth
-      gridSquare
       attributes
-      stationPower
       reportSent
       reportReceived
-      qslSent
-      qslReceived
       comments
       owner
       updatedAt

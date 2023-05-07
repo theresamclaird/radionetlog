@@ -74,12 +74,7 @@ export default function ContactList(): ReactElement {
   }, []);
 
   return (
-    <Grid
-      container
-      direction="column"
-      spacing={0}
-      sx={{ justifyContent: "center", mt: 2 }}
-    >
+    <Grid container direction="column" spacing={0} justifyContent="center">
       {contacts.map((contact, index) => (
         <Grid
           item

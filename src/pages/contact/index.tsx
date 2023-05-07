@@ -5,17 +5,9 @@ import ContactList from "../../components/Contact/ContactList";
 
 export default function Station() {
   return (
-    <Grid container direction="column" spacing={1}>
+    <Grid container direction="column" spacing={2}>
       <Grid item>
-        <ContactForm
-          contact={{
-            type: "qso",
-            callSign: "",
-            name: "",
-            qth: "",
-            attributes: [],
-          }}
-        />
+        <ContactForm contact={{ type: "qso", callSign: "" }} />
       </Grid>
       <Grid item>
         <ContactList />

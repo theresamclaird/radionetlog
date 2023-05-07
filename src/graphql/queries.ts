@@ -61,23 +61,17 @@ export const getRound = /* GraphQL */ `
         items {
           id
           type
-          frequency
           repeater
-          mode
+          frequency
           power
           createdAt
-          completedAt
           roundId
           callSign
           name
           qth
-          gridSquare
           attributes
-          stationPower
           reportSent
           reportReceived
-          qslSent
-          qslReceived
           comments
           owner
           updatedAt
@@ -145,23 +139,17 @@ export const getContact = /* GraphQL */ `
     getContact(id: $id) {
       id
       type
-      frequency
       repeater
-      mode
+      frequency
       power
       createdAt
-      completedAt
       roundId
       callSign
       name
       qth
-      gridSquare
       attributes
-      stationPower
       reportSent
       reportReceived
-      qslSent
-      qslReceived
       comments
       owner
       updatedAt
@@ -178,23 +166,17 @@ export const listContacts = /* GraphQL */ `
       items {
         id
         type
-        frequency
         repeater
-        mode
+        frequency
         power
         createdAt
-        completedAt
         roundId
         callSign
         name
         qth
-        gridSquare
         attributes
-        stationPower
         reportSent
         reportReceived
-        qslSent
-        qslReceived
         comments
         owner
         updatedAt
@@ -223,23 +205,17 @@ export const contactsByDate = /* GraphQL */ `
       items {
         id
         type
-        frequency
         repeater
-        mode
+        frequency
         power
         createdAt
-        completedAt
         roundId
         callSign
         name
         qth
-        gridSquare
         attributes
-        stationPower
         reportSent
         reportReceived
-        qslSent
-        qslReceived
         comments
         owner
         updatedAt
@@ -266,23 +242,17 @@ export const contactsByRoundId = /* GraphQL */ `
       items {
         id
         type
-        frequency
         repeater
-        mode
+        frequency
         power
         createdAt
-        completedAt
         roundId
         callSign
         name
         qth
-        gridSquare
         attributes
-        stationPower
         reportSent
         reportReceived
-        qslSent
-        qslReceived
         comments
         owner
         updatedAt
